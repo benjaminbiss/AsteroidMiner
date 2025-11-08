@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://btqm80trtn8xr"]
+
+[ext_resource type="Script" uid="uid://cnnd8drkugmgw" path="res://Content/Source/UI/Components/ResourceTab.cs" id="1_5rosy"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jab4k"]
+size = Vector2(10, 10)
+
+[node name="ResourceTab" type="MarginContainer"]
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 3
+script = ExtResource("1_5rosy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jab4k")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Resource"

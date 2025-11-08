@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ResourceInfo" load_steps=3 format=3 uid="uid://b7r0705epdsd"]
+
+[ext_resource type="Texture2D" uid="uid://dwnwwab02wl8u" path="res://icon.svg" id="1_wl15i"]
+[ext_resource type="Script" uid="uid://b7cgrggot127b" path="res://Content/Source/Resources/ResourceInfo.cs" id="2_71b5j"]
+
+[resource]
+script = ExtResource("2_71b5j")
+Name = "Credits"
+Icon = ExtResource("1_wl15i")
+metadata/_custom_type_script = "uid://b7cgrggot127b"

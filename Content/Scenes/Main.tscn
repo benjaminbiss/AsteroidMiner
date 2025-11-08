@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjci1hmjacngf"]
+[gd_scene load_steps=4 format=3 uid="uid://cjci1hmjacngf"]
 
-[ext_resource type="Script" uid="uid://btbn48oc57x60" path="res://Content/Source/Menu/MenuManager.cs" id="1_8mb0b"]
-[ext_resource type="PackedScene" uid="uid://btlvhq5kaast0" path="res://Content/Scenes/Menu/MainMenu.tscn" id="2_k3tp6"]
+[ext_resource type="Script" uid="uid://btbn48oc57x60" path="res://Content/Source/UI/Menu/MenuManager.cs" id="1_8mb0b"]
+[ext_resource type="PackedScene" uid="uid://btlvhq5kaast0" path="res://Content/Scenes/UI/Menu/MainMenu.tscn" id="2_k3tp6"]
+[ext_resource type="PackedScene" uid="uid://cl7kwx4ii5o2l" path="res://Content/Scenes/UI/Menu/GameMenu.tscn" id="3_g3kg1"]
 
 [node name="Main" type="Node2D"]
 
@@ -19,6 +20,9 @@ size_flags_vertical = 3
 script = ExtResource("1_8mb0b")
 
 [node name="MainMenu" parent="CanvasLayer/MenuManager" instance=ExtResource("2_k3tp6")]
+layout_mode = 1
+
+[node name="GameMenu" parent="CanvasLayer/MenuManager" instance=ExtResource("3_g3kg1")]
 layout_mode = 1
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
