@@ -9,6 +9,13 @@ public partial class GameMenu : Control
     private NodePath resourceBarPath;
     private VBoxContainer resourceBar;
 
+    [Export]
+    private PackedScene assetTabScene;
+    [Export]
+    private NodePath assetPath;
+    private VBoxContainer asseteBar;
+
+    private Resources GlobalResourceInstance;
     private Array<ResourceInfo> resources;
     private Array<ResourceTab> resourceTabs = new Array<ResourceTab>();
 
@@ -20,11 +27,17 @@ public partial class GameMenu : Control
             return;
         }
 
+        resources = GlobalResourceInstance.GetAllResourceInfos();
         PopulateResourceBar();
     }
     private bool Initialize()
     {
-        // Get Resources from Resource global
+        GlobalResourceInstance = Resources.Instance;
+        if (GlobalResourceInstance == null)
+        {
+            GD.PrintErr("GameMenu | Global Resources Singleton instance not found.");
+            return false;
+        }
 
         resourceBar = GetNodeOrNull<VBoxContainer>(resourceBarPath);
         if (resourceBar == null)

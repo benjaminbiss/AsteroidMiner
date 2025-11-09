@@ -8,6 +8,11 @@
       "commandName": "Executable",
       "executablePath": "E:\\Program Files (x86)\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
       "workingDirectory": "E:\\Games\\AsteroidMiner\\AsteroidMiner"
+    },
+    "Laptop": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Godot\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
+      "workingDirectory": "C:\\GameDev\\AsteroidMiner"
     }
   }
 }

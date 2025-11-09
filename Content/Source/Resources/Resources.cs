@@ -1,11 +1,13 @@
 using Godot;
+using Godot.Collections;
+using System;
 
 public partial class Resources : Node
 {
     public static Resources Instance { get; private set; }
 
-    public static ResourceInfo CreditsTabInfo { get; private set; }
-    public static ResourceInfo PowerTabInfo { get; private set; }
+    public ResourceInfo CreditsTabInfo { get; private set; }
+    public ResourceInfo PowerTabInfo { get; private set; }
 
     public override void _Ready()
     {
@@ -19,6 +21,16 @@ public partial class Resources : Node
         LoadResourceInfos();
     }
 
+    public Array<ResourceInfo> GetAllResourceInfos()
+    {
+        Array<ResourceInfo> resourceInfos = new Array<ResourceInfo>
+        {
+            CreditsTabInfo,
+            PowerTabInfo
+        };
+        return resourceInfos;
+    }
+
     private void LoadResourceInfos()
     {
         CreditsTabInfo = new ResourceInfo
@@ -26,14 +38,14 @@ public partial class Resources : Node
             Name = "Credits",
             Icon = GD.Load<Texture2D>("res://icon.svg"),
             CurrentAmount = 0,
-            MaxAmount = 1000
+            MaxAmount = 10
         };
         PowerTabInfo = new ResourceInfo
         {
-            ResourceName = "Power",
+            Name = "Power",
             Icon = GD.Load<Texture2D>("res://icon.svg"),
             CurrentAmount = 0,
-            MaxAmount = 500
+            MaxAmount = 3
         };
     }
 }

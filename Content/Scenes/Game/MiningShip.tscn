@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbeqjr24340ff"]
+
+[ext_resource type="Script" uid="uid://jg123eh8ud5t" path="res://Content/Source/Game/MiningShip.cs" id="1_ue8kt"]
+[ext_resource type="Texture2D" uid="uid://dwnwwab02wl8u" path="res://icon.svg" id="1_yts1x"]
+
+[node name="MiningShip" type="Node2D"]
+script = ExtResource("1_ue8kt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 0.5)
+texture = ExtResource("1_yts1x")

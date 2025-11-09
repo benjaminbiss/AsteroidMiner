@@ -4,10 +4,11 @@ using System;
 public partial class PolygonShape : Polygon2D
 {
     [Export] public int PointCount = 32;
-    [Export] public float Radius = 100f;
+    private float Radius = 100f;
 
-    public override void _Ready()
+    public void DrawAsteroid(float radius)
     {
+        Radius = radius;
         GenerateCirclePolygon(PointCount, Radius);
     }
 
