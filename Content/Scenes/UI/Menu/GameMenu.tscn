@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://1tlx5o5d33" path="res://Content/Source/UI/Menu/GameMenu.cs" id="1_loj0w"]
 [ext_resource type="PackedScene" uid="uid://btqm80trtn8xr" path="res://Content/Scenes/UI/Components/ResourceTab.tscn" id="2_cjmr8"]
-[ext_resource type="Resource" uid="uid://b7r0705epdsd" path="res://Content/Resources/ResourceInfos/Credits_ResourceInfo.tres" id="3_rw0of"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_loj0w"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rw0of"]
+bg_color = Color(0, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rw0of"]
 
 [node name="GameMenu" type="Control"]
 layout_mode = 3
@@ -15,10 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_loj0w")
 resourceTabScene = ExtResource("2_cjmr8")
-resourceBarPath = NodePath("VBoxContainer/HBoxContainer")
-resources = Array[Object]([ExtResource("3_rw0of")])
+resourceBarPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer/Resources")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,13 +27,64 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Panel" type="Panel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_rw0of")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Resources" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/separator = SubResource("StyleBoxEmpty_loj0w")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Assets" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/MarginContainer2"]
 layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_rw0of")
+
+[node name="VSeparator3" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_rw0of")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

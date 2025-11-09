@@ -15,6 +15,8 @@ public partial class MenuManager : Control
             return;
         }
 
+        gameMenu.Visible = false;
+
         mainMenu.StartGame += GameStarted;
         SwitchMenu(mainMenu);
     }
@@ -33,15 +35,15 @@ public partial class MenuManager : Control
 
     private bool Initialize()
     {
-        bool result = true;
-
         mainMenu = GetNodeOrNull<MainMenu>("MainMenu");
-        result = mainMenu != null;
+        if (mainMenu == null)
+            return false;
 
         gameMenu = GetNodeOrNull<GameMenu>("GameMenu");
-        result = gameMenu != null;
+        if (gameMenu == null)
+            return false;
 
-        return result;
+        return true;
     }
 
     private void GameStarted()

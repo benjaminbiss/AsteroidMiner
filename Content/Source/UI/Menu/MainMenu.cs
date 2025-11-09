@@ -22,12 +22,11 @@ public partial class MainMenu : Control
 
     private bool Initialize()
     {
-        bool result = true;
-
         playButton = GetNodeOrNull<Button>(playButtonPath);
-        result = playButton != null;
+        if (playButton == null)
+            return false;
 
-        return result;
+        return true;
     }
 
     private void OnStartButtonPressed()

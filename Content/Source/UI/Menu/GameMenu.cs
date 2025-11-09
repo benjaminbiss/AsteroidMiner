@@ -7,11 +7,10 @@ public partial class GameMenu : Control
     private PackedScene resourceTabScene;
     [Export]
     private NodePath resourceBarPath;
-    private HBoxContainer resourceBar;
+    private VBoxContainer resourceBar;
 
-    [Export]
     private Array<ResourceInfo> resources;
-    private Array<ResourceTab> resourceTabs;
+    private Array<ResourceTab> resourceTabs = new Array<ResourceTab>();
 
     public override void _Ready()
     {
@@ -25,12 +24,13 @@ public partial class GameMenu : Control
     }
     private bool Initialize()
     {
-        bool result = true;
+        // Get Resources from Resource global
 
-        resourceBar = GetNodeOrNull<HBoxContainer>(resourceBarPath);
-        result = resourceBar != null;
+        resourceBar = GetNodeOrNull<VBoxContainer>(resourceBarPath);
+        if (resourceBar == null)
+            return false;
 
-        return result;
+        return true;
     }
 
     private void PopulateResourceBar()
@@ -38,10 +38,10 @@ public partial class GameMenu : Control
         foreach (ResourceInfo resource in resources)
         {
             ResourceTab resourceTab = resourceTabScene.Instantiate<ResourceTab>();
-            resourceTabs.Add(resourceTab);
-
-            resourceTab.SetResourceInfo(resource);
             resourceBar.AddChild(resourceTab);
+            
+            resourceTabs.Add(resourceTab);
+            resourceTab.SetResourceInfo(resource);
         }
     }
 }

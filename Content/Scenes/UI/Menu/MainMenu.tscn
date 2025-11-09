@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://btlvhq5kaast0"]
+[gd_scene load_steps=6 format=3 uid="uid://btlvhq5kaast0"]
 
 [ext_resource type="Script" uid="uid://dsgvy6x3qbh2b" path="res://Content/Source/UI/Menu/MainMenu.cs" id="1_psthk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_psthk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho20j"]
+bg_color = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1nu6q"]
 
@@ -18,7 +21,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_psthk")
-playButtonPath = NodePath("HBoxContainer/VBoxContainer/Play_Button")
+playButtonPath = NodePath("HBoxContainer/Panel/VBoxContainer/Play_Button")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -33,28 +36,44 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_psthk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Panel" type="Panel" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_ho20j")
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -109.0
+offset_right = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_1nu6q")
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Asteroid Miner Inc."
 
-[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="Play_Button" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="Play_Button" type="Button" parent="HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Play"
 
-[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_1nu6q")

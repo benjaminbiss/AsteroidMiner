@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "AsteroidMiner": {
+      "commandName": "Project",
+      "hotReloadEnabled": true
+    },
+    "Desktop": {
+      "commandName": "Executable",
+      "executablePath": "E:\\Program Files (x86)\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
+      "workingDirectory": "E:\\Games\\AsteroidMiner\\AsteroidMiner"
+    }
+  }
+}
