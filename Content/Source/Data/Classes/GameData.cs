@@ -11,8 +11,8 @@ public partial class GameData : Node
     // Testing info
     public float PlaySpeed { get; set; }
     // Save Values
-    public Dictionary<string, ResourceInfo> Resources { get; set; }
     public Dictionary<string, AssetInfo> Assets { get; set; }
-    public Dictionary<string, UpgradeInfo> Upgrades { get; set; }
     public Dictionary<string, ResearchInfo> Research { get; set; }
+    public Dictionary<string, ResourceInfo> Resources { get; set; }
+    public Dictionary<string, UpgradeInfo> Upgrades { get; set; }
 }

@@ -1,7 +1,18 @@
 {
-  "Name": "",
-  "Description": "",
-  "IconPath": "",
-  "DeploymentRate": 0,
-  "CurrentAmount": 0
+  "Mining Laser": {
+    "Name": "Mining Laser",
+    "Description": "A basic mining laser capable of extracting resources from asteroids.",
+    "IconPath": "",
+    "DeploymentRate": 1,
+    "CurrentAmount": 0,
+    "Prerequisites": [ "Purchase Mining Ship" ]
+  },
+  "Mining Ship": {
+    "Name": "Mining Ship",
+    "Description": "A small mining ship equipped with basic mining lasers that decends to the surface to extract the nearest resources before returning to orbit.",
+    "IconPath": "",
+    "DeploymentRate": 5,
+    "CurrentAmount": 0,
+    "Prerequisites": [ "Hangar" ]
+  }
 }

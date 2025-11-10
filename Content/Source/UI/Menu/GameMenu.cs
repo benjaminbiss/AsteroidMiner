@@ -15,8 +15,7 @@ public partial class GameMenu : Control
     private NodePath assetPath;
     private VBoxContainer asseteBar;
 
-    private Resources GlobalResourceInstance;
-    private Array<ResourceInfo> resources;
+    private Array<ResourceInfo> resources = new Array<ResourceInfo>();
     private Array<ResourceTab> resourceTabs = new Array<ResourceTab>();
 
     public override void _Ready()
@@ -27,17 +26,11 @@ public partial class GameMenu : Control
             return;
         }
 
-        resources = GlobalResourceInstance.GetAllResourceInfos();
         PopulateResourceBar();
     }
     private bool Initialize()
     {
-        GlobalResourceInstance = Resources.Instance;
-        if (GlobalResourceInstance == null)
-        {
-            GD.PrintErr("GameMenu | Global Resources Singleton instance not found.");
-            return false;
-        }
+
 
         resourceBar = GetNodeOrNull<VBoxContainer>(resourceBarPath);
         if (resourceBar == null)

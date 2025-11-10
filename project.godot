@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Resources="*res://Content/Source/Data/Resources.cs"
+DataUtil="*res://Content/Source/Data/Classes/DataUtil.cs"
 
 [display]
 

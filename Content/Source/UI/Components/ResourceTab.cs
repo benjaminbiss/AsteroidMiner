@@ -63,6 +63,6 @@ public partial class ResourceTab : MarginContainer
             return;
         
         resourceLabel.Text = resourceInfo.Name;
-        resourceTextureRect.Texture = resourceInfo.Icon;     
+        //resourceTextureRect.Texture = resourceInfo.IconPath;     
     }
 }

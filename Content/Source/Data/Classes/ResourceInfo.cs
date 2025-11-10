@@ -7,4 +7,5 @@ public partial class ResourceInfo : GodotObject
     public string IconPath { get; set; }
     public int CurrentAmount { get; set; }
     public int MaxAmount { get; set; }
+    public float GenerationRate { get; set; }
 }

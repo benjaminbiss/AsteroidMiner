@@ -1,10 +1,13 @@
 {
-  "Name": "",
-  "Description": "",
-  "IconPath": "",
-  "IsUnlocked": false,
-  "Prerequisites": null,
-  "ResearchCost": {
-    "": 0
+  "Hangar": {
+    "Name": "Hangar",
+    "Description": "A basic hangar to house, unload, and deploy your mining ships.",
+    "IconPath": "",
+    "IsUnlocked": false,
+    "Prerequisites": [ "Purchase Mining Vessel" ],
+    "ResearchCost": {
+      "Power": 50
+    },
+    "UpgradeEffects": null
   }
 }

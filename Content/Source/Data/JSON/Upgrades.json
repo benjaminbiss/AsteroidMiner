@@ -1,8 +1,21 @@
 {
-  "Name": "",
-  "Description": "",
-  "IconPath": "",
-  "ResourceCost": {
-    "": 0
+  "Purchase Mining Vessel": {
+    "Name": "Purchase Mining Vessel",
+    "Description": "Acquire a mining vessel to start you galactic mining endevors.",
+    "IconPath": "",
+    "Prerequisites": null,
+    "ResourceCost": {
+      "Credits": 100
+    },
+    "UpgradeEffects": {
+      "Power": {
+        "MaxAmount": {
+          "false": 50
+        },
+        "GenerationRate": {
+          "false": 5
+        }
+      }
+    }
   }
 }

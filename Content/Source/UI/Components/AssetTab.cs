@@ -57,6 +57,6 @@ public partial class AssetTab : MarginContainer
             return;
         
         assetLabel.Text = assetInfo.Name;
-        assetTextureRect.Texture = assetInfo.Icon;     
+        //assetTextureRect.Texture = assetInfo.IconPath;     
     }
 }

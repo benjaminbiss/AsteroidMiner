@@ -22,6 +22,9 @@ public partial class Main : Node2D
     [Export]
     private float shipDistanceFromSurface = 75f;
 
+    private DataUtil dataUtilInstance;
+    private GameData gameData;
+
     public override void _Ready()
     {
         if (!Initialize())
@@ -30,6 +33,7 @@ public partial class Main : Node2D
             return;
         }
 
+        LoadGameData();
         SetCameraZoom();
 
         menuManager.GameStarted += LaunchGame;
@@ -39,6 +43,12 @@ public partial class Main : Node2D
 
     private bool Initialize()
     {
+        dataUtilInstance = DataUtil.Instance;
+        if (dataUtilInstance == null)
+        {
+            GD.PrintErr("GameMenu | Global Resources Singleton instance not found.");
+            return false;
+        }
         menuManager = GetNodeOrNull<MenuManager>(menuManagerPath);
         if (menuManager == null)
             return false;
@@ -56,6 +66,16 @@ public partial class Main : Node2D
             return false;
 
         return true;
+    }
+
+    private void LoadGameData()
+    {
+        gameData = dataUtilInstance.LoadGame();
+        if (gameData == null)
+        {
+            GD.PrintErr("Main | Failed to load game data.");
+            return;
+        }
     }
 
     private void LaunchGame()
