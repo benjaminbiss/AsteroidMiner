@@ -10,7 +10,8 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_cwqkc")
-planetSize = 200.0
+menuManagerPath = NodePath("CanvasLayer/MenuManager")
+Camera2D = NodePath("Camera2D")
 asteroidPath = NodePath("Asteroid")
 shipRootPath = NodePath("ShipRoot")
 

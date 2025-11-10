@@ -2,6 +2,9 @@ using Godot;
 
 public partial class MenuManager : Control
 {
+    [Signal]
+    public delegate void GameStartedEventHandler();
+
     private MainMenu mainMenu;
     private GameMenu gameMenu;
 
@@ -17,7 +20,7 @@ public partial class MenuManager : Control
 
         gameMenu.Visible = false;
 
-        mainMenu.StartGame += GameStarted;
+        mainMenu.StartGame += StartGame;
         SwitchMenu(mainMenu);
     }
 
@@ -46,8 +49,9 @@ public partial class MenuManager : Control
         return true;
     }
 
-    private void GameStarted()
+    private void StartGame()
     {
         SwitchMenu(gameMenu);
+        EmitSignal(nameof(GameStarted));
     }
 }
