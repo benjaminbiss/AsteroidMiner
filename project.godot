@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Resources="*res://Content/Source/Resources/Resources.cs"
+Resources="*res://Content/Source/Data/Resources.cs"
 
 [display]
 

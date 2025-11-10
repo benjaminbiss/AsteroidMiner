@@ -3,4 +3,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Content\Source\Data\JSON\Assets.json" />
+    <Content Include="Content\Source\Data\JSON\Research.json" />
+    <Content Include="Content\Source\Data\JSON\Resources.json" />
+    <Content Include="Content\Source\Data\JSON\Upgrades.json" />
+  </ItemGroup>
 </Project>

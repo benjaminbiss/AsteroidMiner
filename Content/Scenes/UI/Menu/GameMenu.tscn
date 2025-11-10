@@ -20,7 +20,7 @@ script = ExtResource("1_loj0w")
 resourceTabScene = ExtResource("2_cjmr8")
 resourceBarPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer/Resources")
 assetTabScene = ExtResource("3_rw0of")
-assetPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer2/Assets")
+assetPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer3/Assets")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -61,7 +61,17 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Assets" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/MarginContainer2"]
+[node name="Power" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Assets" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
