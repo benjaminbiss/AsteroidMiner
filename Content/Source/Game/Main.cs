@@ -20,7 +20,7 @@ public partial class Main : Node2D
     [Export]
     private float planetSize = 100f;
     [Export]
-    private float miningShipDistance = 100;
+    private float shipDistanceFromSurface = 75f;
 
     public override void _Ready()
     {
@@ -62,19 +62,18 @@ public partial class Main : Node2D
     {
         asteroid.Visible = true;
         shipRoot.Visible = true;
-
         asteroid.SetPosition(Vector2.Zero);
-        asteroid.SetupAsteroidShape(planetSize);
         shipRoot.SetPosition(Vector2.Zero);
-        miningShip.SetPosition(new Vector2(0f, -(asteroid.radius + planetSize + miningShipDistance)));
+
+        asteroid.SetupAsteroidShape(planetSize);
+        miningShip.UpdateShipInfo(100f, asteroid.radius + planetSize + shipDistanceFromSurface);
+        miningShip.SetPosition(new Vector2(0f, -miningShip.shipDistanceFromCenter));
     }
 
     private void SetCameraZoom()
     {
-        Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-        float aspectRatio = screenSize.X / screenSize.Y;
-        Vector2 gameSpace = new Vector2(planetSize + miningShipDistance, (planetSize + miningShipDistance) * aspectRatio);
-        camera2D.Zoom = gameSpace / screenSize;
+        Vector2 gameSpace = new Vector2(planetSize + shipDistanceFromSurface + 100, planetSize + shipDistanceFromSurface + 100);
+        camera2D.Zoom =  Vector2.One / (gameSpace / 300);
         GD.Print("Camera Zoom: " + camera2D.Zoom);
     }
 }

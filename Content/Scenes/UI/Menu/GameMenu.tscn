@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cl7kwx4ii5o2l"]
+[gd_scene load_steps=6 format=3 uid="uid://cl7kwx4ii5o2l"]
 
 [ext_resource type="Script" uid="uid://1tlx5o5d33" path="res://Content/Source/UI/Menu/GameMenu.cs" id="1_loj0w"]
 [ext_resource type="PackedScene" uid="uid://btqm80trtn8xr" path="res://Content/Scenes/UI/Components/ResourceTab.tscn" id="2_cjmr8"]
+[ext_resource type="PackedScene" uid="uid://d1pwr2ybxik03" path="res://Content/Scenes/UI/Components/AssetTab.tscn" id="3_rw0of"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rw0of"]
 bg_color = Color(0, 0, 0, 0.392157)
@@ -18,6 +19,8 @@ grow_vertical = 2
 script = ExtResource("1_loj0w")
 resourceTabScene = ExtResource("2_cjmr8")
 resourceBarPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer/Resources")
+assetTabScene = ExtResource("3_rw0of")
+assetPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer2/Assets")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

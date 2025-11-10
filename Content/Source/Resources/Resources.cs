@@ -48,4 +48,10 @@ public partial class Resources : Node
             MaxAmount = 3
         };
     }
+
+    public enum ResourceType
+    {
+        Credits,
+        Power
+    }
 }
