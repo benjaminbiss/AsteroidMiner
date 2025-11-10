@@ -18,7 +18,6 @@ grow_vertical = 2
 script = ExtResource("1_loj0w")
 resourceTabScene = ExtResource("2_cjmr8")
 resourceBarPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer/Resources")
-assetPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer2/Assets")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

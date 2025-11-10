@@ -3,7 +3,11 @@ using Godot;
 public partial class Asteroid : Node2D
 {
     [Export]
-    private float radius = 300f;
+    private NodePath polygonShapePath;
+    private PolygonShape polygonShape;
+
+    [Export]
+    public float radius { get; set; } = 100f;
 
     public override void _Ready()
     {
@@ -11,16 +15,20 @@ public partial class Asteroid : Node2D
         {
             GD.PrintErr("Asteroid | Initialization failed.");
             return;
-        }
-
-        SetLocation();
+        }        
     }
     private bool Initialize()
     {
+        polygonShape = GetNodeOrNull<PolygonShape>(polygonShapePath);
+        if (polygonShape == null)
+            return false;
+        
         return true;
     }
-    private void SetLocation()
+
+    public void SetupAsteroidShape(float newRadius)
     {
-        Position = Vector2.Zero;
+        radius = newRadius;
+        polygonShape.DrawAsteroid(radius);
     }
 }

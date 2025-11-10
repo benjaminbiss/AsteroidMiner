@@ -3,7 +3,7 @@ using Godot;
 public partial class AutoRotate : Node2D
 {
     [Export]
-    private float rotationSpeedDegrees = 10f;
+    private float rotationSpeedDegrees { get; set; } = 10f;
 
     public override void _PhysicsProcess(double delta)
     {
