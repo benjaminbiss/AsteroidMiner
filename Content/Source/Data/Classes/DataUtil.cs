@@ -57,6 +57,15 @@ public partial class DataUtil : Node
         return defaultData;
     }
 
+    public Dictionary<string, AssetInfo> GetDefaultAssets()
+    {
+        if (!FileAccess.FileExists(ASSET_DATA_FILE))
+            return null;
+        FileAccess file = FileAccess.Open(ASSET_DATA_FILE, FileAccess.ModeFlags.Read);
+        string json = file.GetAsText();
+        file.Close();
+        return JsonSerializer.Deserialize<Dictionary<string, AssetInfo>>(json);
+    }
     public Dictionary<string, ResourceInfo> GetDefaultResources()
     {
         if (!FileAccess.FileExists(RESOURCE_DATA_FILE))
@@ -68,14 +77,14 @@ public partial class DataUtil : Node
 
         return JsonSerializer.Deserialize<Dictionary<string, ResourceInfo>>(json);
     }
-    public Dictionary<string, AssetInfo> GetDefaultAssets()
+    public Dictionary<string, ResearchInfo> GetDefaultResearch()
     {
-        if (!FileAccess.FileExists(ASSET_DATA_FILE))
+        if (!FileAccess.FileExists(RESEARCH_DATA_FILE))
             return null;
-        FileAccess file = FileAccess.Open(ASSET_DATA_FILE, FileAccess.ModeFlags.Read);
+        FileAccess file = FileAccess.Open(RESEARCH_DATA_FILE, FileAccess.ModeFlags.Read);
         string json = file.GetAsText();
         file.Close();
-        return JsonSerializer.Deserialize<Dictionary<string, AssetInfo>>(json);
+        return JsonSerializer.Deserialize<Dictionary<string, ResearchInfo>>(json);
     }
     public Dictionary<string, UpgradeInfo> GetDefaultUpgrades()
     {
@@ -85,14 +94,5 @@ public partial class DataUtil : Node
         string json = file.GetAsText();
         file.Close();
         return JsonSerializer.Deserialize<Dictionary<string, UpgradeInfo>>(json);
-    }
-    public Dictionary<string, ResearchInfo> GetDefaultResearch()
-    {
-        if (!FileAccess.FileExists(RESEARCH_DATA_FILE))
-            return null;
-        FileAccess file = FileAccess.Open(RESEARCH_DATA_FILE, FileAccess.ModeFlags.Read);
-        string json = file.GetAsText();
-        file.Close();
-        return JsonSerializer.Deserialize<Dictionary<string, ResearchInfo>>(json);
     }
 }

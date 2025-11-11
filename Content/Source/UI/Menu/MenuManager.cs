@@ -5,8 +5,8 @@ public partial class MenuManager : Control
     [Signal]
     public delegate void GameStartedEventHandler();
 
-    private MainMenu mainMenu;
-    private GameMenu gameMenu;
+    public MainMenu mainMenu;
+    public GameMenu gameMenu;
 
     private Control activeMenu;
 

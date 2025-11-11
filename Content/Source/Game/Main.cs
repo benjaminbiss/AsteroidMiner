@@ -59,6 +59,7 @@ public partial class Main : Node2D
         }
 
         LoadGameData();
+        SetupGameMenu();
         SetCameraZoom();
 
         menuManager.GameStarted += LaunchGame;
@@ -88,7 +89,7 @@ public partial class Main : Node2D
             return false;
         shipRoot = GetNodeOrNull<AutoRotate>(shipRootPath);
         if (shipRoot == null)
-            return false;        
+            return false;
         miningShip = shipRoot.GetNodeOrNull<MiningShip>("MiningShip");
         if (miningShip == null)
             return false;
@@ -129,7 +130,7 @@ public partial class Main : Node2D
     private void SetCameraZoom()
     {
         Vector2 gameSpace = new Vector2(planetSize + shipDistanceFromSurface + 100, planetSize + shipDistanceFromSurface + 100);
-        camera2D.Zoom =  Vector2.One / (gameSpace / 300);
+        camera2D.Zoom = Vector2.One / (gameSpace / 300);
         GD.Print("Camera Zoom: " + camera2D.Zoom);
     }
 
@@ -172,5 +173,16 @@ public partial class Main : Node2D
         }
         else
             asteroid.SetupAsteroidShape(planetSize);
+    }
+
+    private void SetupGameMenu()
+    {
+        GameMenu gameMenu = menuManager.GetNodeOrNull<GameMenu>("GameMenu");
+        if (gameMenu == null)
+        {
+            GD.PrintErr("Main | GameMenu not found in MenuManager.");
+            return;
+        }
+        gameMenu.SetResources(resourcesDictionary);
     }
 }

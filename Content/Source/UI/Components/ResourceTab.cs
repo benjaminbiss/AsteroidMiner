@@ -63,6 +63,7 @@ public partial class ResourceTab : MarginContainer
             return;
         
         resourceLabel.Text = resourceInfo.Name;
-        //resourceTextureRect.Texture = resourceInfo.IconPath;     
+        if (resourceInfo.IconPath != "")
+            resourceTextureRect.Texture = GD.Load<Texture2D>(resourceInfo.IconPath);     
     }
 }

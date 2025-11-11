@@ -15,8 +15,8 @@ public partial class GameMenu : Control
     private NodePath assetPath;
     private VBoxContainer asseteBar;
 
-    private Array<ResourceInfo> resources = new Array<ResourceInfo>();
-    private Array<ResourceTab> resourceTabs = new Array<ResourceTab>();
+    private System.Collections.Generic.Dictionary<string, ResourceInfo> resources;
+    private Array<ResourceTab> resourceTabs;
 
     public override void _Ready()
     {
@@ -25,29 +25,39 @@ public partial class GameMenu : Control
             GD.PrintErr("GameMenu | Initialization failed.");
             return;
         }
-
-        PopulateResourceBar();
     }
     private bool Initialize()
     {
-
-
+        if (resourceTabScene == null)
+            return false;
         resourceBar = GetNodeOrNull<VBoxContainer>(resourceBarPath);
         if (resourceBar == null)
+            return false;
+        if (assetTabScene == null)
+            return false;
+        asseteBar = GetNodeOrNull<VBoxContainer>(assetPath);
+        if (asseteBar == null)
             return false;
 
         return true;
     }
 
+    public void SetResources(System.Collections.Generic.Dictionary<string, ResourceInfo> resources)
+    {
+        this.resources = resources;
+        resourceTabs = new Array<ResourceTab>();
+        PopulateResourceBar();
+    }
+
     private void PopulateResourceBar()
     {
-        foreach (ResourceInfo resource in resources)
+        foreach (string key in resources.Keys)
         {
             ResourceTab resourceTab = resourceTabScene.Instantiate<ResourceTab>();
             resourceBar.AddChild(resourceTab);
-            
+
             resourceTabs.Add(resourceTab);
-            resourceTab.SetResourceInfo(resource);
+            resourceTab.SetResourceInfo(resources[key]);
         }
     }
 }

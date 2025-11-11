@@ -2,10 +2,10 @@ using Godot;
 
 public partial class AssetInfo : GodotObject
 {
-    public string Name;
-    public string Description;
-    public string IconPath;
-    public float BaseDeploymentRate;
-    public float BaseHarvestAmount;
-    public string[] Prerequisites;
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string IconPath { get; set; }
+    public float BaseDeploymentRate { get; set; }
+    public float BaseHarvestAmount { get; set; }
+    public string[] Prerequisites { get; set; }
 }
