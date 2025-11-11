@@ -12,7 +12,7 @@ public partial class ResourceTab : MarginContainer
     private TextureRect resourceTextureRect;
     [Export]
     private NodePath currentAmountPath;
-    private Label currenyAmount;
+    private Label currentAmount;
     [Export]
     private NodePath maxAmountPath;
     private Label maxAmount;
@@ -38,8 +38,8 @@ public partial class ResourceTab : MarginContainer
         resourceTextureRect = GetNodeOrNull<TextureRect>(resourceTexturePath);
         if (resourceTextureRect == null)
             return false;
-        currenyAmount = GetNodeOrNull<Label>(currentAmountPath);
-        if (currenyAmount == null)
+        currentAmount = GetNodeOrNull<Label>(currentAmountPath);
+        if (currentAmount == null)
             return false;
         maxAmount = GetNodeOrNull<Label>(maxAmountPath);
         if (maxAmount == null)
@@ -65,5 +65,15 @@ public partial class ResourceTab : MarginContainer
         resourceLabel.Text = resourceInfo.Name;
         if (resourceInfo.IconPath != "")
             resourceTextureRect.Texture = GD.Load<Texture2D>(resourceInfo.IconPath);     
+    }
+
+    public void UpdateResourceAmount(string resource, int currentAmount, int maxAmount)
+    {
+        if (resource != resourceInfo.Name)
+            return;
+        this.currentAmount.Text = currentAmount.ToString();
+        this.maxAmount.Text = maxAmount.ToString();
+        progressBar.Value = currentAmount;
+        progressBar.MaxValue = maxAmount;
     }
 }

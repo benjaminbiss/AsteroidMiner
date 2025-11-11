@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public partial class Main : Node2D
 {
+    [Signal]
+    public delegate void ResourcesUpdatedEventHandler(string resource, int current, int max);
     [Export]
     private NodePath menuManagerPath;
     private MenuManager menuManager;
@@ -29,6 +31,7 @@ public partial class Main : Node2D
 
     private DataUtil dataUtilInstance;
     private GameData gameData;
+    private RunningData runningData;
     public Dictionary<string, AssetInfo> assetsDictionary { get; set; }
     public Dictionary<string, ResearchInfo> researchDictionary { get; set; }
     public Dictionary<string, ResourceInfo> resourcesDictionary { get; set; }
@@ -41,13 +44,8 @@ public partial class Main : Node2D
         if (!bIsGameLaunched)
             return;
 
-        currentPlayTime += (float)delta;
-        if (currentPlayTime >= autoSaveInterval)
-        {
-            gameData.PlayTime += currentPlayTime;
-            SaveGame();
-            currentPlayTime = 0f;
-        }
+        AutoSave(delta);
+        GeneratePower(delta);
     }
 
     public override void _Ready()
@@ -61,10 +59,7 @@ public partial class Main : Node2D
         LoadGameData();
         SetupGameMenu();
         SetCameraZoom();
-
-        menuManager.GameStarted += LaunchGame;
-        miningShip.ShipCollectedCredits += UpdateCredits;
-        asteroid.NewAstroidCreated += UpdateAsteroidPoints;
+        SetupBindings();
 
         asteroid.Visible = false;
         shipRoot.Visible = false;
@@ -97,6 +92,26 @@ public partial class Main : Node2D
         return true;
     }
 
+    private void SetupBindings()
+    {
+        foreach (ResourceTab tab in menuManager.gameMenu.resourceTabs)
+        {
+            ResourcesUpdated += tab.UpdateResourceAmount;
+        }
+
+        runningData = new RunningData();
+        runningData.credits_CurrentAmount = (int)gameData.OwnedResources.GetValueOrDefault("Credits", 0f);
+        runningData.credits_MaxAmount = resourcesDictionary["Credits"].BaseMaxAmount;
+        EmitSignal(nameof(ResourcesUpdated), "Credits", runningData.credits_CurrentAmount, runningData.credits_MaxAmount);
+        runningData.power_CurrentAmount = gameData.OwnedResources.GetValueOrDefault("Power", 0f);
+        runningData.power_MaxAmount = resourcesDictionary["Power"].BaseMaxAmount;
+        EmitSignal(nameof(ResourcesUpdated), "Power", runningData.power_CurrentAmount, runningData.power_MaxAmount);
+
+        menuManager.GameStarted += LaunchGame;
+        miningShip.ShipCollectedCredits += UpdateCredits;
+        asteroid.NewAstroidCreated += UpdateAsteroidPoints;
+    }
+
     private void LoadGameData()
     {
         gameData = dataUtilInstance.LoadGame();
@@ -105,10 +120,24 @@ public partial class Main : Node2D
         resourcesDictionary = dataUtilInstance.GetDefaultResources();
         upgradesDictionary = dataUtilInstance.GetDefaultUpgrades();
 
+        AddResourceToGameData(resourcesDictionary["Credits"].Name, resourcesDictionary["Credits"].BaseMaxAmount);
+        
         if (gameData == null)
         {
             GD.PrintErr("Main | Failed to load game data.");
             return;
+        }
+    }
+
+    private void AddResourceToGameData(string resourceName, float amount)
+    {
+        if (gameData.OwnedResources.ContainsKey(resourceName))
+        {
+            gameData.OwnedResources[resourceName] += amount;
+        }
+        else
+        {
+            gameData.OwnedResources[resourceName] = amount;
         }
     }
 
@@ -134,8 +163,21 @@ public partial class Main : Node2D
         GD.Print("Camera Zoom: " + camera2D.Zoom);
     }
 
+    private void AutoSave(double delta)
+    {
+        currentPlayTime += (float)delta;
+        if (currentPlayTime >= autoSaveInterval)
+        {
+            gameData.PlayTime += currentPlayTime;
+            SaveGame();
+            currentPlayTime = 0f;
+        }
+    }
+
     private void SaveGame()
     {
+        gameData.OwnedResources["Credits"] = runningData.credits_CurrentAmount;
+        gameData.OwnedResources["Power"] = runningData.power_CurrentAmount;
         dataUtilInstance.SaveGame(gameData);
     }
 
@@ -151,7 +193,7 @@ public partial class Main : Node2D
     {
         gameData.OwnedResearch = ownedResearch;
     }
-    private void UpdateOwnedResources(Dictionary<string, int> ownedResources)
+    private void UpdateOwnedResources(Dictionary<string, float> ownedResources)
     {
         gameData.OwnedResources = ownedResources;
     }
@@ -162,7 +204,23 @@ public partial class Main : Node2D
 
     private void UpdateCredits(int credits)
     {
-        gameData.OwnedResources["Credits"] += credits;
+        Mathf.Min(runningData.credits_CurrentAmount += credits, runningData.credits_MaxAmount);
+        EmitSignal(nameof(ResourcesUpdated), "Credits", runningData.credits_CurrentAmount, runningData.credits_MaxAmount);
+    }
+
+    private void GeneratePower(double delta)
+    {
+        if (gameData.OwnedResources.ContainsKey("Power") == false)
+            return;
+
+        float generationRate = runningData.power_AdditiveGenerationRate * runningData.power_MultiplicativeGenerationRate;
+        UpdatePower(generationRate * (float)delta);
+    }
+
+    private void UpdatePower(float power)
+    {
+        Mathf.Min(runningData.power_CurrentAmount += power, runningData.power_MaxAmount);
+        EmitSignal(nameof(ResourcesUpdated), "Power", runningData.power_CurrentAmount, runningData.power_MaxAmount);
     }
 
     private void SetupAsteroid()

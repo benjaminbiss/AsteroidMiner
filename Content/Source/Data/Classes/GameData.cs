@@ -13,6 +13,6 @@ public class GameData
     public int[] AsteroidPoints { get; set; }
     public Dictionary<string, Dictionary<string, float>> OwnedAssets { get; set; }
     public string[] OwnedResearch { get; set; }
-    public Dictionary<string, int> OwnedResources { get; set; }
+    public Dictionary<string, float> OwnedResources { get; set; }
     public string[] OwnedUpgrades { get; set; }
 }

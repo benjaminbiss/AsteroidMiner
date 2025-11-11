@@ -16,7 +16,7 @@ public partial class GameMenu : Control
     private VBoxContainer asseteBar;
 
     private System.Collections.Generic.Dictionary<string, ResourceInfo> resources;
-    private Array<ResourceTab> resourceTabs;
+    public Array<ResourceTab> resourceTabs { get; private set; }
 
     public override void _Ready()
     {
@@ -58,6 +58,11 @@ public partial class GameMenu : Control
 
             resourceTabs.Add(resourceTab);
             resourceTab.SetResourceInfo(resources[key]);
+
+            if (resources[key].BaseMaxAmount == 0)
+            {
+                resourceTab.Hide();
+            }
         }
     }
 }

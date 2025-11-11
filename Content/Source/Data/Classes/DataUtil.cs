@@ -49,9 +49,9 @@ public partial class DataUtil : Node
             PlayTime = 0f,
             PlaySpeed = 1f,
             AsteroidPoints = [],
-            OwnedAssets = { },
+            OwnedAssets = new Dictionary<string, Dictionary<string, float>>(),
             OwnedResearch = [],
-            OwnedResources = { },
+            OwnedResources = new Dictionary<string, float>(),
             OwnedUpgrades = []
 };
         return defaultData;
