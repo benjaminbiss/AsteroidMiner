@@ -1,6 +1,5 @@
 using Godot;
-using Godot.Collections;
-using System.Reflection.Metadata;
+using System.Collections.Generic;
 using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 
@@ -18,7 +17,7 @@ public partial class DataUtil : Node
     public override void _Ready()
     {
         Instance = this;
-        savePath = ProjectSettings.GlobalizePath("user://saves/savegame.json");
+        savePath = ProjectSettings.GlobalizePath("user://savegame.json");
     }
 
     public void SaveGame(GameData data)
@@ -49,15 +48,16 @@ public partial class DataUtil : Node
             SaveDate = System.DateTime.Now,
             PlayTime = 0f,
             PlaySpeed = 1f,
-            Assets = GetDefaultAssets(),
-            Research = GetDefaultResearch(),
-            Resources = GetDefaultResources(),
-            Upgrades = GetDefaultUpgrades()
-        };
+            AsteroidPoints = [],
+            OwnedAssets = { },
+            OwnedResearch = [],
+            OwnedResources = { },
+            OwnedUpgrades = []
+};
         return defaultData;
     }
 
-    private Dictionary<string, ResourceInfo> GetDefaultResources()
+    public Dictionary<string, ResourceInfo> GetDefaultResources()
     {
         if (!FileAccess.FileExists(RESOURCE_DATA_FILE))
             return null;
@@ -68,7 +68,7 @@ public partial class DataUtil : Node
 
         return JsonSerializer.Deserialize<Dictionary<string, ResourceInfo>>(json);
     }
-    private Dictionary<string, AssetInfo> GetDefaultAssets()
+    public Dictionary<string, AssetInfo> GetDefaultAssets()
     {
         if (!FileAccess.FileExists(ASSET_DATA_FILE))
             return null;
@@ -77,7 +77,7 @@ public partial class DataUtil : Node
         file.Close();
         return JsonSerializer.Deserialize<Dictionary<string, AssetInfo>>(json);
     }
-    private Dictionary<string, UpgradeInfo> GetDefaultUpgrades()
+    public Dictionary<string, UpgradeInfo> GetDefaultUpgrades()
     {
         if (!FileAccess.FileExists(UPGRADE_DATA_FILE))
             return null;
@@ -86,7 +86,7 @@ public partial class DataUtil : Node
         file.Close();
         return JsonSerializer.Deserialize<Dictionary<string, UpgradeInfo>>(json);
     }
-    private Dictionary<string, ResearchInfo> GetDefaultResearch()
+    public Dictionary<string, ResearchInfo> GetDefaultResearch()
     {
         if (!FileAccess.FileExists(RESEARCH_DATA_FILE))
             return null;

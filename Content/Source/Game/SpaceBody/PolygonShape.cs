@@ -25,4 +25,15 @@ public partial class PolygonShape : Polygon2D
 
         Polygon = polygon;
     }
+
+    public int[] GetAsteroidPoints()
+    {
+        int[] points = new int[Polygon.Length * 2];
+        for (int i = 0; i < Polygon.Length; i++)
+        {
+            points[i * 2] = (int)Polygon[i].X;
+            points[i * 2 + 1] = (int)Polygon[i].Y;
+        }
+        return points;
+    }
 }

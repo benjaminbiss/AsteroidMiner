@@ -3,17 +3,16 @@ using Godot.Collections;
 
 public partial class ResearchInfo : GodotObject
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string IconPath { get; set; }
-    public bool IsUnlocked { get; set; }
+    public string Name;
+    public string Description;
+    public string IconPath;
 
     // keys to upgrades and researches
-    public Array<string> Prerequisites { get; set; }
+    public Array<string> Prerequisites;
 
     // name : amount
-    public Dictionary<string, int> ResourceCost { get; set; }
+    public Dictionary<string, int> ResourceCost;
 
     // name : paramater : isMultiplicative : effectValue
-    public Dictionary<string, Dictionary<string, Dictionary<bool, float>>> UpgradeEffects { get; set; }
+    public Dictionary<string, Dictionary<string, Dictionary<bool, float>>> UpgradeEffects;
 }

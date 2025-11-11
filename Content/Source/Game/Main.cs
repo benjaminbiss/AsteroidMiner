@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class Main : Node2D
 {
@@ -22,8 +23,32 @@ public partial class Main : Node2D
     [Export]
     private float shipDistanceFromSurface = 75f;
 
+    private bool bIsGameLaunched = false;
+    private float currentPlayTime = 0f;
+    private float autoSaveInterval = 10f;
+
     private DataUtil dataUtilInstance;
     private GameData gameData;
+    public Dictionary<string, AssetInfo> assetsDictionary { get; set; }
+    public Dictionary<string, ResearchInfo> researchDictionary { get; set; }
+    public Dictionary<string, ResourceInfo> resourcesDictionary { get; set; }
+    public Dictionary<string, UpgradeInfo> upgradesDictionary { get; set; }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+        if (!bIsGameLaunched)
+            return;
+
+        currentPlayTime += (float)delta;
+        if (currentPlayTime >= autoSaveInterval)
+        {
+            gameData.PlayTime += currentPlayTime;
+            SaveGame();
+            currentPlayTime = 0f;
+        }
+    }
 
     public override void _Ready()
     {
@@ -37,6 +62,9 @@ public partial class Main : Node2D
         SetCameraZoom();
 
         menuManager.GameStarted += LaunchGame;
+        miningShip.ShipCollectedCredits += UpdateCredits;
+        asteroid.NewAstroidCreated += UpdateAsteroidPoints;
+
         asteroid.Visible = false;
         shipRoot.Visible = false;
     }
@@ -71,6 +99,11 @@ public partial class Main : Node2D
     private void LoadGameData()
     {
         gameData = dataUtilInstance.LoadGame();
+        assetsDictionary = dataUtilInstance.GetDefaultAssets();
+        researchDictionary = dataUtilInstance.GetDefaultResearch();
+        resourcesDictionary = dataUtilInstance.GetDefaultResources();
+        upgradesDictionary = dataUtilInstance.GetDefaultUpgrades();
+
         if (gameData == null)
         {
             GD.PrintErr("Main | Failed to load game data.");
@@ -80,12 +113,15 @@ public partial class Main : Node2D
 
     private void LaunchGame()
     {
+        bIsGameLaunched = true;
+
         asteroid.Visible = true;
         shipRoot.Visible = true;
         asteroid.SetPosition(Vector2.Zero);
         shipRoot.SetPosition(Vector2.Zero);
 
-        asteroid.SetupAsteroidShape(planetSize);
+        SetupAsteroid();
+
         miningShip.UpdateShipInfo(100f, asteroid.radius + planetSize + shipDistanceFromSurface);
         miningShip.SetPosition(new Vector2(0f, -miningShip.shipDistanceFromCenter));
     }
@@ -95,5 +131,46 @@ public partial class Main : Node2D
         Vector2 gameSpace = new Vector2(planetSize + shipDistanceFromSurface + 100, planetSize + shipDistanceFromSurface + 100);
         camera2D.Zoom =  Vector2.One / (gameSpace / 300);
         GD.Print("Camera Zoom: " + camera2D.Zoom);
+    }
+
+    private void SaveGame()
+    {
+        dataUtilInstance.SaveGame(gameData);
+    }
+
+    private void UpdateAsteroidPoints(int[] points)
+    {
+        gameData.AsteroidPoints = points;
+    }
+    private void UpdateOwnedAssets(Dictionary<string, Dictionary<string, float>> ownedAssets)
+    {
+        gameData.OwnedAssets = ownedAssets;
+    }
+    private void UpdateOwnedResearch(string[] ownedResearch)
+    {
+        gameData.OwnedResearch = ownedResearch;
+    }
+    private void UpdateOwnedResources(Dictionary<string, int> ownedResources)
+    {
+        gameData.OwnedResources = ownedResources;
+    }
+    private void UpdateOwnedUpgrades(string[] ownedUpgrades)
+    {
+        gameData.OwnedUpgrades = ownedUpgrades;
+    }
+
+    private void UpdateCredits(int credits)
+    {
+        gameData.OwnedResources["Credits"] += credits;
+    }
+
+    private void SetupAsteroid()
+    {
+        if (gameData.AsteroidPoints != null && gameData.AsteroidPoints.Length > 0)
+        {
+            asteroid.SetupAsteroidShape(gameData.AsteroidPoints);
+        }
+        else
+            asteroid.SetupAsteroidShape(planetSize);
     }
 }

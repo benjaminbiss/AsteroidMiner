@@ -9,7 +9,7 @@
     },
     "UpgradeEffects": {
       "Power": {
-        "MaxAmount": {
+        "BaseMaxAmount": {
           "false": 50
         },
         "GenerationRate": {

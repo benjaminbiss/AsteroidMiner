@@ -1,8 +1,7 @@
-using Godot;
-using Godot.Collections;
 using System;
+using System.Collections.Generic;
 
-public partial class GameData : Node
+public class GameData
 {
     // General Save Info
     public string SaveName { get; set; }
@@ -11,8 +10,9 @@ public partial class GameData : Node
     // Testing info
     public float PlaySpeed { get; set; }
     // Save Values
-    public Dictionary<string, AssetInfo> Assets { get; set; }
-    public Dictionary<string, ResearchInfo> Research { get; set; }
-    public Dictionary<string, ResourceInfo> Resources { get; set; }
-    public Dictionary<string, UpgradeInfo> Upgrades { get; set; }
+    public int[] AsteroidPoints { get; set; }
+    public Dictionary<string, Dictionary<string, float>> OwnedAssets { get; set; }
+    public string[] OwnedResearch { get; set; }
+    public Dictionary<string, int> OwnedResources { get; set; }
+    public string[] OwnedUpgrades { get; set; }
 }
