@@ -6,6 +6,7 @@ using FileAccess = Godot.FileAccess;
 public partial class DataUtil : Node
 {
     const string ASSET_DATA_FILE = "res://Content/Source/Data/JSON/Assets.json";
+    const string DEFAULTS_DATA_FILE = "res://Content/Source/Data/JSON/Defaults.json";
     const string RESEARCH_DATA_FILE = "res://Content/Source/Data/JSON/Research.json";
     const string RESOURCE_DATA_FILE = "res://Content/Source/Data/JSON/Resources.json";
     const string UPGRADE_DATA_FILE = "res://Content/Source/Data/JSON/Upgrades.json";
@@ -51,9 +52,9 @@ public partial class DataUtil : Node
             AsteroidPoints = [],
             OwnedAssets = new Dictionary<string, Dictionary<string, float>>(),
             OwnedResearch = [],
-            OwnedResources = new Dictionary<string, float>(),
+            OwnedResources = new Dictionary<string, float> { { "Credits", 100f } },
             OwnedUpgrades = []
-};
+        }; 
         return defaultData;
     }
 
@@ -65,6 +66,15 @@ public partial class DataUtil : Node
         string json = file.GetAsText();
         file.Close();
         return JsonSerializer.Deserialize<Dictionary<string, AssetInfo>>(json);
+    }
+    public Dictionary<string, int> GetGameDefaults()
+    {
+        if (!FileAccess.FileExists(DEFAULTS_DATA_FILE))
+            return null;
+        FileAccess file = FileAccess.Open(DEFAULTS_DATA_FILE, FileAccess.ModeFlags.Read);
+        string json = file.GetAsText();
+        file.Close();
+        return JsonSerializer.Deserialize<Dictionary<string, int>>(json);
     }
     public Dictionary<string, ResourceInfo> GetDefaultResources()
     {

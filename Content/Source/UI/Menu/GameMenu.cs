@@ -48,6 +48,18 @@ public partial class GameMenu : Control
         resourceTabs = new Array<ResourceTab>();
         PopulateResourceBar();
     }
+    public void SetAssets(System.Collections.Generic.Dictionary<string, AssetInfo> assets)
+    {
+        // Implementation for populating asset bar can be added here
+    }
+    public void SetResearches(System.Collections.Generic.Dictionary<string, ResearchInfo> researches)
+    {
+        // Implementation for populating research bar can be added here
+    }
+    public void SetUpgrades(System.Collections.Generic.Dictionary<string, UpgradeInfo> upgrades)
+    {
+        // Implementation for populating upgrade bar can be added here
+    }
 
     private void PopulateResourceBar()
     {

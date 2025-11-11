@@ -67,7 +67,7 @@ public partial class ResourceTab : MarginContainer
             resourceTextureRect.Texture = GD.Load<Texture2D>(resourceInfo.IconPath);     
     }
 
-    public void UpdateResourceAmount(string resource, int currentAmount, int maxAmount)
+    public void UpdateResourceAmount(string resource, float currentAmount, float maxAmount)
     {
         if (resource != resourceInfo.Name)
             return;

@@ -1,19 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjci1hmjacngf"]
+[gd_scene load_steps=9 format=3 uid="uid://cjci1hmjacngf"]
 
 [ext_resource type="Script" uid="uid://btbn48oc57x60" path="res://Content/Source/UI/Menu/MenuManager.cs" id="1_8mb0b"]
 [ext_resource type="Script" uid="uid://dlb8s2xdrxrv" path="res://Content/Source/Game/Main.cs" id="1_cwqkc"]
 [ext_resource type="PackedScene" uid="uid://btlvhq5kaast0" path="res://Content/Scenes/UI/Menu/MainMenu.tscn" id="2_k3tp6"]
 [ext_resource type="PackedScene" uid="uid://cl7kwx4ii5o2l" path="res://Content/Scenes/UI/Menu/GameMenu.tscn" id="3_g3kg1"]
 [ext_resource type="PackedScene" uid="uid://dqqo0v1m0axbe" path="res://Content/Scenes/Game/Asteroid.tscn" id="4_lnynt"]
+[ext_resource type="Script" uid="uid://dtxi5ai7x42kr" path="res://Content/Source/Game/GameManager.cs" id="5_5ytmd"]
 [ext_resource type="Script" uid="uid://cntj0ifj1avmo" path="res://Content/Source/Game/AutoRotate.cs" id="5_rbs0y"]
 [ext_resource type="PackedScene" uid="uid://cbeqjr24340ff" path="res://Content/Scenes/Game/MiningShip.tscn" id="6_vt00l"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_cwqkc")
 menuManagerPath = NodePath("CanvasLayer/MenuManager")
-Camera2D = NodePath("Camera2D")
-asteroidPath = NodePath("Asteroid")
-shipRootPath = NodePath("ShipRoot")
+gameManagerPath = NodePath("GameManager")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -34,13 +33,19 @@ layout_mode = 1
 [node name="GameMenu" parent="CanvasLayer/MenuManager" instance=ExtResource("3_g3kg1")]
 layout_mode = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Parallax2D" type="Parallax2D" parent="."]
 
-[node name="Asteroid" parent="." instance=ExtResource("4_lnynt")]
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("5_5ytmd")
+Camera2D = NodePath("Camera2D")
+asteroidPath = NodePath("Asteroid")
+shipRootPath = NodePath("ShipRoot")
 
-[node name="ShipRoot" type="Node2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="GameManager"]
+
+[node name="Asteroid" parent="GameManager" instance=ExtResource("4_lnynt")]
+
+[node name="ShipRoot" type="Node2D" parent="GameManager"]
 script = ExtResource("5_rbs0y")
 
-[node name="MiningShip" parent="ShipRoot" instance=ExtResource("6_vt00l")]
+[node name="MiningShip" parent="GameManager/ShipRoot" instance=ExtResource("6_vt00l")]
