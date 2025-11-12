@@ -13,8 +13,8 @@ public partial class Main : Node2D
     private bool bIsGameLaunched = false;
     private float currentPlayTime = 0f;
     private float autoSaveInterval = 60f;
-
-    public GameData gameData;
+    
+    public GameCore gameCore;
 
     public override void _Process(double delta)
     {
@@ -41,6 +41,7 @@ public partial class Main : Node2D
 
     private bool Initialize()
     {
+        gameCore = GameCore.Instance;
         menuManager = GetNodeOrNull<MenuManager>(menuManagerPath);
         if (menuManager == null)
             return false;
@@ -64,9 +65,9 @@ public partial class Main : Node2D
 
     private void LoadGameData()
     {
-        gameData = DataUtil.Instance.LoadGame();
+        gameCore.gameData = DataUtil.Instance.LoadGame();
 
-        if (gameData == null)
+        if (gameCore.gameData == null)
         {
             GD.PrintErr("Main | Failed to load game data.");
             return;
@@ -75,13 +76,13 @@ public partial class Main : Node2D
 
     private void UpdateResourceInGameData(string resourceName, float current, float max)
     {
-        if (gameData.OwnedResources.ContainsKey(resourceName))
+        if (gameCore.gameData.OwnedResources.ContainsKey(resourceName))
         {
-            gameData.OwnedResources[resourceName] += current;
+            gameCore.gameData.OwnedResources[resourceName] = current;
         }
         else
         {
-            gameData.OwnedResources[resourceName] = current;
+            gameCore.gameData.OwnedResources[resourceName] = current;
         }
     }    
 
@@ -95,18 +96,18 @@ public partial class Main : Node2D
         currentPlayTime += (float)delta;
         if (currentPlayTime >= autoSaveInterval)
         {
-            gameData.PlayTime += currentPlayTime;
+            gameCore.gameData.PlayTime += currentPlayTime;
             SaveGame();
             currentPlayTime = 0f;
         }
     }
     private void SaveGame()
     {
-        DataUtil.Instance.SaveGame(gameData);
+        DataUtil.Instance.SaveGame(gameCore.gameData);
     }
     public void UpdateAsteroidPoints(int[] points)
     {
-        gameData.AsteroidPoints = points;
+        gameCore.gameData.AsteroidPoints = points;
     }
 
 
@@ -119,8 +120,8 @@ public partial class Main : Node2D
             return;
         }
         gameMenu.SetResourceBar(DataUtil.Instance.GetDefaultResources());
-        gameMenu.SetAssetBar(DataUtil.Instance.GetDefaultAssets());
-        gameMenu.SetResearchesBar(DataUtil.Instance.GetDefaultResearch());
-        gameMenu.SetUpgradesBar(DataUtil.Instance.GetDefaultUpgrades());
+        //gameMenu.SetAssetBar(DataUtil.Instance.GetDefaultAssets());
+        //gameMenu.SetResearchesBar(DataUtil.Instance.GetDefaultResearch());
+        //gameMenu.SetUpgradesBar(DataUtil.Instance.GetDefaultUpgrades());
     }
 }

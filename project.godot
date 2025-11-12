@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 DataUtil="*res://Content/Source/Data/Classes/DataUtil.cs"
+GameCore="*res://Content/Source/Data/Classes/GameCore.cs"
 
 [display]
 

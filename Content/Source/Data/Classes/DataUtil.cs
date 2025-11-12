@@ -13,6 +13,7 @@ public partial class DataUtil : Node
 
     public static DataUtil Instance { get; private set; }
 
+    public GameData gameData;
     private string savePath;
 
     public override void _Ready()

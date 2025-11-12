@@ -14,30 +14,43 @@ theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 5
 script = ExtResource("1_7i60q")
-upgradeLabelPath = NodePath("VBoxContainer/HBoxContainer/Name")
-upgradeTexturePath = NodePath("VBoxContainer/HBoxContainer/Icon")
-costLabelPath = NodePath("VBoxContainer/HBoxContainer/Cost")
-descriptionPath = NodePath("VBoxContainer/Description")
+upgradeLabelPath = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Name")
+upgradeTexturePath = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Icon")
+costLabelPath = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Cost")
+descriptionPath = NodePath("MarginContainer/VBoxContainer/Description")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Button" type="Button" parent="."]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 5
 
-[node name="Icon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
 texture = SubResource("PlaceholderTexture2D_jab4k")
 expand_mode = 3
 
-[node name="Name" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Upgrade"
 
-[node name="Cost" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Cost" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)
@@ -45,12 +58,13 @@ theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Cost"
 
-[node name="Description" type="Label" parent="VBoxContainer"]
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Description"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2

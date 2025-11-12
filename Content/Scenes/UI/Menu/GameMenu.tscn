@@ -152,3 +152,4 @@ text = "Research"
 
 [node name="Research" type="VBoxContainer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3

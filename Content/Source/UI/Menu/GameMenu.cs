@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System.Linq;
 
 public partial class GameMenu : Control
 {
@@ -27,6 +28,8 @@ public partial class GameMenu : Control
     private NodePath researchPath;
     private VBoxContainer researchBar;
 
+    private GameCore gameCore;
+
     private System.Collections.Generic.Dictionary<string, AssetInfo> assets;
     public Array<AssetTab> assetTabs { get; private set; }
     private System.Collections.Generic.Dictionary<string, ResearchInfo> researches;
@@ -46,6 +49,9 @@ public partial class GameMenu : Control
     }
     private bool Initialize()
     {
+        gameCore = GameCore.Instance;
+        if (gameCore == null)
+            return false;
         if (resourceTabScene == null)
             return false;
         resourceBar = GetNodeOrNull<VBoxContainer>(resourceBarPath);
@@ -97,17 +103,15 @@ public partial class GameMenu : Control
         {
             ResourceTab resourceTab = resourceTabScene.Instantiate<ResourceTab>();
             resourceBar.AddChild(resourceTab);
-
             resourceTabs.Add(resourceTab);
             resourceTab.SetResourceInfo(resources[key]);
 
-            if (resources[key].BaseMaxAmount == 0)
+            if (!gameCore.gameData.OwnedResources.ContainsKey(key))
             {
                 resourceTab.Hide();
             }
         }
     }
-
     private void PopulateAssetBar()
     {
         foreach (string key in assets.Keys)
@@ -116,6 +120,11 @@ public partial class GameMenu : Control
             assetBar.AddChild(assetTab);
             assetTabs.Add(assetTab);
             assetTab.SetAssetInfo(assets[key]);
+
+            if (!gameCore.gameData.OwnedAssets.ContainsKey(key))
+            {
+                assetTab.Hide();
+            }
         }
     }
 
@@ -127,6 +136,11 @@ public partial class GameMenu : Control
             researchBar.AddChild(researchTab);
             researchTabs.Add(researchTab);
             researchTab.SetResearchInfo(researches[key]);
+
+            if (!gameCore.gameData.OwnedResearch.Contains<string>(key))
+            {
+                researchTab.Hide();
+            }
         }
     }
 
@@ -138,6 +152,11 @@ public partial class GameMenu : Control
             upgradeBar.AddChild(upgradeTab);
             upgradeTabs.Add(upgradeTab);
             upgradeTab.SetUpgradeInfo(upgrades[key]);
+
+            if (!gameCore.gameData.OwnedUpgrades.Contains<string>(key))
+            {
+                upgradeTab.Hide();
+            }
         }
     }
 }

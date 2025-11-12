@@ -18,13 +18,14 @@ public partial class GameManager : Node2D
     private AutoRotate shipRoot;
     private MiningShip miningShip;
 
-    private Main main;
-    public RunningData runningData { get; set; }
+    private GameCore gameCore;
+
     public Dictionary<string, AssetInfo> assetsDictionary { get; set; }
     public Dictionary<string, int> gameDefaults { get; set; }
     public Dictionary<string, ResearchInfo> researchDictionary { get; set; }
     public Dictionary<string, ResourceInfo> resourcesDictionary { get; set; }
     public Dictionary<string, UpgradeInfo> upgradesDictionary { get; set; }
+
 
     public override void _Ready()
     {
@@ -42,8 +43,8 @@ public partial class GameManager : Node2D
     }
     private bool Initialize()
     {
-        main = GetParent<Main>();
-        if (main == null)
+        gameCore = GameCore.Instance;
+        if (gameCore == null)
             return false;
         camera2D = GetNodeOrNull<Camera2D>(Camera2D);
         if (camera2D == null)
@@ -81,13 +82,7 @@ public partial class GameManager : Node2D
         miningShip.UpdateShipInfo(100f, asteroid.radius + gameDefaults["planetSize"] + gameDefaults["shipDistanceFromSurface"]);
         miningShip.SetPosition(new Vector2(0f, -miningShip.shipDistanceFromCenter));
 
-        runningData = new RunningData();
-        runningData.credits_CurrentAmount = (int)FetchGameData().OwnedResources.GetValueOrDefault("Credits", 0f);
-        runningData.credits_MaxAmount = resourcesDictionary["Credits"].BaseMaxAmount;
-        EmitSignal(nameof(ResourcesUpdated), "Credits", runningData.credits_CurrentAmount, runningData.credits_MaxAmount);
-        runningData.power_CurrentAmount = FetchGameData().OwnedResources.GetValueOrDefault("Power", 0f);
-        runningData.power_MaxAmount = resourcesDictionary["Power"].BaseMaxAmount;
-        EmitSignal(nameof(ResourcesUpdated), "Power", runningData.power_CurrentAmount, runningData.power_MaxAmount);
+        SetRunningData();
     }
     public override void _Process(double delta)
     {
@@ -98,38 +93,59 @@ public partial class GameManager : Node2D
 
         GeneratePower(delta);
     }
-    public GameData FetchGameData()
+    private void SetRunningData()
     {
-        return main.gameData;
+        gameCore.runningData = new RunningData();
+        foreach (string key in gameCore.gameData.OwnedResources.Keys)
+        {
+            switch (key)
+            {
+                case "Credits":
+                    gameCore.runningData.credits_CurrentAmount = (int)gameCore.gameData.OwnedResources.GetValueOrDefault("Credits", 0f);
+                    gameCore.runningData.credits_MaxAmount = resourcesDictionary["Credits"].BaseMaxAmount;
+                    EmitSignal(nameof(ResourcesUpdated), "Credits", gameCore.runningData.credits_CurrentAmount, gameCore.runningData.credits_MaxAmount);
+                    break;
+                case "Power":
+                    gameCore.runningData.power_CurrentAmount = gameCore.gameData.OwnedResources.GetValueOrDefault("Power", 0f);
+                    gameCore.runningData.power_MaxAmount = resourcesDictionary["Power"].BaseMaxAmount;
+                    EmitSignal(nameof(ResourcesUpdated), "Power", gameCore.runningData.power_CurrentAmount, gameCore.runningData.power_MaxAmount);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
+
     private void SetupBindings()
     {
-        miningShip.ShipCollectedCredits += UpdateCredits;
+        Main main = GetParent<Main>();
         asteroid.NewAstroidCreated += main.UpdateAsteroidPoints;
+
+        miningShip.ShipCollectedCredits += UpdateCredits;
     }
     private void UpdateCredits(int credits)
     {
-        Mathf.Min(runningData.credits_CurrentAmount += credits, runningData.credits_MaxAmount);
-        EmitSignal(nameof(ResourcesUpdated), "Credits", runningData.credits_CurrentAmount, runningData.credits_MaxAmount);
+        Mathf.Min(gameCore.runningData.credits_CurrentAmount += credits, gameCore.runningData.credits_MaxAmount);
+        EmitSignal(nameof(ResourcesUpdated), "Credits", gameCore.runningData.credits_CurrentAmount, gameCore.runningData.credits_MaxAmount);
     }
     private void GeneratePower(double delta)
     {
-        if (FetchGameData().OwnedResources.ContainsKey("Power") == false)
+        if (gameCore.gameData.OwnedResources.ContainsKey("Power") == false)
             return;
 
-        float generationRate = runningData.power_AdditiveGenerationRate * runningData.power_MultiplicativeGenerationRate;
+        float generationRate = gameCore.runningData.power_AdditiveGenerationRate * gameCore.runningData.power_MultiplicativeGenerationRate;
         UpdatePower(generationRate * (float)delta);
     }
     private void UpdatePower(float power)
     {
-        Mathf.Min(runningData.power_CurrentAmount += power, runningData.power_MaxAmount);
-        EmitSignal(nameof(ResourcesUpdated), "Power", runningData.power_CurrentAmount, runningData.power_MaxAmount);
+        Mathf.Min(gameCore.runningData.power_CurrentAmount += power, gameCore.runningData.power_MaxAmount);
+        EmitSignal(nameof(ResourcesUpdated), "Power", gameCore.runningData.power_CurrentAmount, gameCore.runningData.power_MaxAmount);
     }
     private void SetupAsteroid()
     {
-        if (FetchGameData().AsteroidPoints != null && FetchGameData().AsteroidPoints.Length > 0)
+        if (gameCore.gameData.AsteroidPoints != null && gameCore.gameData.AsteroidPoints.Length > 0)
         {
-            asteroid.SetupAsteroidShape(FetchGameData().AsteroidPoints);
+            asteroid.SetupAsteroidShape(gameCore.gameData.AsteroidPoints);
         }
         else
             asteroid.SetupAsteroidShape(gameDefaults["planetSize"]);

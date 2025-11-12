@@ -2,8 +2,11 @@ using Godot;
 
 public partial class ResearchTab : MarginContainer
 {
-    private ResearchInfo researchInfo;    
-    
+    private ResearchInfo researchInfo;
+
+    [Export]
+    private NodePath buttonPath;
+    private Button button;
     [Export]
     private NodePath researchLabelPath;
     private Label researchLabel;
@@ -35,6 +38,9 @@ public partial class ResearchTab : MarginContainer
     }
     private bool Initialize()
     {
+        button = GetNodeOrNull<Button>(buttonPath);
+        if (button == null)
+            return false;
         researchLabel = GetNodeOrNull<Label>(researchLabelPath);
         if (researchLabel == null)
             return false;

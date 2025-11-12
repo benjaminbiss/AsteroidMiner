@@ -3,8 +3,60 @@
   "WorkspaceRootPath": "C:\\GameDev\\AsteroidMiner\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\ui\\menu\\gamemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\ui\\menu\\gamemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\classes\\datautil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\classes\\datautil.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\ui\\components\\assettab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\ui\\components\\assettab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\classes\\runningdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\classes\\runningdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\game\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\game\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\game\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\game\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\classes\\gamedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\classes\\gamedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\classes\\gamecore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\classes\\gamecore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\ui\\menu\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\ui\\menu\\menumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\json\\assets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\json\\assets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\json\\research.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\json\\research.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\json\\resources.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\json\\resources.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\ui\\components\\researchtab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\ui\\components\\researchtab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\game\\miningship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\game\\miningship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\ui\\components\\upgradetab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -15,44 +67,8 @@
       "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\ui\\components\\resourcetab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\ui\\menu\\gamemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\ui\\menu\\gamemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\game\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\game\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\ui\\components\\assettab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\ui\\components\\assettab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\game\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\game\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\json\\resources.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\json\\resources.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\classes\\gamedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\classes\\gamedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\classes\\runningdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\classes\\runningdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\json\\defaults.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\json\\defaults.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\json\\assets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\json\\assets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\json\\research.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|solutionrelative:content\\source\\data\\json\\research.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EBB72503-15CF-419A-984A-6A33C5EFB644}|AsteroidMiner.csproj|c:\\gamedev\\asteroidminer\\content\\source\\data\\json\\upgrades.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -65,8 +81,8 @@
       "VerticalTabListWidth": 150,
       "DocumentGroups": [
         {
-          "DockedWidth": 311,
-          "SelectedChildIndex": 7,
+          "DockedWidth": 268,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Document",
@@ -76,27 +92,29 @@
               "RelativeDocumentMoniker": "Content\\Source\\Game\\Main.cs",
               "ToolTip": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Game\\Main.cs",
               "RelativeToolTip": "Content\\Source\\Game\\Main.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAIwB4AAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAADgvyEAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-10T17:46:03.848Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Game\\GameManager.cs",
               "RelativeDocumentMoniker": "Content\\Source\\Game\\GameManager.cs",
               "ToolTip": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Game\\GameManager.cs",
               "RelativeToolTip": "Content\\Source\\Game\\GameManager.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAwD8AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAEwHUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-11T18:02:08.471Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 3,
               "Title": "RunningData.cs",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\Classes\\RunningData.cs",
               "RelativeDocumentMoniker": "Content\\Source\\Data\\Classes\\RunningData.cs",
@@ -105,11 +123,12 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-11T16:49:58.621Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "GameData.cs",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\Classes\\GameData.cs",
               "RelativeDocumentMoniker": "Content\\Source\\Data\\Classes\\GameData.cs",
@@ -118,7 +137,47 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-10T16:32:14.913Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GameCore.cs",
+              "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\Classes\\GameCore.cs",
+              "RelativeDocumentMoniker": "Content\\Source\\Data\\Classes\\GameCore.cs",
+              "ToolTip": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\Classes\\GameCore.cs",
+              "RelativeToolTip": "Content\\Source\\Data\\Classes\\GameCore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T23:06:04.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MenuManager.cs",
+              "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Menu\\MenuManager.cs",
+              "RelativeDocumentMoniker": "Content\\Source\\UI\\Menu\\MenuManager.cs",
+              "ToolTip": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Menu\\MenuManager.cs",
+              "RelativeToolTip": "Content\\Source\\UI\\Menu\\MenuManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T23:01:32.207Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DataUtil.cs",
+              "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\Classes\\DataUtil.cs",
+              "RelativeDocumentMoniker": "Content\\Source\\Data\\Classes\\DataUtil.cs",
+              "ToolTip": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\Classes\\DataUtil.cs",
+              "RelativeToolTip": "Content\\Source\\Data\\Classes\\DataUtil.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T22:48:28.303Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -134,20 +193,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 13,
+              "Title": "MiningShip.cs",
+              "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Game\\MiningShip.cs",
+              "RelativeDocumentMoniker": "Content\\Source\\Game\\MiningShip.cs",
+              "ToolTip": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Game\\MiningShip.cs",
+              "RelativeToolTip": "Content\\Source\\Game\\MiningShip.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwCUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T22:01:18.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "ResearchTab.cs",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Components\\ResearchTab.cs",
               "RelativeDocumentMoniker": "Content\\Source\\UI\\Components\\ResearchTab.cs",
               "ToolTip": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Components\\ResearchTab.cs",
               "RelativeToolTip": "Content\\Source\\UI\\Components\\ResearchTab.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAwDEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwCoAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-12T15:23:55.01Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "AssetTab.cs",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Components\\AssetTab.cs",
               "RelativeDocumentMoniker": "Content\\Source\\UI\\Components\\AssetTab.cs",
@@ -155,11 +227,12 @@
               "RelativeToolTip": "Content\\Source\\UI\\Components\\AssetTab.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T15:23:54.876Z"
+              "WhenOpened": "2025-11-12T15:23:54.876Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 14,
               "Title": "UpgradeTab.cs",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Components\\UpgradeTab.cs",
               "RelativeDocumentMoniker": "Content\\Source\\UI\\Components\\UpgradeTab.cs",
@@ -167,24 +240,24 @@
               "RelativeToolTip": "Content\\Source\\UI\\Components\\UpgradeTab.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T15:23:53.873Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T15:23:53.873Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "GameMenu.cs",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Menu\\GameMenu.cs",
               "RelativeDocumentMoniker": "Content\\Source\\UI\\Menu\\GameMenu.cs",
               "ToolTip": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Menu\\GameMenu.cs",
               "RelativeToolTip": "Content\\Source\\UI\\Menu\\GameMenu.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAAAGsAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAvwGoAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T18:27:58.585Z"
+              "WhenOpened": "2025-11-11T18:27:58.585Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 15,
               "Title": "ResourceTab.cs",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\UI\\Components\\ResourceTab.cs",
               "RelativeDocumentMoniker": "Content\\Source\\UI\\Components\\ResourceTab.cs",
@@ -197,12 +270,12 @@
           ]
         },
         {
-          "DockedWidth": 89,
-          "SelectedChildIndex": 3,
+          "DockedWidth": 132,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "Defaults.json",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\JSON\\Defaults.json",
               "RelativeDocumentMoniker": "Content\\Source\\Data\\JSON\\Defaults.json",
@@ -214,7 +287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 9,
               "Title": "Assets.json",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\JSON\\Assets.json",
               "RelativeDocumentMoniker": "Content\\Source\\Data\\JSON\\Assets.json",
@@ -222,11 +295,12 @@
               "RelativeToolTip": "Content\\Source\\Data\\JSON\\Assets.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-10T16:50:05.872Z"
+              "WhenOpened": "2025-11-10T16:50:05.872Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 10,
               "Title": "Research.json",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\JSON\\Research.json",
               "RelativeDocumentMoniker": "Content\\Source\\Data\\JSON\\Research.json",
@@ -234,11 +308,12 @@
               "RelativeToolTip": "Content\\Source\\Data\\JSON\\Research.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-10T16:50:07.068Z"
+              "WhenOpened": "2025-11-10T16:50:07.068Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "Resources.json",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\JSON\\Resources.json",
               "RelativeDocumentMoniker": "Content\\Source\\Data\\JSON\\Resources.json",
@@ -251,7 +326,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "Upgrades.json",
               "DocumentMoniker": "C:\\GameDev\\AsteroidMiner\\Content\\Source\\Data\\JSON\\Upgrades.json",
               "RelativeDocumentMoniker": "Content\\Source\\Data\\JSON\\Upgrades.json",
