@@ -13,10 +13,28 @@ public partial class GameMenu : Control
     private PackedScene assetTabScene;
     [Export]
     private NodePath assetPath;
-    private VBoxContainer asseteBar;
+    private VBoxContainer assetBar;
 
+    [Export]
+    private PackedScene upgradeTabScene;
+    [Export]
+    private NodePath upgradePath;
+    private VBoxContainer upgradeBar;
+
+    [Export]
+    private PackedScene researchTabScene;
+    [Export]
+    private NodePath researchPath;
+    private VBoxContainer researchBar;
+
+    private System.Collections.Generic.Dictionary<string, AssetInfo> assets;
+    public Array<AssetTab> assetTabs { get; private set; }
+    private System.Collections.Generic.Dictionary<string, ResearchInfo> researches;
+    public Array<ResearchTab> researchTabs { get; private set; }
     private System.Collections.Generic.Dictionary<string, ResourceInfo> resources;
     public Array<ResourceTab> resourceTabs { get; private set; }
+    private System.Collections.Generic.Dictionary<string, UpgradeInfo> upgrades;
+    public Array<UpgradeTab> upgradeTabs { get; private set; }
 
     public override void _Ready()
     {
@@ -35,30 +53,42 @@ public partial class GameMenu : Control
             return false;
         if (assetTabScene == null)
             return false;
-        asseteBar = GetNodeOrNull<VBoxContainer>(assetPath);
-        if (asseteBar == null)
+        assetBar = GetNodeOrNull<VBoxContainer>(assetPath);
+        if (assetBar == null)
+            return false;
+        upgradeBar = GetNodeOrNull<VBoxContainer>(upgradePath);
+        if (upgradeTabScene == null)
+            return false;
+        researchBar = GetNodeOrNull<VBoxContainer>(researchPath);
+        if (researchTabScene == null)
             return false;
 
         return true;
     }
 
-    public void SetResources(System.Collections.Generic.Dictionary<string, ResourceInfo> resources)
+    public void SetAssetBar(System.Collections.Generic.Dictionary<string, AssetInfo> newAssets)
     {
-        this.resources = resources;
+        assets = newAssets;
+        assetTabs = new Array<AssetTab>();
+        PopulateAssetBar();
+    }
+    public void SetResearchesBar(System.Collections.Generic.Dictionary<string, ResearchInfo> newResearches)
+    {
+        researches = newResearches;
+        researchTabs = new Array<ResearchTab>();
+        PopulateResearchBar();
+    }
+    public void SetResourceBar(System.Collections.Generic.Dictionary<string, ResourceInfo> newResources)
+    {
+        resources = newResources;
         resourceTabs = new Array<ResourceTab>();
         PopulateResourceBar();
     }
-    public void SetAssets(System.Collections.Generic.Dictionary<string, AssetInfo> assets)
+    public void SetUpgradesBar(System.Collections.Generic.Dictionary<string, UpgradeInfo> newUpgrades)
     {
-        // Implementation for populating asset bar can be added here
-    }
-    public void SetResearches(System.Collections.Generic.Dictionary<string, ResearchInfo> researches)
-    {
-        // Implementation for populating research bar can be added here
-    }
-    public void SetUpgrades(System.Collections.Generic.Dictionary<string, UpgradeInfo> upgrades)
-    {
-        // Implementation for populating upgrade bar can be added here
+        upgrades = newUpgrades;
+        upgradeTabs = new Array<UpgradeTab>();
+        PopulateUpgradeBar();
     }
 
     private void PopulateResourceBar()
@@ -75,6 +105,39 @@ public partial class GameMenu : Control
             {
                 resourceTab.Hide();
             }
+        }
+    }
+
+    private void PopulateAssetBar()
+    {
+        foreach (string key in assets.Keys)
+        {
+            AssetTab assetTab = assetTabScene.Instantiate<AssetTab>();
+            assetBar.AddChild(assetTab);
+            assetTabs.Add(assetTab);
+            assetTab.SetAssetInfo(assets[key]);
+        }
+    }
+
+    private void PopulateResearchBar()
+    {
+        foreach (string key in researches.Keys)
+        {
+            ResearchTab researchTab = researchTabScene.Instantiate<ResearchTab>();
+            researchBar.AddChild(researchTab);
+            researchTabs.Add(researchTab);
+            researchTab.SetResearchInfo(researches[key]);
+        }
+    }
+
+    private void PopulateUpgradeBar()
+    {
+        foreach (string key in upgrades.Keys)
+        {
+            UpgradeTab upgradeTab = upgradeTabScene.Instantiate<UpgradeTab>();
+            upgradeBar.AddChild(upgradeTab);
+            upgradeTabs.Add(upgradeTab);
+            upgradeTab.SetUpgradeInfo(upgrades[key]);
         }
     }
 }

@@ -118,9 +118,9 @@ public partial class Main : Node2D
             GD.PrintErr("Main | GameMenu not found in MenuManager.");
             return;
         }
-        gameMenu.SetResources(DataUtil.Instance.GetDefaultResources());
-        gameMenu.SetAssets(DataUtil.Instance.GetDefaultAssets());
-        gameMenu.SetResearches(DataUtil.Instance.GetDefaultResearch());
-        gameMenu.SetUpgrades(DataUtil.Instance.GetDefaultUpgrades());
+        gameMenu.SetResourceBar(DataUtil.Instance.GetDefaultResources());
+        gameMenu.SetAssetBar(DataUtil.Instance.GetDefaultAssets());
+        gameMenu.SetResearchesBar(DataUtil.Instance.GetDefaultResearch());
+        gameMenu.SetUpgradesBar(DataUtil.Instance.GetDefaultUpgrades());
     }
 }

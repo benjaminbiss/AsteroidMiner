@@ -20,7 +20,9 @@ script = ExtResource("1_loj0w")
 resourceTabScene = ExtResource("2_cjmr8")
 resourceBarPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer/Resources")
 assetTabScene = ExtResource("3_rw0of")
-assetPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer3/Assets")
+assetPath = NodePath("HBoxContainer/Panel/VBoxContainer/MarginContainer2/Assets")
+upgradePath = NodePath("HBoxContainer/Panel2/VBoxContainer/MarginContainer/Upgrades")
+researchPath = NodePath("HBoxContainer/Panel2/VBoxContainer/MarginContainer2/Research")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -61,17 +63,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Power" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-
-[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Assets" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/MarginContainer3"]
+[node name="Assets" type="VBoxContainer" parent="HBoxContainer/Panel/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
@@ -101,3 +93,23 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Panel2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Research" type="VBoxContainer" parent="HBoxContainer/Panel2/VBoxContainer/MarginContainer2"]
+layout_mode = 2
