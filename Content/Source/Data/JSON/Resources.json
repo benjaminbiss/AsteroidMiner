@@ -1,16 +1,16 @@
 {
   "Credits": {
-    "Name": "Credits",
-    "Description": "Credits are the universal currency of the future.",
-    "IconPath": "",
-    "BaseMaxAmount": 100,
-    "BaseGenerationRate": 0
+	"Name": "Credits",
+	"Description": "Credits are the universal currency of the future.",
+	"IconPath": "",
+	"MaxAmount": 100,
+	"GenerationAmount": 0
   },
   "Power": {
-    "Name": "Power",
-    "Description": "Power is used to deploy assets as well as research new technology.",
-    "IconPath": "",
-    "BaseMaxAmount": 0,
-    "BaseGenerationRate": 0
+	"Name": "Power",
+	"Description": "Power is used to deploy assets as well as research new technology.",
+	"IconPath": "",
+	"MaxAmount": 0,
+	"GenerationAmount": 0
   }
 }

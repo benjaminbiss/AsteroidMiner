@@ -51,10 +51,18 @@ public partial class DataUtil : Node
             PlayTime = 0f,
             PlaySpeed = 1f,
             AsteroidPoints = [],
-            OwnedAssets = new Dictionary<string, Dictionary<string, float>>(),
-            OwnedResearch = [],
-            OwnedResources = new Dictionary<string, float> { { "Credits", 100f } },
-            OwnedUpgrades = []
+            assets = new Dictionary<string, int>(),
+            researches = [],
+            resources = new Dictionary<string, Dictionary<string, double>> 
+            {
+                { "Credits", new Dictionary<string, double>
+                    {
+                        { "Current", 100d },
+                        { "Max", 100d }
+                    }
+                }
+            },
+            upgrades = []
         }; 
         return defaultData;
     }

@@ -3,7 +3,7 @@ using Godot;
 public partial class MiningShip : Node2D
 {
     [Signal]
-    public delegate void ShipCollectedCreditsEventHandler(int credits);
+    public delegate void ShipCollectedCreditsEventHandler(double credits);
 
     [Export]
     private NodePath shipSpritePath;
@@ -42,7 +42,7 @@ public partial class MiningShip : Node2D
         shipRoot.rotationRadius = shipDistanceFromCenter;
     }
 
-    private void AddCredits(int credits)
+    private void AddCredits(double credits)
     {
         EmitSignal(nameof(ShipCollectedCredits), credits);
     }

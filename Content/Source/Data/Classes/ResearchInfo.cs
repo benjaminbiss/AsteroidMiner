@@ -11,8 +11,8 @@ public partial class ResearchInfo : GodotObject
     public Array<string> Prerequisites { get; set; }
 
     // name : amount
-    public Dictionary<string, int> ResourceCost { get; set; }
+    public Dictionary<string, double> ResourceCost { get; set; }
 
-    // name : paramater : isMultiplicative : effectValue
-    public Dictionary<string, Dictionary<string, Dictionary<bool, float>>> UpgradeEffects { get; set; }
+    // name : paramater : isAdditive : effectValue
+    public Dictionary<string, Dictionary<string, Dictionary<bool, double>>> UpgradeEffects { get; set; }
 }

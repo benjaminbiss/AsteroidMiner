@@ -34,7 +34,6 @@ public partial class Main : Node2D
             return;
         }
 
-        LoadGameData();
         SetupGameMenu();
         SetupBindings();
     }
@@ -63,27 +62,10 @@ public partial class Main : Node2D
         menuManager.GameStarted += LaunchGame;
     }
 
-    private void LoadGameData()
+    private void UpdateResourceInGameData(string resourceName, double current, double max)
     {
-        gameCore.gameData = DataUtil.Instance.LoadGame();
-
-        if (gameCore.gameData == null)
-        {
-            GD.PrintErr("Main | Failed to load game data.");
-            return;
-        }
-    }
-
-    private void UpdateResourceInGameData(string resourceName, float current, float max)
-    {
-        if (gameCore.gameData.OwnedResources.ContainsKey(resourceName))
-        {
-            gameCore.gameData.OwnedResources[resourceName] = current;
-        }
-        else
-        {
-            gameCore.gameData.OwnedResources[resourceName] = current;
-        }
+        gameCore.AddResource(resourceName, "Current", current);
+        gameCore.AddResource(resourceName, "Max", max);
     }    
 
     private void LaunchGame()
@@ -120,8 +102,8 @@ public partial class Main : Node2D
             return;
         }
         gameMenu.SetResourceBar(DataUtil.Instance.GetDefaultResources());
-        //gameMenu.SetAssetBar(DataUtil.Instance.GetDefaultAssets());
-        //gameMenu.SetResearchesBar(DataUtil.Instance.GetDefaultResearch());
-        //gameMenu.SetUpgradesBar(DataUtil.Instance.GetDefaultUpgrades());
+        gameMenu.SetAssetBar(DataUtil.Instance.GetDefaultAssets());
+        gameMenu.SetResearchesBar(DataUtil.Instance.GetDefaultResearch());
+        gameMenu.SetUpgradesBar(DataUtil.Instance.GetDefaultUpgrades());
     }
 }

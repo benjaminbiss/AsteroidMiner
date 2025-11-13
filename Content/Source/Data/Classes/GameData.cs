@@ -11,8 +11,10 @@ public class GameData
     public float PlaySpeed { get; set; }
     // Save Values
     public int[] AsteroidPoints { get; set; }
-    public Dictionary<string, Dictionary<string, float>> OwnedAssets { get; set; }
-    public string[] OwnedResearch { get; set; }
-    public Dictionary<string, float> OwnedResources { get; set; }
-    public string[] OwnedUpgrades { get; set; }
+    public Dictionary<string, int> assets { get; set; }
+    public Dictionary<string, Dictionary<string, Dictionary<bool, double>>> assetModifiers { get; set; }
+    public string[] researches { get; set; }
+    public Dictionary<string, Dictionary<string, double>> resources { get; set; }
+    public Dictionary<string, Dictionary<string, Dictionary<bool, double>>> resourceModifiers { get; set; }
+    public string[] upgrades { get; set; }
 }

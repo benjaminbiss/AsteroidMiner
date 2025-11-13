@@ -1,12 +1,16 @@
 using Godot;
+using System.Reflection;
 
 public partial class ResearchTab : MarginContainer
 {
+    [Signal]
+    public delegate void ResearchButtonClickedEventHandler(ResearchTab sender);
+    
     private ResearchInfo researchInfo;
 
     [Export]
     private NodePath buttonPath;
-    private Button button;
+    public Button button { get; private set; }
     [Export]
     private NodePath researchLabelPath;
     private Label researchLabel;
@@ -35,6 +39,7 @@ public partial class ResearchTab : MarginContainer
         }
 
         UpdateUI();
+        button.Pressed += OnResearchTabButtonPressed;
     }
     private bool Initialize()
     {
@@ -76,5 +81,9 @@ public partial class ResearchTab : MarginContainer
         
         researchLabel.Text = researchInfo.Name;
         //ResearchTextureRect.Texture = ResearchInfo.IconPath;     
+    }
+    private void OnResearchTabButtonPressed()
+    {
+        EmitSignal(nameof(ResearchButtonClicked), this);
     }
 }

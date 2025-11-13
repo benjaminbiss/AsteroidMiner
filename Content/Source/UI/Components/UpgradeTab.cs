@@ -1,9 +1,16 @@
 using Godot;
+using System.Reflection;
 
 public partial class UpgradeTab : MarginContainer
 {
-    private UpgradeInfo upgradeInfo;    
-    
+    [Signal]
+    public delegate void UpgradeButtonClickedEventHandler(UpgradeTab sender);
+
+    private UpgradeInfo upgradeInfo;
+
+    [Export]
+    private NodePath buttonPath;
+    public Button button { get; private set; }
     [Export]
     private NodePath upgradeLabelPath;
     private Label upgradeLabel;
@@ -26,9 +33,13 @@ public partial class UpgradeTab : MarginContainer
         }
 
         UpdateUI();
+        button.Pressed += OnUpgradeTabButtonPressed;
     }
     private bool Initialize()
     {
+        button = GetNodeOrNull<Button>(buttonPath);
+        if (button == null)
+            return false;
         upgradeLabel = GetNodeOrNull<Label>(upgradeLabelPath);
         if (upgradeLabel == null)
             return false;
@@ -58,5 +69,10 @@ public partial class UpgradeTab : MarginContainer
         
         upgradeLabel.Text = upgradeInfo.Name;
         //upgradeTextureRect.Texture = upgradeInfo.IconPath;     
+    }
+
+    private void OnUpgradeTabButtonPressed()
+    {
+        EmitSignal(nameof(UpgradeButtonClicked), this);
     }
 }
