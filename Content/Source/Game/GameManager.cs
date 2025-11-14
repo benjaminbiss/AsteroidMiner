@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 public partial class GameManager : Node2D
 {
@@ -69,7 +70,7 @@ public partial class GameManager : Node2D
         miningShip.UpdateShipInfo(100f, asteroid.radius + gameCore.defaultInfos["planetSize"] + gameCore.defaultInfos["shipDistanceFromSurface"]);
         miningShip.SetPosition(new Vector2(0f, -miningShip.shipDistanceFromCenter));
 
-        SetRunningData();
+        UpdateResourceUI();
     }
     public override void _Process(double delta)
     {
@@ -80,11 +81,11 @@ public partial class GameManager : Node2D
 
         GeneratePower(delta);
     }
-    private void SetRunningData()
+    private void UpdateResourceUI()
     {
         foreach (string key in gameCore.gameData.resources.Keys)
         {
-            EmitSignal(nameof(ResourcesUpdated), key, gameCore.gameData.resources[key].Values.First(), gameCore.gameData.resources[key].Values.Last());
+            EmitSignal(nameof(ResourcesUpdated), 0, 0);
         }
     }
 
@@ -95,11 +96,11 @@ public partial class GameManager : Node2D
 
         miningShip.ShipCollectedCredits += UpdateCredits;
     }
-    private void UpdateCredits(double credits)
+    private void UpdateCredits(double credits, double max)
     {
         double current = gameCore.gameData.resources["Credits"].Values.First();
-        double max = gameCore.gameData.resources["Credits"].Values.Last();
-        EmitSignal(nameof(ResourcesUpdated), "Credits", Mathf.Min(current += credits, max), max);
+        double maximum = gameCore.gameData.resources["Credits"].Values.Last();
+        EmitSignal(nameof(ResourcesUpdated), "Credits", Mathf.Min(current += credits, maximum), max);
     }
     private void GeneratePower(double delta)
     {
@@ -138,9 +139,44 @@ public partial class GameManager : Node2D
         camera2D.Zoom = Vector2.One / (gameSpace / 300);
         GD.Print("Camera Zoom: " + camera2D.Zoom);
     }
-    public void HandleUnlockLogic(string name)
+    public void HandleUnlockLogic(Node sender)
     {
-        switch (name)
+        ResearchTab researchTab = sender as ResearchTab;
+        if (researchTab != null)
+        {
+            HandleResearchUnlocks(researchTab);
+            return;
+        }
+        UpgradeTab upgradeTab = sender as UpgradeTab;
+        if (upgradeTab != null)
+        {
+            HandleUpgradeUnlocks(upgradeTab);
+            return;
+        }
+
+    }
+    private void HandleResearchUnlocks(ResearchTab researchTab)
+    {
+        foreach(var cost in researchTab.researchInfo.ResourceCost)
+        {
+            UpdateCredits(-1 * cost.Value, 0);
+        }
+        switch (researchTab.researchInfo.Name)
+        {
+            case "Purchase Mining Vessel":
+                shipRoot.Show();
+                break;
+            default:
+                break;
+        }
+    }
+    private void HandleUpgradeUnlocks(UpgradeTab upgradeTab)
+    {
+        foreach (var cost in upgradeTab.upgradeInfo.ResourceCost)
+        {
+            UpdateCredits(-1 * cost.Value, 0);
+        }
+        switch (upgradeTab.upgradeInfo.Name)
         {
             case "Purchase Mining Vessel":
                 shipRoot.Show();

@@ -1,16 +1,16 @@
 using Godot;
-using System.Reflection;
+using Godot.Collections;
 
 public partial class ResearchTab : MarginContainer
 {
     [Signal]
-    public delegate void ResearchButtonClickedEventHandler(ResearchTab sender);
+    public delegate void ResearchButtonClickedEventHandler(Node sender);
     
     public ResearchInfo researchInfo { get; private set; }
 
     [Export]
     private NodePath buttonPath;
-    public Button button { get; private set; }
+    private Button button { get; set; }
     [Export]
     private NodePath researchLabelPath;
     private Label researchLabel;
@@ -73,17 +73,32 @@ public partial class ResearchTab : MarginContainer
         researchInfo = info;
         UpdateUI();
     }
-
     private void UpdateUI()
     {
         if (researchInfo == null)
             return;
         
         researchLabel.Text = researchInfo.Name;
+        costLabel.Text = ParseCost(researchInfo.ResourceCost);
         //ResearchTextureRect.Texture = ResearchInfo.IconPath;     
     }
     private void OnResearchTabButtonPressed()
     {
         EmitSignal(nameof(ResearchButtonClicked), this);
+    }
+    public void RequestAccepted()
+    {
+        button.Disabled = true;
+        costLabel.Hide();
+        progressBar.Hide();
+    }
+    private string ParseCost(Dictionary<string, double> cost)
+    {
+        string costString = "";
+        foreach (var item in cost)
+        {
+            costString += $"{item.Key}: {item.Value} \n";
+        }
+        return costString.Trim();
     }
 }

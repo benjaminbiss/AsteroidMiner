@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 
 public partial class GameCore : Node
 {
@@ -60,10 +59,10 @@ public partial class GameCore : Node
     }
     public void AddResearch(string research)
     {
-        gameData.researches.Append<string>(research);
+        gameData.researches = gameData.researches.Append(research).ToArray();
 
         ResearchInfo researchInfo = researchInfos[research];
-        if (researchInfo == null)
+        if (researchInfo == null || researchInfo.UpgradeEffects == null)
             return;
 
         foreach (var name in researchInfo.UpgradeEffects)
@@ -92,10 +91,10 @@ public partial class GameCore : Node
     }
     public void AddUpgrade(string upgrade)
     {
-        gameData.upgrades.Append<string>(upgrade);
+        gameData.upgrades = gameData.upgrades.Append(upgrade).ToArray();
 
         UpgradeInfo upgradeInfo = upgradeInfos[upgrade];
-        if (upgradeInfo == null)
+        if (upgradeInfo == null || upgradeInfo.UpgradeEffects == null)
             return;
 
         foreach (var name in upgradeInfo.UpgradeEffects)
@@ -152,5 +151,17 @@ public partial class GameCore : Node
             }
         }
         dictionary[name][paramater][isAdditive] = modifier;
+    }
+
+    public double GetResourceAmount(string key)
+    {
+        if (gameData.resources.ContainsKey(key))
+        {
+            if (gameData.resources[key].ContainsKey("Current"))
+            {
+                return gameData.resources[key]["Current"];
+            }
+        }
+        return 0d;
     }
 }

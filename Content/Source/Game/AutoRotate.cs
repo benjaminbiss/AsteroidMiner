@@ -8,9 +8,9 @@ public partial class AutoRotate : Node2D
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        
-        if (rotationRadius <= 0)
+        if (IsVisibleInTree() == false)
             return;
+
         Rotation += GetRotationDegrees(rotationSpeed, rotationRadius) * (float)delta;
     }
     private float GetRotationDegrees(float distanceTraveled, float radius)

@@ -6,7 +6,7 @@ using System.Linq;
 public partial class GameMenu : Control
 {
     [Signal]
-    public delegate void UnlockLogicEventHandler(string researchName);
+    public delegate void UnlockLogicEventHandler(Node sender);
     [Export]
     private PackedScene resourceTabScene;
     [Export]
@@ -147,17 +147,20 @@ public partial class GameMenu : Control
             else
             {
                 availableResearchBar.AddChild(researchTab);
-                foreach (string prereq in gameCore.researchInfos[research.Key].Prerequisites)
-                {
-                    if (!gameCore.gameData.researches.Contains<string>(prereq))
+                if (gameCore.researchInfos[research.Key].Prerequisites != null)
+                { 
+                    foreach (string prereq in gameCore.researchInfos[research.Key].Prerequisites)
                     {
-                        researchTab.Hide();
-                        break;
-                    }
-                    else if (!gameCore.gameData.upgrades.Contains<string>(prereq))
-                    {
-                        researchTab.Hide();
-                        break;
+                        if (!gameCore.gameData.researches.Contains<string>(prereq))
+                        {
+                            researchTab.Hide();
+                            break;
+                        }
+                        else if (!gameCore.gameData.upgrades.Contains<string>(prereq))
+                        {
+                            researchTab.Hide();
+                            break;
+                        }
                     }
                 }
             }
@@ -179,6 +182,22 @@ public partial class GameMenu : Control
             else
             { 
                 availableUpgradeBar.AddChild(upgradeTab);
+                if (gameCore.upgradeInfos[upgrade.Key].Prerequisites != null)
+                {
+                    foreach (string prereq in gameCore.upgradeInfos[upgrade.Key].Prerequisites)
+                    {
+                        if (!gameCore.gameData.researches.Contains<string>(prereq))
+                        {
+                            upgradeTab.Hide();
+                            break;
+                        }
+                        else if (!gameCore.gameData.upgrades.Contains<string>(prereq))
+                        {
+                            upgradeTab.Hide();
+                            break;
+                        }
+                    }
+                }
             }
             upgradeTabs.Add(upgradeTab);
             upgradeTab.SetUpgradeInfo(gameCore.upgradeInfos[upgrade.Key]);
@@ -186,20 +205,68 @@ public partial class GameMenu : Control
         }
     }
 
-    private void HandleResearchTabClicked(ResearchTab sender)
+    private void HandleResearchTabClicked(Node sender)
     {
+        ResearchTab researchTab = sender as ResearchTab;
+        foreach (var cost in researchTab.researchInfo.ResourceCost)
+        {
+            if (cost.Value > gameCore.GetResourceAmount(cost.Key))
+                return;
+        }
+        researchTab.RequestAccepted();
         availableResearchBar.RemoveChild(sender);
         ownedResearchBar.AddChild(sender);
-        sender.button.Disabled = true;
-
-        EmitSignal(SignalName.UnlockLogic, sender.researchInfo.Name);
+        string researchName = researchTab.researchInfo.Name;
+        gameCore.AddResearch(researchName);
+        EmitSignal(SignalName.UnlockLogic, sender);
+        CheckPrerequisites();
     }
-    private void HandleUpgradeTabClicked(UpgradeTab sender)
+    private void HandleUpgradeTabClicked(Node sender)
     {
+        UpgradeTab upgradeTab = sender as UpgradeTab;
+        foreach (var cost in upgradeTab.upgradeInfo.ResourceCost)
+        {
+            if (cost.Value > gameCore.GetResourceAmount(cost.Key))
+                return;
+        }
+        upgradeTab.RequestAccepted();
         availableUpgradeBar.RemoveChild(sender);
         ownedUpgradeBar.AddChild(sender);
-        sender.button.Disabled = true;
-
-        EmitSignal(SignalName.UnlockLogic, sender.upgradeInfo.Name);
+        string upgradeName = upgradeTab.upgradeInfo.Name;
+        gameCore.AddUpgrade(upgradeName);
+        EmitSignal(SignalName.UnlockLogic, sender);
+        CheckPrerequisites();
+    }
+    private void CheckPrerequisites()
+    {
+        string[] prereqs = gameCore.gameData.researches.Concat(gameCore.gameData.upgrades).ToArray();
+        foreach (Node availableResearch in availableResearchBar.GetChildren())
+        { 
+            bool canUnlock = true;
+            ResearchTab research = availableResearch as ResearchTab;
+            foreach (string name in research.researchInfo.Prerequisites)
+            {
+                if (!prereqs.Contains<string>(name))
+                {
+                    canUnlock = false;
+                }
+            }
+            if (canUnlock)
+                (availableResearch as ResearchTab).Show();
+        }
+        foreach (Node availableUpgrade in availableUpgradeBar.GetChildren())
+        {
+            bool canUnlock = true;
+            UpgradeTab upgrade = availableUpgrade as UpgradeTab;
+            foreach (string name in upgrade.upgradeInfo.Prerequisites)
+            {
+                if (!prereqs.Contains<string>(name))
+                {
+                    canUnlock = false;
+                }
+            }
+            if (canUnlock)
+                (availableUpgrade as UpgradeTab).Show();
+        }
     }
 }
