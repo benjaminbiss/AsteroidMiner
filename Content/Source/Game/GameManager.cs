@@ -21,12 +21,6 @@ public partial class GameManager : Node2D
 
     private GameCore gameCore;
 
-    public Dictionary<string, AssetInfo> assetsDictionary { get; set; }
-    public Dictionary<string, int> gameDefaults { get; set; }
-    public Dictionary<string, ResearchInfo> researchDictionary { get; set; }
-    public Dictionary<string, ResourceInfo> resourcesDictionary { get; set; }
-    public Dictionary<string, UpgradeInfo> upgradesDictionary { get; set; }
-
 
     public override void _Ready()
     {
@@ -68,11 +62,11 @@ public partial class GameManager : Node2D
         SetCameraZoom();
 
         asteroid.Visible = true;
-        shipRoot.Visible = true;
+        shipRoot.Visible = gameCore.gameData.upgrades.Contains<string>("Purchase Mining Vessel");
         asteroid.SetPosition(Vector2.Zero);
         shipRoot.SetPosition(Vector2.Zero);
 
-        miningShip.UpdateShipInfo(100f, asteroid.radius + gameDefaults["planetSize"] + gameDefaults["shipDistanceFromSurface"]);
+        miningShip.UpdateShipInfo(100f, asteroid.radius + gameCore.defaultInfos["planetSize"] + gameCore.defaultInfos["shipDistanceFromSurface"]);
         miningShip.SetPosition(new Vector2(0f, -miningShip.shipDistanceFromCenter));
 
         SetRunningData();
@@ -127,7 +121,7 @@ public partial class GameManager : Node2D
     {
         double current = gameCore.gameData.resources["Power"].Values.First();
         double max = gameCore.gameData.resources["Power"].Values.Last();
-        EmitSignal(nameof(ResourcesUpdated), "Power", Mathf.Min(current += power, max), max);
+        EmitSignal(SignalName.ResourcesUpdated, "Power", Mathf.Min(current += power, max), max);
     }
     private void SetupAsteroid()
     {
@@ -136,12 +130,23 @@ public partial class GameManager : Node2D
             asteroid.SetupAsteroidShape(gameCore.gameData.AsteroidPoints);
         }
         else
-            asteroid.SetupAsteroidShape(gameDefaults["planetSize"]);
+            asteroid.SetupAsteroidShape(gameCore.defaultInfos["planetSize"]);
     }
     private void SetCameraZoom()
     {
-        Vector2 gameSpace = new Vector2(gameDefaults["planetSize"] + gameDefaults["shipDistanceFromSurface"] + 100, gameDefaults["planetSize"] + gameDefaults["shipDistanceFromSurface"] + 100);
+        Vector2 gameSpace = new Vector2(gameCore.defaultInfos["planetSize"] + gameCore.defaultInfos["shipDistanceFromSurface"] + 100, gameCore.defaultInfos["planetSize"] + gameCore.defaultInfos["shipDistanceFromSurface"] + 100);
         camera2D.Zoom = Vector2.One / (gameSpace / 300);
         GD.Print("Camera Zoom: " + camera2D.Zoom);
+    }
+    public void HandleUnlockLogic(string name)
+    {
+        switch (name)
+        {
+            case "Purchase Mining Vessel":
+                shipRoot.Show();
+                break;
+            default:
+                break;
+        }
     }
 }

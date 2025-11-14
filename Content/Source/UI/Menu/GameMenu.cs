@@ -1,9 +1,12 @@
 using Godot;
 using Godot.Collections;
+using System;
 using System.Linq;
 
 public partial class GameMenu : Control
 {
+    [Signal]
+    public delegate void UnlockLogicEventHandler(string researchName);
     [Export]
     private PackedScene resourceTabScene;
     [Export]
@@ -103,14 +106,14 @@ public partial class GameMenu : Control
 
     private void PopulateResourceBar()
     {
-        foreach (string key in gameCore.gameData.resources.Keys)
+        foreach (var resource in gameCore.resourceInfos)
         {
             ResourceTab resourceTab = resourceTabScene.Instantiate<ResourceTab>();
             resourceBar.AddChild(resourceTab);
             resourceTabs.Add(resourceTab);
-            resourceTab.SetResourceInfo(gameCore.resourceInfos[key]);
+            resourceTab.SetResourceInfo(gameCore.resourceInfos[resource.Key]);
 
-            if (!gameCore.gameData.resources.ContainsKey(key))
+            if (!gameCore.gameData.resources.ContainsKey(resource.Key))
             {
                 resourceTab.Hide();
             }
@@ -118,14 +121,14 @@ public partial class GameMenu : Control
     }
     private void PopulateAssetBar()
     {
-        foreach (string key in gameCore.gameData.assets.Keys)
+        foreach (var asset in gameCore.assetInfos)
         {
             AssetTab assetTab = assetTabScene.Instantiate<AssetTab>();
             assetBar.AddChild(assetTab);
             assetTabs.Add(assetTab);
-            assetTab.SetAssetInfo(gameCore.assetInfos[key]);
+            assetTab.SetAssetInfo(gameCore.assetInfos[asset.Key]);
 
-            if (!gameCore.gameData.assets.ContainsKey(key))
+            if (!gameCore.gameData.assets.ContainsKey(asset.Key))
             {
                 assetTab.Hide();
             }
@@ -134,29 +137,42 @@ public partial class GameMenu : Control
 
     private void PopulateResearchBars()
     {
-        foreach (string key in gameCore.gameData.researches)
+        foreach (var research in gameCore.researchInfos)
         {
             ResearchTab researchTab = researchTabScene.Instantiate<ResearchTab>();
-            if (gameCore.gameData.researches.Contains<string>(key))
+            if (gameCore.gameData.researches.Contains<string>(research.Key))
             {
                 ownedResearchBar.AddChild(researchTab);
             }
             else
             {
                 availableResearchBar.AddChild(researchTab);
+                foreach (string prereq in gameCore.researchInfos[research.Key].Prerequisites)
+                {
+                    if (!gameCore.gameData.researches.Contains<string>(prereq))
+                    {
+                        researchTab.Hide();
+                        break;
+                    }
+                    else if (!gameCore.gameData.upgrades.Contains<string>(prereq))
+                    {
+                        researchTab.Hide();
+                        break;
+                    }
+                }
             }
             researchTabs.Add(researchTab);
-            researchTab.SetResearchInfo(gameCore.researchInfos[key]);
+            researchTab.SetResearchInfo(gameCore.researchInfos[research.Key]);
             researchTab.ResearchButtonClicked += HandleResearchTabClicked;
         }
     }
 
     private void PopulateUpgradeBars()
     {
-        foreach (string key in gameCore.gameData.upgrades)
+        foreach (var upgrade in gameCore.upgradeInfos)
         {
             UpgradeTab upgradeTab = upgradeTabScene.Instantiate<UpgradeTab>();
-            if (gameCore.gameData.upgrades.Contains<string>(key))
+            if (gameCore.gameData.upgrades.Contains<string>(upgrade.Key))
             {
                 ownedUpgradeBar.AddChild(upgradeTab);
             }
@@ -165,7 +181,7 @@ public partial class GameMenu : Control
                 availableUpgradeBar.AddChild(upgradeTab);
             }
             upgradeTabs.Add(upgradeTab);
-            upgradeTab.SetUpgradeInfo(gameCore.upgradeInfos[key]);
+            upgradeTab.SetUpgradeInfo(gameCore.upgradeInfos[upgrade.Key]);
             upgradeTab.UpgradeButtonClicked += HandleUpgradeTabClicked;
         }
     }
@@ -175,11 +191,15 @@ public partial class GameMenu : Control
         availableResearchBar.RemoveChild(sender);
         ownedResearchBar.AddChild(sender);
         sender.button.Disabled = true;
+
+        EmitSignal(SignalName.UnlockLogic, sender.researchInfo.Name);
     }
     private void HandleUpgradeTabClicked(UpgradeTab sender)
     {
         availableUpgradeBar.RemoveChild(sender);
         ownedUpgradeBar.AddChild(sender);
         sender.button.Disabled = true;
+
+        EmitSignal(SignalName.UnlockLogic, sender.upgradeInfo.Name);
     }
 }

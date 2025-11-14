@@ -30,6 +30,7 @@ theme_override_constants/margin_right = 5
 script = ExtResource("1_5rosy")
 resourceLabelPath = NodePath("VBoxContainer/HBoxContainer/Name")
 resourceTexturePath = NodePath("VBoxContainer/HBoxContainer/Icon")
+creditAmountPath = NodePath("VBoxContainer/HBoxContainer/Credit")
 currentAmountPath = NodePath("VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Current")
 maxAmountPath = NodePath("VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Max")
 progressBarPath = NodePath("VBoxContainer/ProgressBar")
@@ -51,6 +52,13 @@ size_flags_horizontal = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Resource"
+
+[node name="Credit" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Credits"
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
 layout_mode = 2

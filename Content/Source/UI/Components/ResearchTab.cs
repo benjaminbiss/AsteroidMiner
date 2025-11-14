@@ -6,7 +6,7 @@ public partial class ResearchTab : MarginContainer
     [Signal]
     public delegate void ResearchButtonClickedEventHandler(ResearchTab sender);
     
-    private ResearchInfo researchInfo;
+    public ResearchInfo researchInfo { get; private set; }
 
     [Export]
     private NodePath buttonPath;

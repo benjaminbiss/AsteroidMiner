@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 public partial class Main : Node2D
 {
@@ -12,7 +11,6 @@ public partial class Main : Node2D
 
     private bool bIsGameLaunched = false;
     private float currentPlayTime = 0f;
-    private float autoSaveInterval = 60f;
     
     public GameCore gameCore;
 
@@ -37,7 +35,6 @@ public partial class Main : Node2D
         SetupGameMenu();
         SetupBindings();
     }
-
     private bool Initialize()
     {
         gameCore = GameCore.Instance;
@@ -50,7 +47,6 @@ public partial class Main : Node2D
 
         return true;
     }
-
     private void SetupBindings()
     {
         foreach (ResourceTab tab in menuManager.gameMenu.resourceTabs)
@@ -60,14 +56,13 @@ public partial class Main : Node2D
 
         gameManager.ResourcesUpdated += UpdateResourceInGameData;
         menuManager.GameStarted += LaunchGame;
+        menuManager.gameMenu.UnlockLogic += gameManager.HandleUnlockLogic;
     }
-
     private void UpdateResourceInGameData(string resourceName, double current, double max)
     {
         gameCore.AddResource(resourceName, "Current", current);
         gameCore.AddResource(resourceName, "Max", max);
     }    
-
     private void LaunchGame()
     {
         bIsGameLaunched = true;
@@ -76,7 +71,7 @@ public partial class Main : Node2D
     private void AutoSave(double delta)
     {
         currentPlayTime += (float)delta;
-        if (currentPlayTime >= autoSaveInterval)
+        if (currentPlayTime >= gameCore.defaultInfos["autoSaveInterval"])
         {
             gameCore.gameData.PlayTime += currentPlayTime;
             SaveGame();
@@ -91,8 +86,6 @@ public partial class Main : Node2D
     {
         gameCore.gameData.AsteroidPoints = points;
     }
-
-
     private void SetupGameMenu()
     {
         GameMenu gameMenu = menuManager.GetNodeOrNull<GameMenu>("GameMenu");

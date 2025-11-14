@@ -6,7 +6,7 @@ public partial class UpgradeTab : MarginContainer
     [Signal]
     public delegate void UpgradeButtonClickedEventHandler(UpgradeTab sender);
 
-    private UpgradeInfo upgradeInfo;
+    public UpgradeInfo upgradeInfo { get; private set; }
 
     [Export]
     private NodePath buttonPath;

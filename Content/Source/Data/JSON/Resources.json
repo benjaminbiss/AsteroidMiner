@@ -3,7 +3,7 @@
 	"Name": "Credits",
 	"Description": "Credits are the universal currency of the future.",
 	"IconPath": "",
-	"MaxAmount": 100,
+	"MaxAmount": 0,
 	"GenerationAmount": 0
   },
   "Power": {
