@@ -5,6 +5,8 @@ using System.Linq;
 
 public partial class GameCore : Node
 {
+    [Signal]
+    public delegate void ResourcesUpdatedEventHandler(string resource, double current, double max);
     public static GameCore Instance { get; private set; }
     public GameData gameData { get; private set; }
     public Dictionary<string, int> defaultInfos { get; private set; }
@@ -43,10 +45,13 @@ public partial class GameCore : Node
             if (gameData.resources[resourceName].ContainsKey(paramater))
             {
                 gameData.resources[resourceName][paramater] += amount;
-                return;
             }
         }
-        gameData.resources[resourceName][paramater] = amount;
+        else
+        {
+            gameData.resources[resourceName][paramater] = amount;
+        }
+        EmitSignal(SignalName.ResourcesUpdated, resourceName, gameData.resources[resourceName]["Current"], gameData.resources[resourceName]["Max"]);
     }
     public void AddAsset(string assetName, int quantity)
     {

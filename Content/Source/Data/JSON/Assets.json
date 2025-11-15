@@ -5,7 +5,7 @@
 		"IconPath": "",
 		"DeploymentSpeed": 3,
 		"HarvestAmount": 1,
-		"Prerequisites": [ "Purchase Mining Ship" ]
+		"Prerequisites": [ "Purchase Mining Vessel" ]
 	},
 	"Mining Ship": {
 		"Name": "Mining Ship",

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 
 public partial class ResourceTab : MarginContainer
 {
@@ -30,8 +31,6 @@ public partial class ResourceTab : MarginContainer
             GD.PrintErr("ResourceTab | Initialization failed.");
             return;
         }
-
-        UpdateUI();
     }
     private bool Initialize()
     {
@@ -59,10 +58,10 @@ public partial class ResourceTab : MarginContainer
     public void SetResourceInfo(ResourceInfo info)
     {
         resourceInfo = info;
-        UpdateUI();
+        SetupUI();
     }
 
-    private void UpdateUI()
+    private void SetupUI()
     {
         if (resourceInfo == null)
             return;

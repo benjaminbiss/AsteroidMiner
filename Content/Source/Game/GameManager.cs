@@ -6,7 +6,7 @@ using System.Xml.Linq;
 public partial class GameManager : Node2D
 {
     [Signal]
-    public delegate void ResourcesUpdatedEventHandler(string resource, double current, double max);
+    public delegate void UpdateResourceEventHandler(string resource, double current, double max);
 
     [Export]
     private NodePath Camera2D;
@@ -85,7 +85,7 @@ public partial class GameManager : Node2D
     {
         foreach (string key in gameCore.gameData.resources.Keys)
         {
-            EmitSignal(nameof(ResourcesUpdated), 0, 0);
+            EmitSignal(nameof(UpdateResource), key, 0, 0);
         }
     }
 
@@ -98,9 +98,7 @@ public partial class GameManager : Node2D
     }
     private void UpdateCredits(double credits, double max)
     {
-        double current = gameCore.gameData.resources["Credits"].Values.First();
-        double maximum = gameCore.gameData.resources["Credits"].Values.Last();
-        EmitSignal(nameof(ResourcesUpdated), "Credits", Mathf.Min(current += credits, maximum), max);
+        EmitSignal(nameof(UpdateResource), "Credits", credits, max);
     }
     private void GeneratePower(double delta)
     {
@@ -122,7 +120,7 @@ public partial class GameManager : Node2D
     {
         double current = gameCore.gameData.resources["Power"].Values.First();
         double max = gameCore.gameData.resources["Power"].Values.Last();
-        EmitSignal(SignalName.ResourcesUpdated, "Power", Mathf.Min(current += power, max), max);
+        EmitSignal(SignalName.UpdateResource, "Power", Mathf.Min(current += power, max), max);
     }
     private void SetupAsteroid()
     {

@@ -51,10 +51,10 @@ public partial class Main : Node2D
     {
         foreach (ResourceTab tab in menuManager.gameMenu.resourceTabs)
         {
-            gameManager.ResourcesUpdated += tab.UpdateResourceAmount;
+            gameCore.ResourcesUpdated += tab.UpdateResourceAmount;
         }
 
-        gameManager.ResourcesUpdated += UpdateResourceInGameData;
+        gameManager.UpdateResource += UpdateResourceInGameData;
         menuManager.GameStarted += LaunchGame;
         menuManager.gameMenu.UnlockLogic += gameManager.HandleUnlockLogic;
     }

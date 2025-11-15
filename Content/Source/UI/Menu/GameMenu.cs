@@ -240,25 +240,10 @@ public partial class GameMenu : Control
     private void CheckPrerequisites()
     {
         string[] prereqs = gameCore.gameData.researches.Concat(gameCore.gameData.upgrades).ToArray();
-        foreach (Node availableResearch in availableResearchBar.GetChildren())
-        { 
-            bool canUnlock = true;
-            ResearchTab research = availableResearch as ResearchTab;
-            foreach (string name in research.researchInfo.Prerequisites)
-            {
-                if (!prereqs.Contains<string>(name))
-                {
-                    canUnlock = false;
-                }
-            }
-            if (canUnlock)
-                (availableResearch as ResearchTab).Show();
-        }
-        foreach (Node availableUpgrade in availableUpgradeBar.GetChildren())
+        foreach (ResearchTab availableResearch in availableResearchBar.GetChildren())
         {
             bool canUnlock = true;
-            UpgradeTab upgrade = availableUpgrade as UpgradeTab;
-            foreach (string name in upgrade.upgradeInfo.Prerequisites)
+            foreach (string name in availableResearch.researchInfo.Prerequisites)
             {
                 if (!prereqs.Contains<string>(name))
                 {
@@ -266,7 +251,36 @@ public partial class GameMenu : Control
                 }
             }
             if (canUnlock)
-                (availableUpgrade as UpgradeTab).Show();
+                availableResearch.Show();
+        }
+        foreach (UpgradeTab availableUpgrade in availableUpgradeBar.GetChildren())
+        {
+            bool canUnlock = true;
+            foreach (string name in availableUpgrade.upgradeInfo.Prerequisites)
+            {
+                if (!prereqs.Contains<string>(name))
+                {
+                    canUnlock = false;
+                }
+            }
+            if (canUnlock)
+                availableUpgrade.Show();
+        }
+        foreach (AssetTab assetTab in assetTabs)
+        {
+            if (assetTab.Visible == true)
+                continue;
+
+            bool canUnlock = true;
+            foreach (string name in assetTab.assetInfo.Prerequisites)
+            {
+                if (!prereqs.Contains<string>(name))
+                {
+                    canUnlock = false;
+                }
+            }
+            if (canUnlock)
+                assetTab.Show();
         }
     }
 }

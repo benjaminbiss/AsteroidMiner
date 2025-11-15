@@ -2,8 +2,8 @@ using Godot;
 
 public partial class AssetTab : MarginContainer
 {
-    private AssetInfo assetInfo;    
-    
+    public AssetInfo assetInfo { get; private set; }
+
     [Export]
     private NodePath assetLabelPath;
     private Label assetLabel;
@@ -44,13 +44,11 @@ public partial class AssetTab : MarginContainer
 
         return true;
     }
-
     public void SetAssetInfo(AssetInfo info)
     {
         assetInfo = info;
         UpdateUI();
     }
-
     private void UpdateUI()
     {
         if (assetInfo == null)
