@@ -5,7 +5,10 @@
 		"IconPath": "",
 		"DeploymentSpeed": 3,
 		"HarvestAmount": 1,
-		"Prerequisites": [ "Purchase Mining Vessel" ]
+		"Prerequisites": [ "Purchase Mining Vessel" ],
+		"ResourceCost": {
+			"Credits": 0
+		}
 	},
 	"Mining Ship": {
 		"Name": "Mining Ship",
@@ -13,6 +16,9 @@
 		"IconPath": "",
 		"DeploymentSpeed": 10,
 		"HarvestAmount": 10,
-		"Prerequisites": [ "Hangar" ]
+		"Prerequisites": [ "Hangar" ],
+		"ResourceCost": {
+			"Credits": 0
+		}
 	}
 }

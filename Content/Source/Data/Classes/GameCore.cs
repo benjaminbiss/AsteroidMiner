@@ -6,7 +6,10 @@ using System.Linq;
 public partial class GameCore : Node
 {
     [Signal]
-    public delegate void ResourcesUpdatedEventHandler(string resource, string param, double max);
+    public delegate void ResourcesUpdatedEventHandler(string name, string param, double max);
+    [Signal]
+    public delegate void AssetUpdatedEventHandler(string name, string param, double max);
+
     public static GameCore Instance { get; private set; }
     public GameData gameData { get; private set; }
     public Dictionary<string, int> defaultInfos { get; private set; }
@@ -40,31 +43,40 @@ public partial class GameCore : Node
 
     public void AddResource(string resourceName, string paramater, double amount)
     {
-        if (gameData.resources.ContainsKey(resourceName))
-        {
-            if (gameData.resources[resourceName].ContainsKey(paramater))
-            {
-                gameData.resources[resourceName][paramater] += amount;
-            }
-        }
-        else
-        {
-            gameData.resources[resourceName][paramater] = amount;
-        }        
-        UpdateResourceTab(resourceName, paramater);
+        UpdateGameDictionary(gameData.resources, resourceName, paramater, amount);
     }
     public void UpdateResourceTab(string resourceName, string paramater)
     {
         EmitSignal(SignalName.ResourcesUpdated, resourceName, paramater, gameData.resources[resourceName][paramater]);
     }
-    public void AddAsset(string assetName, int quantity)
+    public void AddAsset(string assetName, string paramater, double amount)
     {
-        if (gameData.assets.ContainsKey(assetName))
+        UpdateGameDictionary(gameData.assets, assetName, paramater, amount);
+    }
+    public void UpdateAssetTab(string assetName, string paramater)
+    {
+        EmitSignal(SignalName.AssetUpdated, assetName, paramater, gameData.assets[assetName][paramater]);
+    }
+    private void UpdateGameDictionary(Dictionary<string, Dictionary<string, double>> dictionary, string name, string paramater, double amount)
+    {
+        if (dictionary.ContainsKey(name))
         {
-            gameData.assets[assetName] += quantity;
-            return;
+            if (dictionary[name].ContainsKey(paramater))
+            {
+                dictionary[name][paramater] += amount;
+            }
+            else
+            {
+                dictionary[name][paramater] = amount;
+            }
         }
-        gameData.assets[assetName] = quantity;
+        else
+        {
+            dictionary[name] = new Dictionary<string, double>
+            {
+                { paramater, amount }
+            };
+        }
     }
     public void AddResearch(string research)
     {
@@ -127,6 +139,16 @@ public partial class GameCore : Node
                         AddModifier(gameData.resourceModifiers, name.Key, param.Key, modifier.Key, modifier.Value);
                     }
                 }
+            }
+        }
+    }
+    public void AddAsset(Dictionary<string, Dictionary<string, double>> asset)
+    {
+        foreach (var name in asset)
+        {
+            foreach (var param in name.Value)
+            {
+                AddAsset(name.Key, param.Key, param.Value);
             }
         }
     }

@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -9,6 +10,10 @@ public partial class GameManager : Node2D
     public delegate void UpdateResourceEventHandler(string resource, string param);
     [Signal]
     public delegate void AddResourceEventHandler(string resource, string param, double amount);
+    [Signal]
+    public delegate void UpdateAssetEventHandler(string asset, string param);
+    [Signal]
+    public delegate void AddAssetEventHandler(string asset, string param, double amount);
 
     [Export]
     private NodePath Camera2D;
@@ -155,7 +160,12 @@ public partial class GameManager : Node2D
             HandleUpgradeUnlocks(upgradeTab);
             return;
         }
-
+        AssetTab assetTab = sender as AssetTab;
+        if (assetTab != null)
+        {
+            HandleAssetUnlocks(assetTab);
+            return;
+        }
     }
     private void HandleResearchUnlocks(ResearchTab researchTab)
     {
@@ -165,8 +175,7 @@ public partial class GameManager : Node2D
         }
         switch (researchTab.researchInfo.Name)
         {
-            case "Purchase Mining Vessel":
-                shipRoot.Show();
+            case "Hangar":
                 break;
             default:
                 break;
@@ -182,6 +191,22 @@ public partial class GameManager : Node2D
         {
             case "Purchase Mining Vessel":
                 shipRoot.Show();
+                break;
+            default:
+                break;
+        }
+    }
+    private void HandleAssetUnlocks(AssetTab assetTab)
+    {
+        foreach (var cost in assetTab.assetInfo.ResourceCost)
+        {
+            AddResources(cost.Key, "Current", -1 * cost.Value);
+        }
+        switch (assetTab.assetInfo.Name)
+        {
+            case "Mining Laser":
+                break;
+            case "Mining Ship":
                 break;
             default:
                 break;

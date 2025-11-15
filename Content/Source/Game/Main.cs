@@ -56,8 +56,11 @@ public partial class Main : Node2D
 
         gameManager.AddResource += gameCore.AddResource;
         gameManager.UpdateResource += gameCore.UpdateResourceTab;
+
         menuManager.GameStarted += LaunchGame;
-        menuManager.gameMenu.UnlockLogic += gameManager.HandleUnlockLogic;
+
+        GameMenu gameMenu = menuManager.gameMenu;
+        gameMenu.UnlockedNewTab += gameManager.HandleUnlockLogic;
     }
 
     private void GameManager_AddResource(string resource, string param, double amount)
@@ -100,6 +103,7 @@ public partial class Main : Node2D
             GD.PrintErr("Main | GameMenu not found in MenuManager.");
             return;
         }
+
         gameMenu.SetResourceBar(DataUtil.Instance.GetDefaultResources());
         gameMenu.SetAssetBar(DataUtil.Instance.GetDefaultAssets());
         gameMenu.SetResearchesBar(DataUtil.Instance.GetDefaultResearch());

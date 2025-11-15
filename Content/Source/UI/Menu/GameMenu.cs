@@ -2,11 +2,15 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Linq;
+using System.Reflection;
 
 public partial class GameMenu : Control
 {
     [Signal]
-    public delegate void UnlockLogicEventHandler(Node sender);
+    public delegate void UnlockedNewTabEventHandler(Node sender);
+    [Signal]
+    public delegate void TabUpgradedEventHandler(Node sender);
+
     [Export]
     private PackedScene resourceTabScene;
     [Export]
@@ -127,6 +131,7 @@ public partial class GameMenu : Control
             assetBar.AddChild(assetTab);
             assetTabs.Add(assetTab);
             assetTab.SetAssetInfo(gameCore.assetInfos[asset.Key]);
+            assetTab.AssetButtonClicked += HandleAssetTabClicked;
 
             if (!gameCore.gameData.assets.ContainsKey(asset.Key))
             {
@@ -140,6 +145,10 @@ public partial class GameMenu : Control
         foreach (var research in gameCore.researchInfos)
         {
             ResearchTab researchTab = researchTabScene.Instantiate<ResearchTab>();
+            researchTabs.Add(researchTab);
+            researchTab.SetResearchInfo(gameCore.researchInfos[research.Key]);
+            researchTab.ResearchButtonClicked += HandleResearchTabClicked;
+
             if (gameCore.gameData.researches.Contains<string>(research.Key))
             {
                 ownedResearchBar.AddChild(researchTab);
@@ -164,12 +173,8 @@ public partial class GameMenu : Control
                     }
                 }
             }
-            researchTabs.Add(researchTab);
-            researchTab.SetResearchInfo(gameCore.researchInfos[research.Key]);
-            researchTab.ResearchButtonClicked += HandleResearchTabClicked;
         }
     }
-
     private void PopulateUpgradeBars()
     {
         foreach (var upgrade in gameCore.upgradeInfos)
@@ -216,9 +221,8 @@ public partial class GameMenu : Control
         researchTab.RequestAccepted();
         availableResearchBar.RemoveChild(sender);
         ownedResearchBar.AddChild(sender);
-        string researchName = researchTab.researchInfo.Name;
-        gameCore.AddResearch(researchName);
-        EmitSignal(SignalName.UnlockLogic, sender);
+        gameCore.AddResearch(researchTab.researchInfo.Name);
+        EmitSignal(SignalName.UnlockedNewTab, sender);
         CheckPrerequisites();
     }
     private void HandleUpgradeTabClicked(Node sender)
@@ -232,9 +236,21 @@ public partial class GameMenu : Control
         upgradeTab.RequestAccepted();
         availableUpgradeBar.RemoveChild(sender);
         ownedUpgradeBar.AddChild(sender);
-        string upgradeName = upgradeTab.upgradeInfo.Name;
-        gameCore.AddUpgrade(upgradeName);
-        EmitSignal(SignalName.UnlockLogic, sender);
+        gameCore.AddUpgrade(upgradeTab.upgradeInfo.Name);
+        EmitSignal(SignalName.UnlockedNewTab, sender);
+        CheckPrerequisites();
+    }
+    private void HandleAssetTabClicked(Node sender)
+    {
+        AssetTab assetTab = sender as AssetTab;
+        foreach (var cost in assetTab.assetInfo.ResourceCost)
+        {
+            if (cost.Value > gameCore.GetResourceAmount(cost.Key))
+                return;
+        }
+        assetTab.RequestAccepted();
+        //gameCore.AddAsset();
+        EmitSignal(SignalName.TabUpgraded, sender);
         CheckPrerequisites();
     }
     private void CheckPrerequisites()
@@ -280,7 +296,10 @@ public partial class GameMenu : Control
                 }
             }
             if (canUnlock)
+            {
                 assetTab.Show();
+                EmitSignal(SignalName.UnlockedNewTab, assetTab);
+            }
         }
     }
 }

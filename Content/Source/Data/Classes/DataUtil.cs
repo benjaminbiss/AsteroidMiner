@@ -51,7 +51,7 @@ public partial class DataUtil : Node
             PlayTime = 0f,
             PlaySpeed = 1f,
             AsteroidPoints = [],
-            assets = new Dictionary<string, int>(),
+            assets = new Dictionary<string, Dictionary<string, double>>(),
             researches = [],
             resources = new Dictionary<string, Dictionary<string, double>> 
             {

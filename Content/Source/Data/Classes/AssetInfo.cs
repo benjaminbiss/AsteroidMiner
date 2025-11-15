@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 
 public partial class AssetInfo : GodotObject
 {
@@ -8,4 +9,6 @@ public partial class AssetInfo : GodotObject
     public double DeploymentSpeed { get; set; } // in sec
     public double HarvestAmount { get; set; }
     public string[] Prerequisites { get; set; }
+    // name : amount
+    public Dictionary<string, double> ResourceCost { get; set; }
 }

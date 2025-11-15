@@ -2,6 +2,9 @@ using Godot;
 
 public partial class AssetTab : MarginContainer
 {
+    [Signal]
+    public delegate void AssetButtonClickedEventHandler(Node sender);
+
     public AssetInfo assetInfo { get; private set; }
 
     [Export]
@@ -56,5 +59,14 @@ public partial class AssetTab : MarginContainer
         
         assetLabel.Text = assetInfo.Name;
         //assetTextureRect.Texture = assetInfo.IconPath;     
+    }
+    private void OnAssetTabButtonPressed()
+    {
+        EmitSignal(nameof(AssetButtonClicked), this);
+    }
+    public void RequestAccepted()
+    {
+        double cost = assetInfo.ResourceCost["Credits"];
+        assetInfo.ResourceCost["Credits"] = Mathf.Floor(cost * 1.2);
     }
 }
