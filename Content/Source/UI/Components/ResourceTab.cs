@@ -82,18 +82,23 @@ public partial class ResourceTab : MarginContainer
         }
     }
 
-    public void UpdateResourceAmount(string resource, double currentAmount, double maxAmount)
+    public void UpdateResourceAmount(string resource, string param, double amount)
     {
         if (resource != resourceInfo.Name)
             return;
 
-        this.currentAmount.Text = currentAmount.ToString();
-
-        if (resourceInfo.Name == "Credits")
-            return;
-
-        this.maxAmount.Text = maxAmount.ToString();
-        progressBar.Value = currentAmount;
-        progressBar.MaxValue = maxAmount;
+        switch (param)
+        {
+            case "Current":
+                currentAmount.Text = amount.ToString("N0");
+                progressBar.Value = amount;
+                break;
+            case "Max":
+                maxAmount.Text = amount.ToString("N0");
+                progressBar.MaxValue = amount;
+                break;
+            case "Rate":
+                break;
+        }
     }
 }

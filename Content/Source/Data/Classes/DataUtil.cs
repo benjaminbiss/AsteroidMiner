@@ -57,8 +57,7 @@ public partial class DataUtil : Node
             {
                 { "Credits", new Dictionary<string, double>
                     {
-                        { "Current", 100d },
-                        { "Max", 100d }
+                        { "Current", 100000000000000d }
                     }
                 }
             },

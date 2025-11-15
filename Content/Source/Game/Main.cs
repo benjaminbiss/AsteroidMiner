@@ -54,14 +54,20 @@ public partial class Main : Node2D
             gameCore.ResourcesUpdated += tab.UpdateResourceAmount;
         }
 
-        gameManager.UpdateResource += UpdateResourceInGameData;
+        gameManager.AddResource += gameCore.AddResource;
+        gameManager.UpdateResource += gameCore.UpdateResourceTab;
         menuManager.GameStarted += LaunchGame;
         menuManager.gameMenu.UnlockLogic += gameManager.HandleUnlockLogic;
     }
-    private void UpdateResourceInGameData(string resourceName, double current, double max)
+
+    private void GameManager_AddResource(string resource, string param, double amount)
     {
-        gameCore.AddResource(resourceName, "Current", current);
-        gameCore.AddResource(resourceName, "Max", max);
+        throw new System.NotImplementedException();
+    }
+
+    private void UpdateResourceInGameData(string resourceName, string param, double amount)
+    {
+        gameCore.AddResource(resourceName, param, amount);
     }    
     private void LaunchGame()
     {

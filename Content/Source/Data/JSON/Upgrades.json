@@ -5,7 +5,7 @@
 	"IconPath": "",
 	"Prerequisites": null,
 	"ResourceCost": {
-	  "Credits": 100
+	  "Credits": 100000000000000
 	},
 	"UpgradeEffects": {
 	  "Power": {

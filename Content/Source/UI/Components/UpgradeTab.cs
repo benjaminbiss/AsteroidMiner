@@ -84,7 +84,7 @@ public partial class UpgradeTab : MarginContainer
         string costString = "";
         foreach (var item in cost)
         {
-            costString += $"{item.Key}: {item.Value} \n";
+            costString += $"{item.Key}: {item.Value.ToString("N0")} \n";
         }
         return costString.Trim();
     }

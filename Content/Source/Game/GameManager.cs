@@ -6,7 +6,9 @@ using System.Xml.Linq;
 public partial class GameManager : Node2D
 {
     [Signal]
-    public delegate void UpdateResourceEventHandler(string resource, double current, double max);
+    public delegate void UpdateResourceEventHandler(string resource, string param);
+    [Signal]
+    public delegate void AddResourceEventHandler(string resource, string param, double amount);
 
     [Export]
     private NodePath Camera2D;
@@ -56,7 +58,6 @@ public partial class GameManager : Node2D
 
         return true;
     }
-
     public void StartGame()
     {        
         SetupAsteroid();
@@ -85,7 +86,10 @@ public partial class GameManager : Node2D
     {
         foreach (string key in gameCore.gameData.resources.Keys)
         {
-            EmitSignal(nameof(UpdateResource), key, 0, 0);
+            foreach (var resourceValues in gameCore.gameData.resources[key])
+            {
+                EmitSignal(nameof(UpdateResource), key, resourceValues.Key);
+            }
         }
     }
 
@@ -94,11 +98,11 @@ public partial class GameManager : Node2D
         Main main = GetParent<Main>();
         asteroid.NewAstroidCreated += main.UpdateAsteroidPoints;
 
-        miningShip.ShipCollectedCredits += UpdateCredits;
+        miningShip.ShipCollectedCredits += AddResources;
     }
-    private void UpdateCredits(double credits, double max)
+    private void AddResources(string resource, string param, double amount)
     {
-        EmitSignal(nameof(UpdateResource), "Credits", credits, max);
+        EmitSignal(nameof(AddResource), resource, param, amount);
     }
     private void GeneratePower(double delta)
     {
@@ -157,7 +161,7 @@ public partial class GameManager : Node2D
     {
         foreach(var cost in researchTab.researchInfo.ResourceCost)
         {
-            UpdateCredits(-1 * cost.Value, 0);
+            AddResources(cost.Key, "Current", -1 * cost.Value);
         }
         switch (researchTab.researchInfo.Name)
         {
@@ -172,7 +176,7 @@ public partial class GameManager : Node2D
     {
         foreach (var cost in upgradeTab.upgradeInfo.ResourceCost)
         {
-            UpdateCredits(-1 * cost.Value, 0);
+            AddResources(cost.Key, "Current", -1 * cost.Value);
         }
         switch (upgradeTab.upgradeInfo.Name)
         {
