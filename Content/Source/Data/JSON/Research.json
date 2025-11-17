@@ -1,13 +1,22 @@
 {
-  "Hangar": {
-	"Name": "Hangar",
-	"Description": "A basic hangar to house, unload, and deploy your mining ships.",
-	"IconPath": "",
-	"Prerequisites": [ "Purchase Mining Vessel" ],
-	"ResourceCost": {
-	  "Power": 50,
-	  "Credits": 200
-	},
-	"UpgradeEffects": null
-  }
+	"Hangar": {
+		"Name": "Hangar",
+		"Description": "A basic hangar to house, unload, and deploy your mining ships.",
+		"IconPath": "",
+		"Prerequisites": [ "Purchase Mining Vessel" ],
+		"ResourceCost": {
+			"Power": 50,
+			"Credits": 200
+		},
+		"AssetModifiers": {
+			"Mining Ships": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
+	}
 }

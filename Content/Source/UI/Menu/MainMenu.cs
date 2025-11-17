@@ -3,7 +3,7 @@ using Godot;
 public partial class MainMenu : Control
 {
     [Signal]
-    public delegate void StartGameEventHandler();
+    public delegate void OnStartGameButtonEventHandler();
 
     [Export]
     private NodePath playButtonPath;
@@ -31,6 +31,6 @@ public partial class MainMenu : Control
 
     private void OnStartButtonPressed()
     {
-        EmitSignal(nameof(StartGame));
+        EmitSignal(nameof(OnStartGameButton));
     }
 }

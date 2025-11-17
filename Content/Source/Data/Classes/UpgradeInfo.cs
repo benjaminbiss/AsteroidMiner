@@ -14,5 +14,5 @@ public partial class UpgradeInfo : GodotObject
     public Dictionary<string, double> ResourceCost { get; set; }
 
     // name : paramater : isMultiplicative : effectValue
-    public Dictionary<string, Dictionary<string, Dictionary<bool, double>>> UpgradeEffects { get; set; }
+    public Dictionary<string, Dictionary<string, Dictionary<bool, double>>> AssetModifiers { get; set; }
 }

@@ -3,7 +3,7 @@ using Godot;
 public partial class MiningShip : Node2D
 {
     [Signal]
-    public delegate void ShipCollectedCreditsEventHandler(string resource, string param, double amount);
+    public delegate void ShipCollectedCreditsEventHandler(string resource, double amount);
 
     [Export]
     private NodePath shipSpritePath;

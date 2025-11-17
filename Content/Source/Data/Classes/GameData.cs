@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using Godot.Collections;
 
 public class GameData
 {
@@ -10,11 +10,11 @@ public class GameData
     // Testing info
     public float PlaySpeed { get; set; }
     // Save Values
-    public int[] AsteroidPoints { get; set; }
-    public Dictionary<string, Dictionary<string, double>> assets { get; set; }
-    public Dictionary<string, Dictionary<string, Dictionary<bool, double>>> assetModifiers { get; set; }
-    public string[] researches { get; set; }
-    public Dictionary<string, Dictionary<string, double>> resources { get; set; }
-    public Dictionary<string, Dictionary<string, Dictionary<bool, double>>> resourceModifiers { get; set; }
-    public string[] upgrades { get; set; }
+    public Array<int> AsteroidPoints { get; set; }
+    public Dictionary<string, AssetInfo> Assets { get; set; }
+    public Dictionary<string, ResearchInfo>  Researches { get; set; }
+    public Dictionary<string, ResourceInfo> Resources { get; set; }
+    public Dictionary<string, UpgradeInfo> Upgrades { get; set; }
+    public Dictionary<string, int> Defaults { get; set; }
+    public Array<string> Preresquisites { get; set; }
 }

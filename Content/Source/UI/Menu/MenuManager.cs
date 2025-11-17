@@ -3,8 +3,10 @@ using Godot;
 public partial class MenuManager : Control
 {
     [Signal]
-    public delegate void GameStartedEventHandler();
-
+    public delegate void OnStartGameEventHandler();
+    [Signal]
+    public delegate void OnTabClickedEventHandler(Node sender);
+    
     public MainMenu mainMenu;
     public GameMenu gameMenu;
 
@@ -20,22 +22,9 @@ public partial class MenuManager : Control
 
         gameMenu.Visible = false;
 
-        mainMenu.StartGame += StartGame;
+        SetupBindings();
         SwitchMenu(mainMenu);
     }
-
-    private void SwitchMenu(Control newMenu)
-    {
-        if (newMenu == null)
-            return;
-
-        if (activeMenu != null)        
-            activeMenu.Visible = false;
-        
-        activeMenu = newMenu;
-        activeMenu.Visible = true;
-    }
-
     private bool Initialize()
     {
         mainMenu = GetNodeOrNull<MainMenu>("MainMenu");
@@ -48,10 +37,30 @@ public partial class MenuManager : Control
 
         return true;
     }
+    private void SetupBindings()
+    {
+        mainMenu.OnStartGameButton += StartGame;
+        mainMenu.OnStartGameButton += gameMenu.SetupTabManagers;
+    }
+    private void RelayTabClicked(Node sender)
+    {
+        EmitSignal(nameof(OnTabClicked), sender);
+    }
+    private void SwitchMenu(Control newMenu)
+    {
+        if (newMenu == null)
+            return;
 
+        if (activeMenu != null)        
+            activeMenu.Visible = false;
+        
+        activeMenu = newMenu;
+        activeMenu.Visible = true;
+    }
     private void StartGame()
     {
         SwitchMenu(gameMenu);
-        EmitSignal(nameof(GameStarted));
+
+        EmitSignal(nameof(OnStartGame));
     }
 }

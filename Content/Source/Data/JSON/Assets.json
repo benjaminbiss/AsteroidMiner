@@ -8,9 +8,17 @@
 		"Prerequisites": [ "Purchase Mining Vessel" ],
 		"ResourceCost": {
 			"Credits": 0
+		},
+		"Modifiers": {
+			"DeploymentSpeed": {
+				"true": 1
+			},
+			"HarvestAmount": {
+				"true": 1
+			}
 		}
 	},
-	"Mining Ship": {
+	"Mining Ships": {
 		"Name": "Mining Ship",
 		"Description": "A small mining ship equipped with basic mining lasers that decends to the surface to extract the nearest resources before returning to orbit.",
 		"IconPath": "",
@@ -19,6 +27,14 @@
 		"Prerequisites": [ "Hangar" ],
 		"ResourceCost": {
 			"Credits": 0
+		},
+		"Modifiers": {
+			"DeploymentSpeed": {
+				"true": 1
+			},
+			"HarvestAmount": {
+				"true": 1
+			}
 		}
 	}
 }

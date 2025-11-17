@@ -2,6 +2,8 @@ using Godot;
 
 public partial class Main : Node2D
 {
+    private GameCore gameCore;
+
     [Export]
     private NodePath menuManagerPath;
     private MenuManager menuManager;
@@ -12,18 +14,8 @@ public partial class Main : Node2D
     private bool bIsGameLaunched = false;
     private float currentPlayTime = 0f;
     
-    public GameCore gameCore;
 
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-
-        if (!bIsGameLaunched)
-            return;
-
-        AutoSave(delta);
-    }
-
+    // Initialization
     public override void _Ready()
     {
         if (!Initialize())
@@ -32,7 +24,7 @@ public partial class Main : Node2D
             return;
         }
 
-        SetupGameMenu();
+        //SetupGameMenu();
         SetupBindings();
     }
     private bool Initialize()
@@ -49,29 +41,20 @@ public partial class Main : Node2D
     }
     private void SetupBindings()
     {
-        foreach (ResourceTab tab in menuManager.gameMenu.resourceTabs)
-        {
-            gameCore.ResourcesUpdated += tab.UpdateResourceAmount;
-        }
-
-        gameManager.AddResource += gameCore.AddResource;
-        gameManager.UpdateResource += gameCore.UpdateResourceTab;
-
-        menuManager.GameStarted += LaunchGame;
-
-        GameMenu gameMenu = menuManager.gameMenu;
-        gameMenu.UnlockedNewTab += gameManager.HandleUnlockLogic;
+        menuManager.OnStartGame += LaunchGame;
+        menuManager.OnTabClicked += gameManager.HandleTabClicked;
     }
 
-    private void GameManager_AddResource(string resource, string param, double amount)
+    // Runtime
+    public override void _Process(double delta)
     {
-        throw new System.NotImplementedException();
-    }
+        base._Process(delta);
 
-    private void UpdateResourceInGameData(string resourceName, string param, double amount)
-    {
-        gameCore.AddResource(resourceName, param, amount);
-    }    
+        if (!bIsGameLaunched)
+            return;
+
+        AutoSave(delta);
+    }   
     private void LaunchGame()
     {
         bIsGameLaunched = true;
@@ -80,7 +63,7 @@ public partial class Main : Node2D
     private void AutoSave(double delta)
     {
         currentPlayTime += (float)delta;
-        if (currentPlayTime >= gameCore.defaultInfos["autoSaveInterval"])
+        if (currentPlayTime >= gameCore.gameData.Defaults["autoSaveInterval"])
         {
             gameCore.gameData.PlayTime += currentPlayTime;
             SaveGame();
@@ -90,23 +73,5 @@ public partial class Main : Node2D
     private void SaveGame()
     {
         DataUtil.Instance.SaveGame(gameCore.gameData);
-    }
-    public void UpdateAsteroidPoints(int[] points)
-    {
-        gameCore.gameData.AsteroidPoints = points;
-    }
-    private void SetupGameMenu()
-    {
-        GameMenu gameMenu = menuManager.GetNodeOrNull<GameMenu>("GameMenu");
-        if (gameMenu == null)
-        {
-            GD.PrintErr("Main | GameMenu not found in MenuManager.");
-            return;
-        }
-
-        gameMenu.SetResourceBar(DataUtil.Instance.GetDefaultResources());
-        gameMenu.SetAssetBar(DataUtil.Instance.GetDefaultAssets());
-        gameMenu.SetResearchesBar(DataUtil.Instance.GetDefaultResearch());
-        gameMenu.SetUpgradesBar(DataUtil.Instance.GetDefaultUpgrades());
     }
 }

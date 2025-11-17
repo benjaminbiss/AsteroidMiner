@@ -38,7 +38,6 @@ public partial class ResearchTab : MarginContainer
             return;
         }
 
-        UpdateUI();
         button.Pressed += OnResearchTabButtonPressed;
     }
     private bool Initialize()

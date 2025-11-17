@@ -1,16 +1,16 @@
 {
-  "Credits": {
-	"Name": "Credits",
-	"Description": "Credits are the universal currency of the future.",
-	"IconPath": "",
-	"MaxAmount": 0,
-	"GenerationAmount": 0
-  },
-  "Power": {
-	"Name": "Power",
-	"Description": "Power is used to deploy assets as well as research new technology.",
-	"IconPath": "",
-	"MaxAmount": 0,
-	"GenerationAmount": 0
-  }
+	"Credits": {
+		"Name": "Credits",
+		"Description": "Credits are the universal currency of the future.",
+		"IconPath": "",
+		"Current": 100000000000000,
+		"Prerequisites": [ ]
+	},
+	"Power": {
+		"Name": "Power",
+		"Description": "Power is expended to unlock new researches and technologies.",
+		"IconPath": "",
+		"Current": 0,
+		"Prerequisites": [ "Purchase Mining Vessel" ]
+	}
 }

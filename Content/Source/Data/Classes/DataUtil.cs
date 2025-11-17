@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 
@@ -51,40 +50,47 @@ public partial class DataUtil : Node
             PlayTime = 0f,
             PlaySpeed = 1f,
             AsteroidPoints = [],
-            assets = new Dictionary<string, Dictionary<string, double>>(),
-            researches = [],
-            resources = new Dictionary<string, Dictionary<string, double>> 
-            {
-                { "Credits", new Dictionary<string, double>
-                    {
-                        { "Current", 100000000000000d }
-                    }
-                }
-            },
-            upgrades = []
-        }; 
+            Assets = GetAssetsJSON(),
+            Researches = GetResearchJSON(),
+            Resources = GetResourcesJSON(),
+            Upgrades = GetUpgradesJSON(),
+            Defaults = GetGameDefaultsJSON(),
+            Preresquisites = []
+        };
         return defaultData;
     }
-
-    public Dictionary<string, AssetInfo> GetDefaultAssets()
+   
+    private Godot.Collections.Dictionary<string, AssetInfo> GetAssetsJSON()
     {
         if (!FileAccess.FileExists(ASSET_DATA_FILE))
             return null;
         FileAccess file = FileAccess.Open(ASSET_DATA_FILE, FileAccess.ModeFlags.Read);
         string json = file.GetAsText();
         file.Close();
-        return JsonSerializer.Deserialize<Dictionary<string, AssetInfo>>(json);
+        System.Collections.Generic.Dictionary<string, AssetInfo> data = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, AssetInfo>>(json);
+        Godot.Collections.Dictionary<string, AssetInfo> returnData = new Godot.Collections.Dictionary<string, AssetInfo>();
+        foreach (var pair in data)
+        {
+            returnData[pair.Key] = pair.Value;
+        }
+        return returnData;
     }
-    public Dictionary<string, int> GetGameDefaults()
+    private Godot.Collections.Dictionary<string, int> GetGameDefaultsJSON()
     {
         if (!FileAccess.FileExists(DEFAULTS_DATA_FILE))
             return null;
         FileAccess file = FileAccess.Open(DEFAULTS_DATA_FILE, FileAccess.ModeFlags.Read);
         string json = file.GetAsText();
         file.Close();
-        return JsonSerializer.Deserialize<Dictionary<string, int>>(json);
+        System.Collections.Generic.Dictionary<string, int> data = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, int>>(json);
+        Godot.Collections.Dictionary<string, int> returnData = new Godot.Collections.Dictionary<string, int>();
+        foreach (var pair in data)
+        {
+            returnData[pair.Key] = pair.Value;
+        }
+        return returnData;
     }
-    public Dictionary<string, ResourceInfo> GetDefaultResources()
+    private Godot.Collections.Dictionary<string, ResourceInfo> GetResourcesJSON()
     {
         if (!FileAccess.FileExists(RESOURCE_DATA_FILE))
             return null;
@@ -92,25 +98,42 @@ public partial class DataUtil : Node
         FileAccess file = FileAccess.Open(RESOURCE_DATA_FILE, FileAccess.ModeFlags.Read);
         string json = file.GetAsText();
         file.Close();
-
-        return JsonSerializer.Deserialize<Dictionary<string, ResourceInfo>>(json);
+        System.Collections.Generic.Dictionary<string, ResourceInfo> data = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, ResourceInfo>>(json);
+        Godot.Collections.Dictionary<string, ResourceInfo> returnData = new Godot.Collections.Dictionary<string, ResourceInfo>();
+        foreach (var pair in data)
+        {
+            returnData[pair.Key] = pair.Value;
+        }
+        return returnData;
     }
-    public Dictionary<string, ResearchInfo> GetDefaultResearch()
+    private Godot.Collections.Dictionary<string, ResearchInfo> GetResearchJSON()
     {
         if (!FileAccess.FileExists(RESEARCH_DATA_FILE))
             return null;
         FileAccess file = FileAccess.Open(RESEARCH_DATA_FILE, FileAccess.ModeFlags.Read);
         string json = file.GetAsText();
         file.Close();
-        return JsonSerializer.Deserialize<Dictionary<string, ResearchInfo>>(json);
+        System.Collections.Generic.Dictionary<string, ResearchInfo> data = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, ResearchInfo>>(json);
+        Godot.Collections.Dictionary<string, ResearchInfo> returnData = new Godot.Collections.Dictionary<string, ResearchInfo>();
+        foreach (var pair in data)
+        {
+            returnData[pair.Key] = pair.Value;
+        }
+        return returnData;
     }
-    public Dictionary<string, UpgradeInfo> GetDefaultUpgrades()
+    private Godot.Collections.Dictionary<string, UpgradeInfo> GetUpgradesJSON()
     {
         if (!FileAccess.FileExists(UPGRADE_DATA_FILE))
             return null;
         FileAccess file = FileAccess.Open(UPGRADE_DATA_FILE, FileAccess.ModeFlags.Read);
         string json = file.GetAsText();
         file.Close();
-        return JsonSerializer.Deserialize<Dictionary<string, UpgradeInfo>>(json);
+        System.Collections.Generic.Dictionary<string, UpgradeInfo> data = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, UpgradeInfo>>(json);
+        Godot.Collections.Dictionary<string, UpgradeInfo> returnData = new Godot.Collections.Dictionary<string, UpgradeInfo>();
+        foreach (var pair in data)
+        {
+            returnData[pair.Key] = pair.Value;
+        }
+        return returnData;
     }
 }
