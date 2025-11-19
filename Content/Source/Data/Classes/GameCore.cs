@@ -34,29 +34,36 @@ public partial class GameCore : Node
 
     public void AddAsset(string asset)
     {
-        AssetInfo assetInfo = gameData.Assets[asset];
-        // Apply asset effects here
+        int level = gameData.Assets[asset].Level += 1;
+        if (level % 10 == 0)
+            UpgradeAssetSpeed(asset);
+        else if (level > 0)
+            UpgradeAssetHarvest(asset);
         EmitSignal(SignalName.AssetUpdated, asset);
+    }
+    private void UpgradeAssetSpeed(string asset)
+    {
+        gameData.Assets[asset].DeploymentSpeed *= 1.2;
+    }
+    private void UpgradeAssetHarvest(string asset)
+    {
+        gameData.Assets[asset].HarvestAmount *= 1.2;
     }
     public void AddResearch(string research)
     {
-        gameData.Preresquisites.Add(research);
-        ResearchInfo researchInfo = gameData.Researches[research];
-        // Apply research effects here
+        gameData.Prerequisites.Add(research);
         EmitSignal(SignalName.PrerequisitesUpdated);
     }
     public void AddResource(string resourceName, double amount)
     {
         gameData.Resources[resourceName].Current += amount;
+        EmitSignal(SignalName.ResourcesUpdated, resourceName);
     }
     public void AddUpgrade(string upgrade)
     {
-        gameData.Preresquisites.Add(upgrade);
-        UpgradeInfo upgradeInfo = gameData.Upgrades[upgrade];
-        // Apply upgrade effects here
+        gameData.Prerequisites.Add(upgrade);
         EmitSignal(SignalName.PrerequisitesUpdated);
     }
-
     public double GetResourceAmount(string key)
     {
         if (gameData.Resources.ContainsKey(key))
@@ -64,6 +71,13 @@ public partial class GameCore : Node
             return gameData.Resources[key].Current;
         }
         return 0d;
+    }
+    public void ChargeResourceCost(Dictionary<string, double> cost)
+    {
+        foreach (var resource in cost)
+        {
+            AddResource(resource.Key, -resource.Value);
+        }
     }
     public void UpdateAsteroid(Array<int> points)
     {

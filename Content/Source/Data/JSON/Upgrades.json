@@ -1,7 +1,7 @@
 {
   "Purchase Mining Vessel": {
 		"Name": "Purchase Mining Vessel",
-		"Description": "Acquire a mining vessel to start you galactic mining endevors.",
+		"Description": "Acquire a mining vessel to start you galactic mining endevors. Comes with a reactor and research facility.",
 		"IconPath": "",
 		"Prerequisites": null,
 		"ResourceCost": {

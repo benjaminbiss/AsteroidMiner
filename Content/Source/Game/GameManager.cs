@@ -8,7 +8,7 @@ public partial class GameManager : Node2D
     [Signal]
     public delegate void UpdateAssetEventHandler(string asset);
 
-    private GameCore gameCore;
+    private GameCore gameCore;    
 
     [Export]
     private NodePath Camera2D;
@@ -66,6 +66,22 @@ public partial class GameManager : Node2D
     }
 
     // Runtime
+    public override void _Process(double delta)
+    {
+        CalculateAllPowerGenerators(delta);
+    }
+    private void CalculateAllPowerGenerators(double delta)
+    {
+        foreach (var asset in gameCore.gameData.Assets)
+        {
+            AssetInfo assetInfo = asset.Value;
+            if (assetInfo.Level <= 0 || assetInfo.HarvestedResource == "Credits")
+                continue;            
+
+            double amount = delta * ((assetInfo.DeploymentSpeed * assetInfo.HarvestAmount) / 60d);
+            AddResources(assetInfo.HarvestedResource, amount);
+        }
+    }
     public void StartGame()
     {        
         SetupAsteroid();
@@ -106,9 +122,8 @@ public partial class GameManager : Node2D
         Dictionary<string, int> defaults = gameCore.gameData.Defaults;
         Vector2 gameSpace = new Vector2(defaults["planetSize"] + defaults["shipDistanceFromSurface"] + 100, defaults["planetSize"] + defaults["shipDistanceFromSurface"] + 100);
         camera2D.Zoom = Vector2.One / (gameSpace / 300);
-        GD.Print("Camera Zoom: " + camera2D.Zoom);
     }
-    public void HandleTabClicked(Node sender)
+    public void HandleTabClickedEvent(Node sender)
     {
         ResearchTab researchTab = sender as ResearchTab;
         if (researchTab != null)
@@ -131,11 +146,10 @@ public partial class GameManager : Node2D
     }
     private void HandleResearchUnlocks(ResearchTab researchTab)
     {
-        foreach(var cost in researchTab.researchInfo.ResourceCost)
-        {
-            RemoveResources(cost.Key, cost.Value);
-        }
-        switch (researchTab.researchInfo.Name)
+        string resourceName = researchTab.GetResearchName();
+        gameCore.ChargeResourceCost(gameCore.gameData.Researches[resourceName].ResourceCost);
+
+        switch (resourceName)
         {
             case "Hangar":
                 break;
@@ -145,11 +159,10 @@ public partial class GameManager : Node2D
     }
     private void HandleUpgradeUnlocks(UpgradeTab upgradeTab)
     {
-        foreach (var cost in upgradeTab.upgradeInfo.ResourceCost)
-        {
-            RemoveResources(cost.Key, cost.Value);
-        }
-        switch (upgradeTab.upgradeInfo.Name)
+        string upgradeName = upgradeTab.GetUpgradeName();
+        gameCore.ChargeResourceCost(gameCore.gameData.Upgrades[upgradeName].ResourceCost);
+
+        switch (upgradeName)
         {
             case "Purchase Mining Vessel":
                 shipRoot.Show();
@@ -160,11 +173,10 @@ public partial class GameManager : Node2D
     }
     private void HandleAssetUnlocks(AssetTab assetTab)
     {
-        foreach (var cost in assetTab.assetInfo.ResourceCost)
-        {
-            RemoveResources(cost.Key, cost.Value);
-        }
-        switch (assetTab.assetInfo.Name)
+        string assetName = assetTab.GetAssetName();
+        gameCore.ChargeResourceCost(gameCore.gameData.Assets[assetName].ResourceCost);
+
+        switch (assetName)
         {
             case "Mining Laser":
                 break;

@@ -3,8 +3,6 @@ using Godot.Collections;
 
 public partial class ResourceTab : MarginContainer
 {
-    private ResourceInfo resourceInfo;    
-    
     [Export]
     private NodePath resourceLabelPath;
     private Label resourceLabel;
@@ -15,8 +13,6 @@ public partial class ResourceTab : MarginContainer
     private NodePath currentAmountPath;
     private Label currentAmount;
 
-
-
     public override void _Ready()
     {
         if (!Initialize())
@@ -24,8 +20,6 @@ public partial class ResourceTab : MarginContainer
             GD.PrintErr("ResourceTab | Initialization failed.");
             return;
         }
-
-        GameCore.Instance.ResourcesUpdated += UpdateResourceAmount;
     }
     private bool Initialize()
     {
@@ -42,27 +36,16 @@ public partial class ResourceTab : MarginContainer
         return true;
     }
 
-    public void SetResourceInfo(ResourceInfo info)
+    public void SetupUI(ResourceInfo info)
     {
-        resourceInfo = info;
-        SetupUI();
+        resourceLabel.Text = info.Name;
+        if (info.IconPath != "")
+            resourceTextureRect.Texture = GD.Load<Texture2D>(info.IconPath);
+        currentAmount.Text = info.Current.ToString("N2");
     }
 
-    private void SetupUI()
+    public void UpdateResourceAmount(double amount)
     {
-        if (resourceInfo == null)
-            return;
-        
-        resourceLabel.Text = resourceInfo.Name;
-        if (resourceInfo.IconPath != "")
-            resourceTextureRect.Texture = GD.Load<Texture2D>(resourceInfo.IconPath);
-    }
-
-    public void UpdateResourceAmount(string resource)
-    {
-        if (resource != resourceInfo.Name)
-            return;
-
-        currentAmount.Text = resourceInfo.Current.ToString("N0");
+        currentAmount.Text = amount.ToString("N2");
     }
 }

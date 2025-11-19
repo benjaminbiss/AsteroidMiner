@@ -5,8 +5,6 @@ public partial class ResearchTab : MarginContainer
 {
     [Signal]
     public delegate void ResearchButtonClickedEventHandler(Node sender);
-    
-    public ResearchInfo researchInfo { get; private set; }
 
     [Export]
     private NodePath buttonPath;
@@ -66,20 +64,17 @@ public partial class ResearchTab : MarginContainer
 
         return true;
     }
-
-    public void SetResearchInfo(ResearchInfo info)
+    public void SetupUI(ResearchInfo info)
     {
-        researchInfo = info;
-        UpdateUI();
+        researchLabel.Text = info.Name;
+        if (info.IconPath != "")
+            researchTextureRect.Texture = GD.Load<Texture2D>(info.IconPath);
+        costLabel.Text = ParseCost(info.ResourceCost);
+        descriptionLabel.Text = info.Description;
     }
-    private void UpdateUI()
+    public void UpdateResearch(double amount)
     {
-        if (researchInfo == null)
-            return;
-        
-        researchLabel.Text = researchInfo.Name;
-        costLabel.Text = ParseCost(researchInfo.ResourceCost);
-        //ResearchTextureRect.Texture = ResearchInfo.IconPath;     
+        //currentAmount.Text = amount.ToString("N0");
     }
     private void OnResearchTabButtonPressed()
     {
@@ -99,5 +94,9 @@ public partial class ResearchTab : MarginContainer
             costString += $"{item.Key}: {item.Value.ToString("N0")} \n";
         }
         return costString.Trim();
+    }
+    public string GetResearchName()
+    {
+        return researchLabel.Text;
     }
 }

@@ -23,6 +23,9 @@ public partial class ResourceManager : Node
             GD.PrintErr("ResourceManager | Initialization failed.");
             return;
         }
+
+        GameCore.Instance.ResourcesUpdated += UpdateResourceAmount;
+        GameCore.Instance.PrerequisitesUpdated += CheckPrerequisites;
     }
     private bool Initialize()
     {
@@ -54,28 +57,36 @@ public partial class ResourceManager : Node
             ResourceTab resourceTab = resourceTabScene.Instantiate<ResourceTab>();
             resourceBar.AddChild(resourceTab);
             resourceTabs.Add(resource.Key, resourceTab);
-            resourceTab.SetResourceInfo(resource.Value);
+            resourceTab.SetupUI(resource.Value);
 
             if (!gameMenu.HasAllPrerequisites(resource.Value.Prerequisites))
             {
                 resourceTab.Hide();
             }
         }
-
-        //foreach (var resource in gameCore.resourceInfos)
-        //{
-        //    ResourceTab resourceTab = resourceTabScene.Instantiate<ResourceTab>();
-        //    resourceBar.AddChild(resourceTab);
-        //    resourceTabs.Add(resourceTab);
-        //    resourceTab.SetResourceInfo(gameCore.resourceInfos[resource.Key]);
-
-        //    if (!gameCore.gameData.resources.ContainsKey(resource.Key))
-        //    {
-        //        resourceTab.Hide();
-        //    }
-        //}
     }
-    private void UpdateResourceTab(string resource)
+    private void UpdateResourceAmount(string resource)
     {
+        foreach (var tab in resourceTabs)
+        {
+            if (tab.Key == resource)
+            {                
+                ResourceTab resTab = tab.Value;
+                resTab.UpdateResourceAmount(gameCore.gameData.Resources[resource].Current);
+                break;
+            }
+        }
+    }    
+    private void CheckPrerequisites()
+    {
+        foreach (var tab in resourceTabs)
+        { 
+            ResourceTab resTab = tab.Value;
+            if (resTab.Visible == false)
+            {
+                if (gameMenu.HasAllPrerequisites(gameCore.gameData.Resources[tab.Key].Prerequisites))                    
+                    resTab.Show();
+            }
+        }
     }
 }

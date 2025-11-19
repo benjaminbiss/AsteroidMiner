@@ -24,7 +24,6 @@ public partial class Main : Node2D
             return;
         }
 
-        //SetupGameMenu();
         SetupBindings();
     }
     private bool Initialize()
@@ -42,7 +41,7 @@ public partial class Main : Node2D
     private void SetupBindings()
     {
         menuManager.OnStartGame += LaunchGame;
-        menuManager.OnTabClicked += gameManager.HandleTabClicked;
+        menuManager.gameMenu.OnTabClicked += gameManager.HandleTabClickedEvent;
     }
 
     // Runtime

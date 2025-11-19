@@ -74,14 +74,15 @@ public partial class ResearchManager : Node
                 }
             }
             researchTabs.Add(research.Key, researchTab);
-            researchTab.SetResearchInfo(research.Value);
+            researchTab.SetupUI(research.Value);
             researchTab.ResearchButtonClicked += HandleResearchTabClicked;
         }
     }
     private void HandleResearchTabClicked(Node sender)
     {
         ResearchTab researchTab = sender as ResearchTab;
-        foreach (var cost in researchTab.researchInfo.ResourceCost)
+        string name = researchTab.GetResearchName();
+        foreach (var cost in gameCore.gameData.Researches[name].ResourceCost)
         {
             if (cost.Value > gameCore.GetResourceAmount(cost.Key))
                 return;
@@ -89,19 +90,20 @@ public partial class ResearchManager : Node
         researchTab.RequestAccepted();
         availableResearchBar.RemoveChild(sender);
         ownedResearchBar.AddChild(sender);
-        gameCore.AddResearch(researchTab.researchInfo.Name);
         EmitSignal(SignalName.UnlockedNewResearch, sender);
         CheckPrerequisites();
     }
     private void CheckPrerequisites()
     {
-        foreach (ResearchTab researchTab in researchTabs.Values)
+        foreach (var tab in researchTabs)
         {
-            if (gameMenu.HasAllPrerequisites(researchTab.researchInfo.Prerequisites))
+            ResearchTab researchTab = tab.Value;
+            if (researchTab.Visible == false)
             {
-                researchTab.Show();
+                if (gameMenu.HasAllPrerequisites(gameCore.gameData.Researches[tab.Key].Prerequisites))
+                    researchTab.Show();
             }
-        }
+        }      
     }
     private void UpdateResearchTab(string research)
     {

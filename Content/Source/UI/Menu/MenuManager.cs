@@ -4,8 +4,6 @@ public partial class MenuManager : Control
 {
     [Signal]
     public delegate void OnStartGameEventHandler();
-    [Signal]
-    public delegate void OnTabClickedEventHandler(Node sender);
     
     public MainMenu mainMenu;
     public GameMenu gameMenu;
@@ -42,10 +40,6 @@ public partial class MenuManager : Control
         mainMenu.OnStartGameButton += StartGame;
         mainMenu.OnStartGameButton += gameMenu.SetupTabManagers;
     }
-    private void RelayTabClicked(Node sender)
-    {
-        EmitSignal(nameof(OnTabClicked), sender);
-    }
     private void SwitchMenu(Control newMenu)
     {
         if (newMenu == null)
@@ -60,7 +54,6 @@ public partial class MenuManager : Control
     private void StartGame()
     {
         SwitchMenu(gameMenu);
-
         EmitSignal(nameof(OnStartGame));
     }
 }

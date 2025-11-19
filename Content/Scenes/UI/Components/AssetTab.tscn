@@ -30,7 +30,10 @@ theme_override_constants/margin_right = 5
 script = ExtResource("1_l4duu")
 assetLabelPath = NodePath("VBoxContainer/HBoxContainer/Name")
 assetTexturePath = NodePath("VBoxContainer/HBoxContainer/Icon")
+levelLabelPath = NodePath("VBoxContainer/HBoxContainer/Level")
+resourceLabelPath = NodePath("VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Resource")
 rateLabelPath = NodePath("VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Rate")
+costLabelPath = NodePath("VBoxContainer/Cost")
 progressBarPath = NodePath("VBoxContainer/ProgressBar")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -50,6 +53,20 @@ size_flags_horizontal = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Asset"
+
+[node name="_" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = " : "
+
+[node name="Level" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Level"
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
 layout_mode = 2
@@ -76,6 +93,20 @@ theme_override_constants/margin_bottom = 3
 layout_mode = 2
 size_flags_vertical = 4
 
+[node name="Resource" type="Label" parent="VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Resource"
+
+[node name="_" type="Label" parent="VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = " - "
+
 [node name="Rate" type="Label" parent="VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -90,6 +121,14 @@ theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "/s"
+
+[node name="Cost" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 20
+text = "Cost"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2

@@ -16,5 +16,5 @@ public class GameData
     public Dictionary<string, ResourceInfo> Resources { get; set; }
     public Dictionary<string, UpgradeInfo> Upgrades { get; set; }
     public Dictionary<string, int> Defaults { get; set; }
-    public Array<string> Preresquisites { get; set; }
+    public Array<string> Prerequisites { get; set; }
 }

@@ -1,13 +1,36 @@
 {
+	"Reactor": {
+		"Name": "Reactor",
+		"Description": "A basic reactor used to generate power for research advancement.",
+		"IconPath": "",
+		"Level": 0,
+		"DeploymentSpeed": 60,
+		"HarvestedResource":  "Power",
+		"HarvestAmount": 1,
+		"Prerequisites": [ "Purchase Mining Vessel" ],
+		"ResourceCost": {
+			"Credits": 1
+		},
+		"Modifiers": {
+			"DeploymentSpeed": {
+				"true": 1
+			},
+			"HarvestAmount": {
+				"true": 1
+			}
+		}
+	},
 	"Mining Laser": {
 		"Name": "Mining Laser",
 		"Description": "A basic mining laser capable of extracting resources from asteroids.",
 		"IconPath": "",
-		"DeploymentSpeed": 3,
+		"Level": 0,
+		"DeploymentSpeed": 20,
+		"HarvestedResource": "Credits",
 		"HarvestAmount": 1,
-		"Prerequisites": [ "Purchase Mining Vessel" ],
+		"Prerequisites": [ "Basic Mining Laser" ],
 		"ResourceCost": {
-			"Credits": 0
+			"Credits": 10
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
@@ -22,11 +45,13 @@
 		"Name": "Mining Ship",
 		"Description": "A small mining ship equipped with basic mining lasers that decends to the surface to extract the nearest resources before returning to orbit.",
 		"IconPath": "",
-		"DeploymentSpeed": 10,
+		"Level": 0,
+		"DeploymentSpeed": 6,
+		"HarvestedResource": "Credits",
 		"HarvestAmount": 10,
 		"Prerequisites": [ "Hangar" ],
 		"ResourceCost": {
-			"Credits": 0
+			"Credits": 100
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {

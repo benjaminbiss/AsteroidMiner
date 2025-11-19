@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Xml.Linq;
 
 public partial class UpgradeManager : Node
 {
@@ -74,14 +75,15 @@ public partial class UpgradeManager : Node
                 }
             }
             upgradeTabs.Add(upgrade.Key, upgradeTab);
-            upgradeTab.SetUpgradeInfo(upgrade.Value);
-            upgradeTab.UpgradeButtonClicked += HandleUpgradeTabClicked;
+            upgradeTab.SetupUI(upgrade.Value);
+            upgradeTab.OnUpgradeButtonClicked += HandleUpgradeTabClicked;
         }
     }
     private void HandleUpgradeTabClicked(Node sender)
     {
         UpgradeTab upgradeTab = sender as UpgradeTab;
-        foreach (var cost in upgradeTab.upgradeInfo.ResourceCost)
+        string name = upgradeTab.GetUpgradeName();
+        foreach (var cost in gameCore.gameData.Upgrades[name].ResourceCost)
         {
             if (cost.Value > gameCore.GetResourceAmount(cost.Key))
                 return;
@@ -89,17 +91,19 @@ public partial class UpgradeManager : Node
         upgradeTab.RequestAccepted();
         availableUpgradeBar.RemoveChild(sender);
         ownedUpgradeBar.AddChild(sender);
-        gameCore.AddUpgrade(upgradeTab.upgradeInfo.Name);
+        gameCore.AddUpgrade(name);
         EmitSignal(SignalName.UnlockedNewUpgrade, sender);
         CheckPrerequisites();
     }
     private void CheckPrerequisites()
     {
-        foreach (UpgradeTab upgradeTab in upgradeTabs.Values)
+        foreach (var tab in upgradeTabs)
         {
-            if (gameMenu.HasAllPrerequisites(upgradeTab.upgradeInfo.Prerequisites))
+            UpgradeTab upgradeTab = tab.Value;
+            if (upgradeTab.Visible == false)
             {
-                upgradeTab.Show();
+                if (gameMenu.HasAllPrerequisites(gameCore.gameData.Upgrades[tab.Key].Prerequisites))
+                    upgradeTab.Show();
             }
         }
     }

@@ -1,11 +1,10 @@
 using Godot;
+using System;
 
 public partial class AssetTab : MarginContainer
 {
     [Signal]
     public delegate void AssetButtonClickedEventHandler(Node sender);
-
-    public AssetInfo assetInfo { get; private set; }
 
     [Export]
     private NodePath assetLabelPath;
@@ -14,8 +13,17 @@ public partial class AssetTab : MarginContainer
     private NodePath assetTexturePath;
     private TextureRect assetTextureRect;
     [Export]
+    private NodePath levelLabelPath;
+    private Label levelLabel;
+    [Export]
+    private NodePath resourceLabelPath;
+    private Label resourceLabel;
+    [Export]
     private NodePath rateLabelPath;
     private Label rateLabel;
+    [Export]
+    private NodePath costLabelPath;
+    private Label costLabel;
     [Export]
     private NodePath progressBarPath;
     private ProgressBar progressBar;
@@ -27,8 +35,6 @@ public partial class AssetTab : MarginContainer
             GD.PrintErr("AssetTab | Initialization failed.");
             return;
         }
-
-        UpdateUI();
     }
     private bool Initialize()
     {
@@ -38,8 +44,17 @@ public partial class AssetTab : MarginContainer
         assetTextureRect = GetNodeOrNull<TextureRect>(assetTexturePath);
         if (assetTextureRect == null)
             return false;
+        resourceLabel = GetNodeOrNull<Label>(resourceLabelPath);
+        if (resourceLabel == null)
+            return false;
+        levelLabel = GetNodeOrNull<Label>(levelLabelPath);
+        if (levelLabel == null)
+            return false;
         rateLabel = GetNodeOrNull<Label>(rateLabelPath);
         if (rateLabel == null)
+            return false;
+        costLabel = GetNodeOrNull<Label>(costLabelPath);
+        if (costLabel == null)
             return false;
         progressBar = GetNodeOrNull<ProgressBar>(progressBarPath);
         if (progressBar == null)
@@ -47,26 +62,32 @@ public partial class AssetTab : MarginContainer
 
         return true;
     }
-    public void SetAssetInfo(AssetInfo info)
+    public void SetupUI(AssetInfo info)
     {
-        assetInfo = info;
-        UpdateUI();
+        assetLabel.Text = info.Name;
+        if (info.IconPath != "")
+            assetTextureRect.Texture = GD.Load<Texture2D>(info.IconPath);
+        levelLabel.Text = info.Level.ToString("N0");
+        float rate = (float)((info.HarvestAmount * info.DeploymentSpeed) / 60);
+        rateLabel.Text = $"{rate.ToString("N2")} sec";
+        resourceLabel.Text = info.HarvestedResource.ToString();
     }
-    private void UpdateUI()
+
+    public void UpdateAssetAmount(double amount)
     {
-        if (assetInfo == null)
-            return;
-        
-        assetLabel.Text = assetInfo.Name;
-        //assetTextureRect.Texture = assetInfo.IconPath;     
+        //currentAmount.Text = amount.ToString("N0");
     }
+
     private void OnAssetTabButtonPressed()
     {
         EmitSignal(nameof(AssetButtonClicked), this);
     }
     public void RequestAccepted()
     {
-        double cost = assetInfo.ResourceCost["Credits"];
-        assetInfo.ResourceCost["Credits"] = Mathf.Floor(cost * 1.2);
+        
+    }
+    public string GetAssetName()
+    {
+        return assetLabel.Text;
     }
 }

@@ -4,6 +4,9 @@ using System;
 
 public partial class GameMenu : Control
 {
+    [Signal]
+    public delegate void OnTabClickedEventHandler(Node sender);
+
     private GameCore gameCore;
 
     [Export]
@@ -48,15 +51,21 @@ public partial class GameMenu : Control
 
         return true;
     }
-
-    // Runtime
     public void SetupTabManagers()
     {
         assetManager.Setup(this);
+        assetManager.AssetUpgraded += RelayTabClicked;
         researchManager.Setup(this);
+        researchManager.UnlockedNewResearch += RelayTabClicked;
         resourceManager.Setup(this);
         upgradeManager.Setup(this);
+        upgradeManager.UnlockedNewUpgrade += RelayTabClicked;
+    }
 
+    // Runtime
+    private void RelayTabClicked(Node sender)
+    {
+        EmitSignal(nameof(OnTabClicked), sender);
     }
     public bool HasAllPrerequisites(Array<string> requiredPrereqs)
     {
@@ -68,10 +77,9 @@ public partial class GameMenu : Control
 
         foreach (string prereq in requiredPrereqs)
         {
-            if (!gameCore.gameData.Preresquisites.Contains(prereq))
+            if (!gameCore.gameData.Prerequisites.Contains(prereq))
                 return false;
-        }
-        
+        }        
         return true;
     }
     public bool HasAnyPrerequisites(Array<string> requiredPrereqs)
@@ -81,7 +89,7 @@ public partial class GameMenu : Control
 
         foreach (string prereq in requiredPrereqs)
         {
-            if (gameCore.gameData.Preresquisites.Contains(prereq))
+            if (gameCore.gameData.Prerequisites.Contains(prereq))
                 return true;
         }
         return false;

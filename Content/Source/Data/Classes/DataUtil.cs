@@ -55,7 +55,7 @@ public partial class DataUtil : Node
             Resources = GetResourcesJSON(),
             Upgrades = GetUpgradesJSON(),
             Defaults = GetGameDefaultsJSON(),
-            Preresquisites = []
+            Prerequisites = []
         };
         return defaultData;
     }

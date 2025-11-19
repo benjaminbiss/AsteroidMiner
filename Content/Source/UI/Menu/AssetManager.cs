@@ -1,11 +1,14 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Xml.Linq;
 
 public partial class AssetManager : Node
 {
     [Signal]
-    public delegate void TabUpgradedEventHandler(Node sender);
+    public delegate void AssetUpgradedEventHandler(Node sender);
+    [Signal]
+    public delegate void AssetAddedEventHandler(Node sender);
 
     private GameCore gameCore;
     private GameMenu gameMenu;
@@ -60,7 +63,7 @@ public partial class AssetManager : Node
             AssetTab assetTab = assetTabScene.Instantiate<AssetTab>();
             assetBar.AddChild(assetTab);
             assetTabs.Add(asset.Key, assetTab);
-            assetTab.SetAssetInfo(asset.Value);
+            assetTab.SetupUI(asset.Value);
             assetTab.AssetButtonClicked += HandleAssetTabClicked;
 
             if (!gameMenu.HasAllPrerequisites(asset.Value.Prerequisites))
@@ -72,27 +75,33 @@ public partial class AssetManager : Node
     public void HandleAssetTabClicked(Node sender)
     {
         AssetTab assetTab = sender as AssetTab;
-        foreach (var cost in assetTab.assetInfo.ResourceCost)
+        string name = assetTab.GetAssetName();
+        foreach (var cost in gameCore.gameData.Assets[name].ResourceCost)
         {
             if (cost.Value > gameCore.GetResourceAmount(cost.Key))
                 return;
         }
-        assetTab.RequestAccepted();
-        EmitSignal(SignalName.TabUpgraded, sender);
+        gameCore.AddAsset(name);
+        EmitSignal(SignalName.AssetUpgraded, sender);
     }
     private void CheckPrerequisites()
     {
-        foreach (AssetTab assetTab in assetTabs.Values)
+        foreach (var tab in assetTabs)
         {
-            if (gameMenu.HasAllPrerequisites(assetTab.assetInfo.Prerequisites))
+            AssetTab assetTab = tab.Value;
+            if (assetTab.Visible == false)
             {
-                assetTab.Show();
+                if (gameMenu.HasAllPrerequisites(gameCore.gameData.Assets[tab.Key].Prerequisites))
+                {
+                    assetTab.Show();
+                    string name = assetTab.GetAssetName();
+                    gameCore.AddAsset(name);
+                    EmitSignal(SignalName.AssetAdded, assetTab);
+                }
             }
         }
     }
     public void UpdateAssetTab(string asset)
     {
-
     }
-
 }

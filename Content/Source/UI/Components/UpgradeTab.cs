@@ -1,12 +1,11 @@
 using Godot;
 using Godot.Collections;
+using System;
 
 public partial class UpgradeTab : MarginContainer
 {
     [Signal]
-    public delegate void UpgradeButtonClickedEventHandler(Node sender);
-
-    public UpgradeInfo upgradeInfo { get; private set; }
+    public delegate void OnUpgradeButtonClickedEventHandler(Node sender);
 
     [Export]
     private NodePath buttonPath;
@@ -32,8 +31,7 @@ public partial class UpgradeTab : MarginContainer
             return;
         }
 
-        UpdateUI();
-        button.Pressed += OnUpgradeTabButtonPressed;
+        button.Pressed += UpgradeTabButtonPressed;
     }
     private bool Initialize()
     {
@@ -56,23 +54,22 @@ public partial class UpgradeTab : MarginContainer
         return true;
     }
 
-    public void SetUpgradeInfo(UpgradeInfo info)
+    public void SetupUI(UpgradeInfo info)
     {
-        upgradeInfo = info;
-        UpdateUI();
+        upgradeLabel.Text = info.Name;
+        if (info.IconPath != "")
+            upgradeTextureRect.Texture = GD.Load<Texture2D>(info.IconPath);
+        costLabel.Text = ParseCost(info.ResourceCost);
+        descriptionLabel.Text = info.Description;
+
     }
-    private void UpdateUI()
+    public void UpdateResearch(double amount)
     {
-        if (upgradeInfo == null)
-            return;
-        
-        upgradeLabel.Text = upgradeInfo.Name;
-        costLabel.Text = ParseCost(upgradeInfo.ResourceCost);
-        //upgradeTextureRect.Texture = upgradeInfo.IconPath;     
+        //currentAmount.Text = amount.ToString("N0");
     }
-    private void OnUpgradeTabButtonPressed()
+    private void UpgradeTabButtonPressed()
     {
-        EmitSignal(nameof(UpgradeButtonClicked), this);
+        EmitSignal(nameof(OnUpgradeButtonClicked), this);
     }
     public void RequestAccepted()
     {
@@ -87,5 +84,9 @@ public partial class UpgradeTab : MarginContainer
             costString += $"{item.Key}: {item.Value.ToString("N0")} \n";
         }
         return costString.Trim();
+    }
+    public string GetUpgradeName()
+    {
+        return upgradeLabel.Text;
     }
 }
