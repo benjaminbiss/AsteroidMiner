@@ -63,10 +63,6 @@ public partial class UpgradeTab : MarginContainer
         descriptionLabel.Text = info.Description;
 
     }
-    public void UpdateResearch(double amount)
-    {
-        //currentAmount.Text = amount.ToString("N0");
-    }
     private void UpgradeTabButtonPressed()
     {
         EmitSignal(nameof(OnUpgradeButtonClicked), this);

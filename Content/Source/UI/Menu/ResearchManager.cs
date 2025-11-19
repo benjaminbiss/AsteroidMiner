@@ -90,6 +90,7 @@ public partial class ResearchManager : Node
         researchTab.RequestAccepted();
         availableResearchBar.RemoveChild(sender);
         ownedResearchBar.AddChild(sender);
+        gameCore.AddResearch(name);
         EmitSignal(SignalName.UnlockedNewResearch, sender);
         CheckPrerequisites();
     }
@@ -104,8 +105,5 @@ public partial class ResearchManager : Node
                     researchTab.Show();
             }
         }      
-    }
-    private void UpdateResearchTab(string research)
-    {
     }
 }

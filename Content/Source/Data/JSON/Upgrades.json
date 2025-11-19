@@ -1,20 +1,20 @@
 {
-  "Purchase Mining Vessel": {
+	"Purchase Mining Vessel": {
 		"Name": "Purchase Mining Vessel",
-		"Description": "Acquire a mining vessel to start you galactic mining endevors. Comes with a reactor and research facility.",
+		"Description": "Invest in a mining vessel equiped with a reactor to start generating power for your galactic mining endevors.",
 		"IconPath": "",
 		"Prerequisites": null,
 		"ResourceCost": {
-		  "Credits": 100000000000000
+			"Credits": 100000000000000
 		},
 		"AssetModifiers": {
 			"Mining Laser": {
 				"DeploymentSpeed": {
 					"true": 1
 				},
-        "HarvestAmount": {
-          "true": 1
-        }
+				"HarvestAmount": {
+					"true": 1
+				}
 			}
 		}
 	}

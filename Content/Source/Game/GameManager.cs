@@ -88,7 +88,7 @@ public partial class GameManager : Node2D
         SetCameraZoom();
 
         asteroid.Visible = true;
-        shipRoot.Visible = gameCore.gameData.Upgrades.ContainsKey("Purchase Mining Vessel");
+        shipRoot.Visible = gameCore.gameData.Prerequisites.Contains("Purchase Mining Vessel");
         asteroid.SetPosition(Vector2.Zero);
         shipRoot.SetPosition(Vector2.Zero);
 

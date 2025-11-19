@@ -107,7 +107,4 @@ public partial class UpgradeManager : Node
             }
         }
     }
-    private void UpdateUpgradeTab(string upgrade)
-    {
-    }
 }
