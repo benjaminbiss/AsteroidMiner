@@ -60,7 +60,7 @@ public partial class DataUtil : Node
         return defaultData;
     }
    
-    private Godot.Collections.Dictionary<string, AssetInfo> GetAssetsJSON()
+    public Godot.Collections.Dictionary<string, AssetInfo> GetAssetsJSON()
     {
         if (!FileAccess.FileExists(ASSET_DATA_FILE))
             return null;

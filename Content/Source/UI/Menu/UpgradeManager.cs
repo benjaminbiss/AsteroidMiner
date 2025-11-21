@@ -83,10 +83,13 @@ public partial class UpgradeManager : Node
     {
         UpgradeTab upgradeTab = sender as UpgradeTab;
         string name = upgradeTab.GetUpgradeName();
-        foreach (var cost in gameCore.gameData.Upgrades[name].ResourceCost)
+        if (gameCore.gameData.Upgrades[name].ResourceCost != null)
         {
-            if (cost.Value > gameCore.GetResourceAmount(cost.Key))
-                return;
+            foreach (var cost in gameCore.gameData.Upgrades[name].ResourceCost)
+            {
+                if (cost.Value > gameCore.GetResourceAmount(cost.Key))
+                    return;
+            }
         }
         upgradeTab.RequestAccepted();
         availableUpgradeBar.RemoveChild(sender);

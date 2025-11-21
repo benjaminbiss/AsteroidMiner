@@ -1,14 +1,12 @@
 using Godot;
 using Godot.Collections;
-using System;
-using System.Xml.Linq;
 
 public partial class AssetManager : Node
 {
     [Signal]
     public delegate void AssetUpgradedEventHandler(Node sender);
-    [Signal]
-    public delegate void AssetAddedEventHandler(Node sender);
+    //[Signal]
+    //public delegate void AssetAddedEventHandler(Node sender);
 
     private GameCore gameCore;
     private GameMenu gameMenu;
@@ -30,8 +28,8 @@ public partial class AssetManager : Node
             return;
         }
 
+        gameCore.AssetUpdated += UpdateAssetTab;
         gameCore.PrerequisitesUpdated += CheckPrerequisites;
-
     }
     private bool Initialize()
     {
@@ -81,7 +79,7 @@ public partial class AssetManager : Node
             if (cost.Value > gameCore.GetResourceAmount(cost.Key))
                 return;
         }
-        gameCore.AddAsset(name);
+        gameCore.UpgradeAsset(name);
         EmitSignal(SignalName.AssetUpgraded, sender);
     }
     private void CheckPrerequisites()
@@ -95,13 +93,23 @@ public partial class AssetManager : Node
                 {
                     assetTab.Show();
                     string name = assetTab.GetAssetName();
-                    gameCore.AddAsset(name);
-                    EmitSignal(SignalName.AssetAdded, assetTab);
+                    gameCore.UpgradeAsset(name);
+                    //EmitSignal(SignalName.AssetAdded, assetTab);
                 }
             }
         }
     }
     public void UpdateAssetTab(string asset)
     {
+        foreach (var tab in assetTabs)
+        {
+            if (tab.Key == asset)
+            {
+                AssetTab assetTab = tab.Value;
+                double rate = assetTab.CalculateRate(gameCore.gameData.Assets[asset].HarvestAmount, gameCore.gameData.Assets[asset].DeploymentSpeed);
+                assetTab.UpdateAssetAmount(gameCore.gameData.Assets[asset].Level, rate, gameCore.gameData.Assets[asset].ResourceCost);
+                break;
+            }
+        }
     }
 }

@@ -1,11 +1,14 @@
 using Godot;
-using System;
+using Godot.Collections;
 
 public partial class AssetTab : MarginContainer
 {
     [Signal]
     public delegate void AssetButtonClickedEventHandler(Node sender);
 
+    [Export]
+    private NodePath buttonPath;
+    private Button button;
     [Export]
     private NodePath assetLabelPath;
     private Label assetLabel;
@@ -35,9 +38,14 @@ public partial class AssetTab : MarginContainer
             GD.PrintErr("AssetTab | Initialization failed.");
             return;
         }
+
+        button.Pressed += OnAssetTabButtonPressed;
     }
     private bool Initialize()
     {
+        button = GetNodeOrNull<Button>(buttonPath);
+        if (button == null)
+            return false;
         assetLabel = GetNodeOrNull<Label>(assetLabelPath);
         if (assetLabel == null)
             return false;
@@ -67,17 +75,31 @@ public partial class AssetTab : MarginContainer
         assetLabel.Text = info.Name;
         if (info.IconPath != "")
             assetTextureRect.Texture = GD.Load<Texture2D>(info.IconPath);
-        levelLabel.Text = info.Level.ToString("N0");
-        float rate = (float)((info.HarvestAmount * info.DeploymentSpeed) / 60);
-        rateLabel.Text = $"{rate.ToString("N2")} sec";
         resourceLabel.Text = info.HarvestedResource.ToString();
+        levelLabel.Text = info.Level.ToString("N0");        
+        rateLabel.Text = $"{CalculateRate(info.HarvestAmount, info.DeploymentSpeed).ToString("N2")} sec";
+        costLabel.Text = ParseCost(info.ResourceCost);
     }
-
-    public void UpdateAssetAmount(double amount)
+    public double CalculateRate(double amount, double speed)
     {
-        //currentAmount.Text = amount.ToString("N0");
+        return (amount * speed) / 60;
     }
 
+    public void UpdateAssetAmount(double level, double rate, Dictionary<string, double> cost)
+    {
+        levelLabel.Text = level.ToString("N0");
+        rateLabel.Text = rate.ToString("N2");
+        costLabel.Text = ParseCost(cost);
+    }
+    private string ParseCost(Dictionary<string, double> cost)
+    {
+        string costString = "";
+        foreach (var item in cost)
+        {
+            costString += $"{item.Key}: {item.Value.ToString("N0")} \n";
+        }
+        return costString.Trim();
+    }
     private void OnAssetTabButtonPressed()
     {
         EmitSignal(nameof(AssetButtonClicked), this);

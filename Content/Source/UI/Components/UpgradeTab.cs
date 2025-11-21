@@ -9,7 +9,7 @@ public partial class UpgradeTab : MarginContainer
 
     [Export]
     private NodePath buttonPath;
-    private Button button { get; set; }
+    private Button button;
     [Export]
     private NodePath upgradeLabelPath;
     private Label upgradeLabel;
@@ -75,6 +75,8 @@ public partial class UpgradeTab : MarginContainer
     private string ParseCost(Dictionary<string, double> cost)
     {
         string costString = "";
+        if (cost == null)
+            return "Free";
         foreach (var item in cost)
         {
             costString += $"{item.Key}: {item.Value.ToString("N0")} \n";

@@ -1,12 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbeqjr24340ff"]
+[gd_scene load_steps=6 format=3 uid="uid://cbeqjr24340ff"]
 
-[ext_resource type="Script" uid="uid://jg123eh8ud5t" path="res://Content/Source/Game/MiningShip.cs" id="1_ue8kt"]
-[ext_resource type="Texture2D" uid="uid://dwnwwab02wl8u" path="res://icon.svg" id="1_yts1x"]
+[ext_resource type="Script" uid="uid://jg123eh8ud5t" path="res://Content/Source/Game/SpaceShip/MiningVessel.cs" id="1_ue8kt"]
+[ext_resource type="Texture2D" uid="uid://brjlwdkk5m2sl" path="res://Content/Assets/MiningVessel-Sheet.png" id="2_ue8kt"]
+[ext_resource type="Script" uid="uid://d2gglt73x7rqt" path="res://Content/Source/Game/SpaceShip/Reactor.cs" id="3_2jils"]
+[ext_resource type="Script" uid="uid://5fijbx0xlwnf" path="res://Content/Source/Game/SpaceShip/AssetSprite.cs" id="4_dx1dy"]
+[ext_resource type="Script" uid="uid://b23u68xrccxwj" path="res://Content/Source/Game/SpaceShip/MiningLaser.cs" id="4_v64ev"]
 
 [node name="MiningShip" type="Node2D"]
 script = ExtResource("1_ue8kt")
 shipSpritePath = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.75, 0.375)
-texture = ExtResource("1_yts1x")
+scale = Vector2(2, 2)
+texture = ExtResource("2_ue8kt")
+vframes = 7
+
+[node name="Reactor" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+script = ExtResource("3_2jils")
+
+[node name="Sprite2D" type="Sprite2D" parent="Reactor"]
+texture = ExtResource("2_ue8kt")
+vframes = 7
+frame = 1
+script = ExtResource("4_dx1dy")
+
+[node name="MiningLaser" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+script = ExtResource("4_v64ev")
+
+[node name="Sprite2D" type="Sprite2D" parent="MiningLaser"]
+texture = ExtResource("2_ue8kt")
+vframes = 7
+frame = 4
+script = ExtResource("4_dx1dy")
+
+[node name="Research" type="Node2D" parent="."]
+
+[node name="Sprite2D2" type="Sprite2D" parent="Research"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_ue8kt")
+vframes = 7
+frame = 2

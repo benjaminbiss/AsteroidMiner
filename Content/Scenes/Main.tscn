@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cl7kwx4ii5o2l" path="res://Content/Scenes/UI/Menu/GameMenu.tscn" id="3_g3kg1"]
 [ext_resource type="PackedScene" uid="uid://dqqo0v1m0axbe" path="res://Content/Scenes/Game/Asteroid.tscn" id="4_lnynt"]
 [ext_resource type="Script" uid="uid://dtxi5ai7x42kr" path="res://Content/Source/Game/GameManager.cs" id="5_5ytmd"]
-[ext_resource type="Script" uid="uid://cntj0ifj1avmo" path="res://Content/Source/Game/AutoRotate.cs" id="5_rbs0y"]
+[ext_resource type="Script" uid="uid://cntj0ifj1avmo" path="res://Content/Source/Game/SpaceShip/AutoRotate.cs" id="5_rbs0y"]
 [ext_resource type="PackedScene" uid="uid://cbeqjr24340ff" path="res://Content/Scenes/Game/MiningShip.tscn" id="6_vt00l"]
 
 [node name="Main" type="Node2D"]
@@ -48,4 +48,4 @@ shipRootPath = NodePath("ShipRoot")
 [node name="ShipRoot" type="Node2D" parent="GameManager"]
 script = ExtResource("5_rbs0y")
 
-[node name="MiningShip" parent="GameManager/ShipRoot" instance=ExtResource("6_vt00l")]
+[node name="MiningVessel" parent="GameManager/ShipRoot" instance=ExtResource("6_vt00l")]

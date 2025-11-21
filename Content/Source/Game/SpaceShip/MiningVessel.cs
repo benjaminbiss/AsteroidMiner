@@ -1,14 +1,18 @@
 using Godot;
 
-public partial class MiningShip : Node2D
+public partial class MiningVessel : Node2D
 {
     [Signal]
-    public delegate void ShipCollectedCreditsEventHandler(string resource, double amount);
+    public delegate void CollectedCreditsEventHandler(string resource, double amount);
 
     [Export]
     private NodePath shipSpritePath;
     private Sprite2D shipSprite;
     private AutoRotate shipRoot;
+    
+    public Reactor reactor { get; private set; }
+    public MiningLaser miningLaser { get; private set; }
+
 
     public float shipSpeed { get; private set; }
     public float shipDistanceFromCenter { get; private set; }
@@ -20,6 +24,8 @@ public partial class MiningShip : Node2D
             GD.PrintErr("MiningShip | Initialization failed.");
             return;
         }
+
+        SetupBindings();
     }
     private bool Initialize()
     {
@@ -29,8 +35,24 @@ public partial class MiningShip : Node2D
         shipRoot = GetParent<AutoRotate>();
         if (shipRoot == null)
             return false;
+        reactor = GetNodeOrNull<Reactor>("Reactor");
+        if (reactor == null)
+            return false;
+        miningLaser = GetNodeOrNull<MiningLaser>("MiningLaser");
+        if (miningLaser == null)
+            return false;
 
         return true;
+    }
+    private void SetupBindings()
+    {
+        // Reactor
+        GameCore.Instance.AssetUpdated += reactor.UpdateAssetInfo;
+        GameCore.Instance.AssetUpdated += reactor.assetSprite.Activate;
+        // Mining Laser
+        GameCore.Instance.AssetUpdated += miningLaser.UpdateAssetInfo;
+        GameCore.Instance.AssetUpdated += miningLaser.assetSprite.Activate;
+        miningLaser.MiningAction += AddCredits;
     }
 
     public void UpdateShipInfo(float speed, float distance)
@@ -44,6 +66,6 @@ public partial class MiningShip : Node2D
 
     private void AddCredits(double credits)
     {
-        EmitSignal(nameof(ShipCollectedCredits), "Credits", "Current", credits);
+        EmitSignal(nameof(CollectedCredits), "Credits", credits);
     }
 }

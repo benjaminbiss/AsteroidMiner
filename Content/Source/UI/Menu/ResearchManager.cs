@@ -82,10 +82,13 @@ public partial class ResearchManager : Node
     {
         ResearchTab researchTab = sender as ResearchTab;
         string name = researchTab.GetResearchName();
-        foreach (var cost in gameCore.gameData.Researches[name].ResourceCost)
+        if (gameCore.gameData.Researches[name].ResourceCost != null)
         {
-            if (cost.Value > gameCore.GetResourceAmount(cost.Key))
-                return;
+            foreach (var cost in gameCore.gameData.Researches[name].ResourceCost)
+            {
+                if (cost.Value > gameCore.GetResourceAmount(cost.Key))
+                    return;
+            }
         }
         researchTab.RequestAccepted();
         availableResearchBar.RemoveChild(sender);

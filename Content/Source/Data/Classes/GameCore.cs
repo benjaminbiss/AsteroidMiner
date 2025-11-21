@@ -13,6 +13,7 @@ public partial class GameCore : Node
 
     public static GameCore Instance { get; private set; }
     public GameData gameData { get; private set; }
+    private Dictionary<string, AssetInfo> baseAssetValues;
 
     public override void _Ready()
     {
@@ -24,30 +25,45 @@ public partial class GameCore : Node
     private void LoadGameData()
     {
         gameData = DataUtil.Instance.LoadGame();
-
         if (gameData == null)
         {
             GD.PrintErr("GameCore | Failed to load game data.");
             return;
         }
+
+        baseAssetValues = DataUtil.Instance.GetAssetsJSON();
     }
 
-    public void AddAsset(string asset)
-    {
+    public void UpgradeAsset(string asset)
+    {        
         int level = gameData.Assets[asset].Level += 1;
         if (level % 10 == 0)
             UpgradeAssetSpeed(asset);
-        else if (level > 0)
+        else if (level > 1)
+        {
+            ChargeResourceCost(gameData.Assets[asset].ResourceCost);
             UpgradeAssetHarvest(asset);
+            UpgradeAssetCost(asset);
+        }
         EmitSignal(SignalName.AssetUpdated, asset);
     }
     private void UpgradeAssetSpeed(string asset)
     {
-        gameData.Assets[asset].DeploymentSpeed *= 1.2;
+        gameData.Assets[asset].DeploymentSpeed *= 2;
     }
     private void UpgradeAssetHarvest(string asset)
     {
-        gameData.Assets[asset].HarvestAmount *= 1.2;
+        double value = baseAssetValues[asset].HarvestAmount;
+        gameData.Assets[asset].HarvestAmount = value * gameData.Assets[asset].Level;
+        // gameData.Assets[asset].HarvestAmount *= 1.2;
+    }
+    private void UpgradeAssetCost(string asset)
+    {
+        foreach (var cost in gameData.Assets[asset].ResourceCost)
+        {
+            double value = baseAssetValues[asset].ResourceCost[cost.Key];
+            gameData.Assets[asset].ResourceCost[cost.Key] = Mathf.FloorToInt(value * Mathf.Pow(1.4, gameData.Assets[asset].Level));
+        }
     }
     public void AddResearch(string research)
     {
@@ -74,6 +90,8 @@ public partial class GameCore : Node
     }
     public void ChargeResourceCost(Dictionary<string, double> cost)
     {
+        if (cost == null)
+            return;
         foreach (var resource in cost)
         {
             AddResource(resource.Key, -resource.Value);

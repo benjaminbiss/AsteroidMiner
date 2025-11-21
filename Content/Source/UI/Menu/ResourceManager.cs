@@ -24,8 +24,8 @@ public partial class ResourceManager : Node
             return;
         }
 
-        GameCore.Instance.ResourcesUpdated += UpdateResourceAmount;
-        GameCore.Instance.PrerequisitesUpdated += CheckPrerequisites;
+        gameCore.ResourcesUpdated += UpdateResourceAmount;
+        gameCore.PrerequisitesUpdated += CheckPrerequisites;
     }
     private bool Initialize()
     {

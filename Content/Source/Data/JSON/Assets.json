@@ -7,7 +7,7 @@
 		"DeploymentSpeed": 60,
 		"HarvestedResource":  "Power",
 		"HarvestAmount": 1,
-		"Prerequisites": [ "Purchase Mining Vessel" ],
+		"Prerequisites": [ "Turn On Reactor" ],
 		"ResourceCost": {
 			"Credits": 1
 		},
@@ -28,9 +28,9 @@
 		"DeploymentSpeed": 20,
 		"HarvestedResource": "Credits",
 		"HarvestAmount": 1,
-		"Prerequisites": [ "Basic Mining Laser" ],
+		"Prerequisites": [ "Deploy Mining Laser" ],
 		"ResourceCost": {
-			"Credits": 10
+			"Credits": 3
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {

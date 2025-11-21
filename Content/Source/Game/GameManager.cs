@@ -20,7 +20,7 @@ public partial class GameManager : Node2D
     [Export]
     private NodePath shipRootPath;
     private AutoRotate shipRoot;
-    private MiningShip miningShip;
+    private MiningVessel miningShip;
 
 
     // Initialization
@@ -51,7 +51,7 @@ public partial class GameManager : Node2D
         shipRoot = GetNodeOrNull<AutoRotate>(shipRootPath);
         if (shipRoot == null)
             return false;
-        miningShip = shipRoot.GetNodeOrNull<MiningShip>("MiningShip");
+        miningShip = shipRoot.GetNodeOrNull<MiningVessel>("MiningVessel");
         if (miningShip == null)
             return false;
 
@@ -62,7 +62,7 @@ public partial class GameManager : Node2D
         Main main = GetParent<Main>();
         asteroid.NewAstroidCreated += UpdateAsteroidPoints;
 
-        miningShip.ShipCollectedCredits += AddResources;
+        miningShip.CollectedCredits += AddResources;
     }
 
     // Runtime
@@ -72,15 +72,17 @@ public partial class GameManager : Node2D
     }
     private void CalculateAllPowerGenerators(double delta)
     {
+        double amount = 0;
         foreach (var asset in gameCore.gameData.Assets)
         {
             AssetInfo assetInfo = asset.Value;
             if (assetInfo.Level <= 0 || assetInfo.HarvestedResource == "Credits")
-                continue;            
+                continue;
 
-            double amount = delta * ((assetInfo.DeploymentSpeed * assetInfo.HarvestAmount) / 60d);
-            AddResources(assetInfo.HarvestedResource, amount);
+            amount += delta * ((assetInfo.DeploymentSpeed * assetInfo.HarvestAmount) / 60d);
         }
+        if (amount > 0)
+            AddResources("Power", amount);
     }
     public void StartGame()
     {        
@@ -137,12 +139,6 @@ public partial class GameManager : Node2D
             HandleUpgradeUnlocks(upgradeTab);
             return;
         }
-        AssetTab assetTab = sender as AssetTab;
-        if (assetTab != null)
-        {
-            HandleAssetUnlocks(assetTab);
-            return;
-        }
     }
     private void HandleResearchUnlocks(ResearchTab researchTab)
     {
@@ -166,21 +162,6 @@ public partial class GameManager : Node2D
         {
             case "Purchase Mining Vessel":
                 shipRoot.Show();
-                break;
-            default:
-                break;
-        }
-    }
-    private void HandleAssetUnlocks(AssetTab assetTab)
-    {
-        string assetName = assetTab.GetAssetName();
-        gameCore.ChargeResourceCost(gameCore.gameData.Assets[assetName].ResourceCost);
-
-        switch (assetName)
-        {
-            case "Mining Laser":
-                break;
-            case "Mining Ship":
                 break;
             default:
                 break;

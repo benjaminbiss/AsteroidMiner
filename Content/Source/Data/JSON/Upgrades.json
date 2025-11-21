@@ -17,5 +17,60 @@
 				}
 			}
 		}
+	},
+	"Turn On Reactor": {
+		"Name": "Turn On Reactor",
+		"Description": "Generates power so we can research and deploy new mining assets.",
+		"IconPath": "",
+		"Prerequisites": [ "Read Vessel Manual" ],
+		"ResourceCost": null,
+		"AssetModifiers": {
+			"Mining Ships": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
+	},
+	"Deploy Mining Laser": {
+		"Name": "Deploy Mining Laser",
+		"Description": "Collects credits by firing a burst of energy from orbit.",
+		"IconPath": "",
+		"Prerequisites": [ "Read Vessel Manual" ],
+		"ResourceCost": {
+			"Power": 5
+		},
+		"AssetModifiers": {
+			"Mining Ships": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
+	},
+	"Construct Hangar": {
+		"Name": "Construct Hangar",
+		"Description": "Build a hangar to store and dispath mining ships down to the surface below the mining vessel.",
+		"IconPath": "",
+		"Prerequisites": [ "Develop Hangar Schematics" ],
+		"ResourceCost": {
+			"Credits": 500
+		},
+		"AssetModifiers": {
+			"Mining Ships": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
 	}
 }

@@ -1,14 +1,12 @@
 {
-	"Basic Mining Laser": {
-		"Name": "Basic Mining Laser",
-		"Description": "A basic mining laser attached to the mining vessel allowing collection of resources from orbit.",
+	"Read Vessel Manual": {
+		"Name": "Read Vessel Manual",
+		"Description": "Read the reactor manual to power the reactor it on and deploy the laser.",
 		"IconPath": "",
 		"Prerequisites": [ "Purchase Mining Vessel" ],
-		"ResourceCost": {
-			"Power": 10
-		},
+		"ResourceCost": null,
 		"AssetModifiers": {
-			"Mining Ships": {
+			"Mining Laser": {
 				"DeploymentSpeed": {
 					"true": 1
 				},
@@ -18,14 +16,13 @@
 			}
 		}
 	},
-	"Hangar": {
-		"Name": "Hangar",
+	"Develop Hangar Schematics": {
+		"Name": "Develop Hangar Schematics",
 		"Description": "A basic hangar to house, unload, and deploy your mining ships.",
 		"IconPath": "",
-		"Prerequisites": [ "Basic Mining Laser" ],
+		"Prerequisites": [ "Deploy Mining Laser" ],
 		"ResourceCost": {
-			"Power": 50,
-			"Credits": 200
+			"Power": 1000
 		},
 		"AssetModifiers": {
 			"Mining Ships": {
