@@ -1,6 +1,5 @@
 using Godot;
 using Godot.Collections;
-using System;
 
 public partial class GameCore : Node
 {
@@ -41,7 +40,7 @@ public partial class GameCore : Node
             UpgradeAssetSpeed(asset);
         else if (level > 1)
         {
-            ChargeResourceCost(gameData.Assets[asset].ResourceCost);
+            ChargeResourceCosts(gameData.Assets[asset].ResourceCost);
             UpgradeAssetHarvest(asset);
             UpgradeAssetCost(asset);
         }
@@ -88,14 +87,20 @@ public partial class GameCore : Node
         }
         return 0d;
     }
-    public void ChargeResourceCost(Dictionary<string, double> cost)
+    public void ChargeResourceCosts(Dictionary<string, double> cost)
     {
         if (cost == null)
             return;
         foreach (var resource in cost)
         {
-            AddResource(resource.Key, -resource.Value);
+            if (resource.Value <= 0)
+                continue;
+            ChargeCost(resource.Key, resource.Value);
         }
+    }
+    public void ChargeCost(string resourceName, double cost)
+    {
+        AddResource(resourceName, -cost);
     }
     public void UpdateAsteroid(Array<int> points)
     {

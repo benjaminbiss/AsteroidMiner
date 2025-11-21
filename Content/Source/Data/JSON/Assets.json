@@ -49,7 +49,7 @@
 		"DeploymentSpeed": 6,
 		"HarvestedResource": "Credits",
 		"HarvestAmount": 10,
-		"Prerequisites": [ "Hangar" ],
+		"Prerequisites": [ "Construct Hangar" ],
 		"ResourceCost": {
 			"Credits": 100
 		},

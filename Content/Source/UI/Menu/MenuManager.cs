@@ -4,7 +4,9 @@ public partial class MenuManager : Control
 {
     [Signal]
     public delegate void OnStartGameEventHandler();
-    
+    [Signal]
+    public delegate void OnResearchSelectedEventHandler(string research);
+
     public MainMenu mainMenu;
     public GameMenu gameMenu;
 

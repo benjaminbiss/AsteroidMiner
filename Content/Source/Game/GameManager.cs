@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System.Xml.Linq;
 
 public partial class GameManager : Node2D
 {
@@ -7,8 +8,13 @@ public partial class GameManager : Node2D
     public delegate void UpdateResourceEventHandler(string resource);
     [Signal]
     public delegate void UpdateAssetEventHandler(string asset);
+    [Signal]
+    public delegate void UpdateResearchEventHandler(string research, string resource, double amount);
+    [Signal]
+    public delegate void ResearchUnlockedEventHandler(string research);
 
-    private GameCore gameCore;    
+    private GameCore gameCore; 
+    private string activeResearch = "";
 
     [Export]
     private NodePath Camera2D;
@@ -69,6 +75,7 @@ public partial class GameManager : Node2D
     public override void _Process(double delta)
     {
         CalculateAllPowerGenerators(delta);
+        WorkingOnResearch();
     }
     private void CalculateAllPowerGenerators(double delta)
     {
@@ -126,11 +133,11 @@ public partial class GameManager : Node2D
         camera2D.Zoom = Vector2.One / (gameSpace / 300);
     }
     public void HandleTabClickedEvent(Node sender)
-    {
+    {        
         ResearchTab researchTab = sender as ResearchTab;
         if (researchTab != null)
         {
-            HandleResearchUnlocks(researchTab);
+            HandleResearchSelection(researchTab);
             return;
         }
         UpgradeTab upgradeTab = sender as UpgradeTab;
@@ -140,23 +147,49 @@ public partial class GameManager : Node2D
             return;
         }
     }
-    private void HandleResearchUnlocks(ResearchTab researchTab)
+    private void HandleResearchSelection(ResearchTab researchTab)
     {
-        string resourceName = researchTab.GetResearchName();
-        gameCore.ChargeResourceCost(gameCore.gameData.Researches[resourceName].ResourceCost);
+        activeResearch = researchTab.GetResearchName();        
+    }
+    public void HandleResearchDeselection()
+    {
+        activeResearch = "";
+    }
+    private void WorkingOnResearch()
+    {
+        if (activeResearch == "")
+            return;
 
-        switch (resourceName)
+        bool unlocked = true;
+        if (gameCore.gameData.Researches[activeResearch].ResourceCost != null)
         {
-            case "Hangar":
-                break;
-            default:
-                break;
+            foreach (var cost in gameCore.gameData.Researches[activeResearch].ResourceCost)
+            {
+                if (cost.Value > gameCore.GetResourceAmount(cost.Key))
+                {
+                    double amount = gameCore.GetResourceAmount(cost.Key);
+                    gameCore.gameData.Researches[activeResearch].ResourceCost[cost.Key] -= amount;
+                    RemoveResources(cost.Key, gameCore.GetResourceAmount(cost.Key));
+                    EmitSignal(SignalName.UpdateResearch, activeResearch, cost.Key, amount);
+                    unlocked = false;
+                }
+                else
+                {
+                    gameCore.ChargeCost(cost.Key, -cost.Value);
+                    EmitSignal(SignalName.UpdateResearch, activeResearch, cost.Key, 0);
+                }
+            }
+        }
+        if (unlocked)
+        {
+            EmitSignal(SignalName.ResearchUnlocked, activeResearch);
+            activeResearch = "";
         }
     }
     private void HandleUpgradeUnlocks(UpgradeTab upgradeTab)
     {
         string upgradeName = upgradeTab.GetUpgradeName();
-        gameCore.ChargeResourceCost(gameCore.gameData.Upgrades[upgradeName].ResourceCost);
+        gameCore.ChargeResourceCosts(gameCore.gameData.Upgrades[upgradeName].ResourceCost);
 
         switch (upgradeName)
         {

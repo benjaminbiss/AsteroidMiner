@@ -79,6 +79,7 @@ public partial class AssetTab : MarginContainer
         levelLabel.Text = info.Level.ToString("N0");        
         rateLabel.Text = $"{CalculateRate(info.HarvestAmount, info.DeploymentSpeed).ToString("N2")} sec";
         costLabel.Text = ParseCost(info.ResourceCost);
+        progressBar.MaxValue = 10;
     }
     public double CalculateRate(double amount, double speed)
     {
@@ -90,6 +91,7 @@ public partial class AssetTab : MarginContainer
         levelLabel.Text = level.ToString("N0");
         rateLabel.Text = rate.ToString("N2");
         costLabel.Text = ParseCost(cost);
+        progressBar.Value = level % 10;
     }
     private string ParseCost(Dictionary<string, double> cost)
     {

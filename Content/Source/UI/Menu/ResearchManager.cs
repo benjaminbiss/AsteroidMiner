@@ -1,11 +1,14 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Xml.Linq;
 
 public partial class ResearchManager : Node
 {
     [Signal]
-    public delegate void UnlockedNewResearchEventHandler(Node sender);
+    public delegate void SelectedResearchEventHandler(Node sender);
+    [Signal]
+    public delegate void DeselectedResearchEventHandler();
 
     private GameCore gameCore;
     private GameMenu gameMenu;
@@ -20,6 +23,7 @@ public partial class ResearchManager : Node
     private VBoxContainer ownedResearchBar;
     
     private Dictionary<string, ResearchTab> researchTabs = new Dictionary<string, ResearchTab>();
+    private ResearchTab activeResearch;
 
     // Initialization
     public override void _Ready()
@@ -80,22 +84,34 @@ public partial class ResearchManager : Node
     }
     private void HandleResearchTabClicked(Node sender)
     {
-        ResearchTab researchTab = sender as ResearchTab;
-        string name = researchTab.GetResearchName();
-        if (gameCore.gameData.Researches[name].ResourceCost != null)
+        if (activeResearch == sender)
         {
-            foreach (var cost in gameCore.gameData.Researches[name].ResourceCost)
-            {
-                if (cost.Value > gameCore.GetResourceAmount(cost.Key))
-                    return;
-            }
+            activeResearch = null;
+            EmitSignal(SignalName.DeselectedResearch);
         }
-        researchTab.RequestAccepted();
-        availableResearchBar.RemoveChild(sender);
-        ownedResearchBar.AddChild(sender);
-        gameCore.AddResearch(name);
-        EmitSignal(SignalName.UnlockedNewResearch, sender);
+        else
+        {
+            activeResearch = sender as ResearchTab;
+            EmitSignal(SignalName.SelectedResearch, activeResearch);
+        }
+
+    }
+    public void UnlockResearch(string name)
+    {
+        activeResearch.RequestAccepted();
+        availableResearchBar.RemoveChild(activeResearch);
+        ownedResearchBar.AddChild(activeResearch); 
+        gameCore.AddResearch(activeResearch.GetResearchName());
+        //EmitSignal(SignalName.UnlockedNewResearch, sender);
         CheckPrerequisites();
+        activeResearch = null;
+    }
+    public void UpdateResearchProgress(string research, string resource, double progress)
+    {
+        if (researchTabs.ContainsKey(research))
+        {
+            researchTabs[research].UpdateResearchTab(resource, progress);
+        }
     }
     private void CheckPrerequisites()
     {

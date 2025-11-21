@@ -6,6 +6,8 @@ public partial class GameMenu : Control
 {
     [Signal]
     public delegate void OnTabClickedEventHandler(Node sender);
+    [Signal]
+    public delegate void ResearchDeselectEventHandler();
 
     private GameCore gameCore;
 
@@ -56,7 +58,8 @@ public partial class GameMenu : Control
         assetManager.Setup(this);
         assetManager.AssetUpgraded += RelayTabClicked;
         researchManager.Setup(this);
-        researchManager.UnlockedNewResearch += RelayTabClicked;
+        researchManager.SelectedResearch += RelayTabClicked;
+        researchManager.DeselectedResearch += RelayDeselectResearch;
         resourceManager.Setup(this);
         upgradeManager.Setup(this);
         upgradeManager.UnlockedNewUpgrade += RelayTabClicked;
@@ -66,6 +69,10 @@ public partial class GameMenu : Control
     private void RelayTabClicked(Node sender)
     {
         EmitSignal(nameof(OnTabClicked), sender);
+    }
+    private void RelayDeselectResearch()
+    {
+        EmitSignal(nameof(ResearchDeselect));
     }
     public bool HasAllPrerequisites(Array<string> requiredPrereqs)
     {
@@ -93,5 +100,15 @@ public partial class GameMenu : Control
                 return true;
         }
         return false;
+    }
+
+    public void HandleUpdateResearchEvent(string research, string resource, double amount)
+    {
+       researchManager.UpdateResearchProgress(research, resource, amount);
+    }
+
+    public void HandleUnlockResearchEvent(string research)
+    {
+        researchManager.UnlockResearch(research);
     }
 }

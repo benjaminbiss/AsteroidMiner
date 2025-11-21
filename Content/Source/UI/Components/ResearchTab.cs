@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System.Linq;
 
 public partial class ResearchTab : MarginContainer
 {
@@ -71,10 +72,14 @@ public partial class ResearchTab : MarginContainer
             researchTextureRect.Texture = GD.Load<Texture2D>(info.IconPath);
         costLabel.Text = ParseCost(info.ResourceCost);
         descriptionLabel.Text = info.Description;
+        rateLabel.Text = progressBar.Value.ToString();
+        if (info.ResourceCost != null)
+            progressBar.MaxValue = info.ResourceCost.First().Value;
     }
-    public void UpdateResearch(double amount)
+    public void UpdateResearchTab(string resource, double amount)
     {
-        //currentAmount.Text = amount.ToString("N0");
+        progressBar.Value += amount;
+        rateLabel.Text = progressBar.Value.ToString("N2");
     }
     private void OnResearchTabButtonPressed()
     {
@@ -90,7 +95,10 @@ public partial class ResearchTab : MarginContainer
     {
         string costString = "";
         if (cost == null)
+        {
+            progressBar.Hide();
             return "Free";
+        }
         foreach (var item in cost)
         {
             costString += $"{item.Key}: {item.Value.ToString("N0")} \n";
