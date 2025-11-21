@@ -35,7 +35,13 @@ levelLabelPath = NodePath("VBoxContainer/HBoxContainer/Level")
 resourceLabelPath = NodePath("VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Resource")
 rateLabelPath = NodePath("VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Rate")
 costLabelPath = NodePath("VBoxContainer/Cost")
-progressBarPath = NodePath("VBoxContainer/ProgressBar")
+levelProgBarPath = NodePath("VBoxContainer/ProgressBar")
+deployProgBarPath = NodePath("ProgressBar")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+show_percentage = false
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2

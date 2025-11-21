@@ -5,6 +5,8 @@ public partial class MiningLaser : Node2D
 {
     [Signal]
     public delegate void MiningActionEventHandler(double amount);
+    [Signal]
+    public delegate void MiningLaserProgressEventHandler(double value, double max);
 
     private const string ASSET_NAME = "Mining Laser";
     private GameCore gameCore;
@@ -73,7 +75,7 @@ public partial class MiningLaser : Node2D
         if (!timer.IsConnected("timeout", new Callable(this, nameof(ResetTimer))))
             timer.Timeout += ResetTimer;
         timer.Start(elapsed);
-        //GD.Print($"{ASSET_NAME} | Timer updated to {elapsed} seconds.");
+        EmitSignal(SignalName.MiningLaserProgress, timer.TimeLeft, timer.WaitTime);
     }
     private void ResetTimer()
     {
@@ -82,6 +84,7 @@ public partial class MiningLaser : Node2D
         //GD.Print($"{ASSET_NAME} | Timer updated to {timer.WaitTime} seconds.");
         timer.Start();
         timer.Timeout -= ResetTimer;
+        EmitSignal(SignalName.MiningLaserProgress, timer.TimeLeft, timer.WaitTime);
     }
     private void OnLaserTimeout()
     {

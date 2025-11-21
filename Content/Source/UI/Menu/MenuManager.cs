@@ -39,8 +39,8 @@ public partial class MenuManager : Control
     }
     private void SetupBindings()
     {
-        mainMenu.OnStartGameButton += StartGame;
         mainMenu.OnStartGameButton += gameMenu.SetupTabManagers;
+        mainMenu.OnStartGameButton += StartGame;
     }
     private void SwitchMenu(Control newMenu)
     {

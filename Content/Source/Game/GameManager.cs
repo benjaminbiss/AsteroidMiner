@@ -26,7 +26,7 @@ public partial class GameManager : Node2D
     [Export]
     private NodePath shipRootPath;
     private AutoRotate shipRoot;
-    private MiningVessel miningShip;
+    public MiningVessel miningShip { get; private set; }
 
 
     // Initialization
@@ -91,7 +91,7 @@ public partial class GameManager : Node2D
         if (amount > 0)
             AddResources("Power", amount);
     }
-    public void StartGame()
+    public void StartGame(AssetManager assetManager)
     {        
         SetupAsteroid();
         SetCameraZoom();
@@ -103,6 +103,8 @@ public partial class GameManager : Node2D
 
         miningShip.UpdateShipInfo(100f, asteroid.radius + gameCore.gameData.Defaults["planetSize"] + gameCore.gameData.Defaults["shipDistanceFromSurface"]);
         miningShip.SetPosition(new Vector2(0f, -miningShip.shipDistanceFromCenter));
+    
+        miningShip.miningLaser.MiningLaserProgress += assetManager.GetMiningLaserTab().UpdateDeployBar;
     }
     private void AddResources(string resource, double amount)
     {

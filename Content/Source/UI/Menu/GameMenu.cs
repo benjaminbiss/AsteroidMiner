@@ -13,16 +13,16 @@ public partial class GameMenu : Control
 
     [Export]
     private NodePath assetManagerPath;
-    private AssetManager assetManager;
+    public AssetManager assetManager { get; private set; }
     [Export]
     private NodePath researchManagerPath;
-    private ResearchManager researchManager;
+    public ResearchManager researchManager {get; private set;}
     [Export]
     private NodePath resourceManagerPath;
-    private ResourceManager resourceManager;
+    public ResourceManager resourceManager {get; private set;}
     [Export]
     private NodePath upgradeManagerPath;
-    private UpgradeManager upgradeManager;
+    public UpgradeManager upgradeManager {get; private set;}
 
     // Initialization
     public override void _Ready()

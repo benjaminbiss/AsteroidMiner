@@ -28,8 +28,13 @@ public partial class AssetTab : MarginContainer
     private NodePath costLabelPath;
     private Label costLabel;
     [Export]
-    private NodePath progressBarPath;
-    private ProgressBar progressBar;
+    private NodePath levelProgBarPath;
+    private ProgressBar levelProgBar;
+    [Export]
+    private NodePath deployProgBarPath;
+    private ProgressBar deployProgBar;
+
+    private bool isCreditGenerator = false;
 
     public override void _Ready()
     {
@@ -64,11 +69,23 @@ public partial class AssetTab : MarginContainer
         costLabel = GetNodeOrNull<Label>(costLabelPath);
         if (costLabel == null)
             return false;
-        progressBar = GetNodeOrNull<ProgressBar>(progressBarPath);
-        if (progressBar == null)
+        levelProgBar = GetNodeOrNull<ProgressBar>(levelProgBarPath);
+        if (levelProgBar == null)
+            return false;
+        deployProgBar = GetNodeOrNull<ProgressBar>(deployProgBarPath);
+        if (deployProgBar == null)
             return false;
 
         return true;
+    }
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+        if (IsVisibleInTree() && isCreditGenerator)
+        {
+            deployProgBar.Value = deployProgBar.Value >= deployProgBar.MaxValue ? 0 : deployProgBar.Value += delta;
+        }
     }
     public void SetupUI(AssetInfo info)
     {
@@ -79,7 +96,9 @@ public partial class AssetTab : MarginContainer
         levelLabel.Text = info.Level.ToString("N0");        
         rateLabel.Text = $"{CalculateRate(info.HarvestAmount, info.DeploymentSpeed).ToString("N2")} sec";
         costLabel.Text = ParseCost(info.ResourceCost);
-        progressBar.MaxValue = 10;
+        levelProgBar.MaxValue = 10;
+        if (info.HarvestedResource == "Credits")
+            isCreditGenerator = true;
     }
     public double CalculateRate(double amount, double speed)
     {
@@ -91,7 +110,7 @@ public partial class AssetTab : MarginContainer
         levelLabel.Text = level.ToString("N0");
         rateLabel.Text = rate.ToString("N2");
         costLabel.Text = ParseCost(cost);
-        progressBar.Value = level % 10;
+        levelProgBar.Value = level % 10;
     }
     private string ParseCost(Dictionary<string, double> cost)
     {
@@ -106,9 +125,10 @@ public partial class AssetTab : MarginContainer
     {
         EmitSignal(nameof(AssetButtonClicked), this);
     }
-    public void RequestAccepted()
+    public void UpdateDeployBar(double value, double max)
     {
-        
+        deployProgBar.Value = value;
+        deployProgBar.MaxValue = max;
     }
     public string GetAssetName()
     {

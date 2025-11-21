@@ -112,4 +112,8 @@ public partial class AssetManager : Node
             }
         }
     }
+    public AssetTab GetMiningLaserTab()
+    {
+        return assetTabs["Mining Laser"];
+    }
 }

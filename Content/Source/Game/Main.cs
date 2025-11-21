@@ -61,7 +61,7 @@ public partial class Main : Node2D
     private void LaunchGame()
     {
         bIsGameLaunched = true;
-        gameManager.StartGame();
+        gameManager.StartGame(menuManager.gameMenu.assetManager);   
     }
     private void AutoSave(double delta)
     {
