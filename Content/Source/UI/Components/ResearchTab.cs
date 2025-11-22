@@ -17,8 +17,8 @@ public partial class ResearchTab : MarginContainer
     private NodePath researchTexturePath;
     private TextureRect researchTextureRect;
     [Export]
-    private NodePath rateLabelPath;
-    private Label rateLabel;
+    private NodePath currentValueLabelPath;
+    private Label currentValueLabel;
     [Export]
     private NodePath costLabelPath;
     private Label costLabel;
@@ -50,8 +50,8 @@ public partial class ResearchTab : MarginContainer
         researchTextureRect = GetNodeOrNull<TextureRect>(researchTexturePath);
         if (researchTextureRect == null)
             return false;
-        rateLabel = GetNodeOrNull<Label>(rateLabelPath);
-        if (rateLabel == null)
+        currentValueLabel = GetNodeOrNull<Label>(currentValueLabelPath);
+        if (currentValueLabel == null)
             return false;
         costLabel = GetNodeOrNull<Label>(costLabelPath);
         if (costLabel == null)
@@ -72,14 +72,14 @@ public partial class ResearchTab : MarginContainer
             researchTextureRect.Texture = GD.Load<Texture2D>(info.IconPath);
         costLabel.Text = ParseCost(info.ResourceCost);
         descriptionLabel.Text = info.Description;
-        rateLabel.Text = progressBar.Value.ToString();
+        currentValueLabel.Text = progressBar.Value.ToString();
         if (info.ResourceCost != null)
             progressBar.MaxValue = info.ResourceCost.First().Value;
     }
     public void UpdateResearchTab(string resource, double amount)
     {
         progressBar.Value += amount;
-        rateLabel.Text = progressBar.Value.ToString("N2");
+        currentValueLabel.Text = progressBar.Value.ToString("N2");
     }
     private void OnResearchTabButtonPressed()
     {

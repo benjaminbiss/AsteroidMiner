@@ -34,7 +34,7 @@ script = ExtResource("1_ilv0d")
 buttonPath = NodePath("Button")
 researchLabelPath = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Name")
 researchTexturePath = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Icon")
-rateLabelPath = NodePath("MarginContainer/VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Rate")
+currentValueLabelPath = NodePath("MarginContainer/VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/CurrentValue")
 costLabelPath = NodePath("MarginContainer/VBoxContainer/Cost")
 progressBarPath = NodePath("MarginContainer/VBoxContainer/ProgressBar")
 descriptionPath = NodePath("MarginContainer/VBoxContainer/Description")
@@ -105,22 +105,13 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Rate" type="Label" parent="MarginContainer/VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
+[node name="CurrentValue" type="Label" parent="MarginContainer/VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Rate"
-
-[node name="perSec" type="Label" parent="MarginContainer/VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 20
-text = "/s"
 
 [node name="Description" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

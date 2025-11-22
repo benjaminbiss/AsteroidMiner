@@ -103,8 +103,6 @@ public partial class GameManager : Node2D
 
         miningShip.UpdateShipInfo(100f, asteroid.radius + gameCore.gameData.Defaults["planetSize"] + gameCore.gameData.Defaults["shipDistanceFromSurface"]);
         miningShip.SetPosition(new Vector2(0f, -miningShip.shipDistanceFromCenter));
-    
-        miningShip.miningLaser.MiningLaserProgress += assetManager.GetMiningLaserTab().UpdateDeployBar;
     }
     private void AddResources(string resource, double amount)
     {

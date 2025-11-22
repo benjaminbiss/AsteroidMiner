@@ -1,21 +1,4 @@
 {
-	"Read Vessel Manual": {
-		"Name": "Read Vessel Manual",
-		"Description": "Read the reactor manual to power the reactor it on and deploy the laser.",
-		"IconPath": "",
-		"Prerequisites": [ "Purchase Mining Vessel" ],
-		"ResourceCost": null,
-		"AssetModifiers": {
-			"Mining Laser": {
-				"DeploymentSpeed": {
-					"true": 1
-				},
-				"HarvestAmount": {
-					"true": 1
-				}
-			}
-		}
-	},
 	"Develop Hangar Schematics": {
 		"Name": "Develop Hangar Schematics",
 		"Description": "A basic hangar to house, unload, and deploy your mining ships.",

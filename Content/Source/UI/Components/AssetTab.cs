@@ -5,6 +5,8 @@ public partial class AssetTab : MarginContainer
 {
     [Signal]
     public delegate void AssetButtonClickedEventHandler(Node sender);
+    [Signal]
+    public delegate void AssetTabDeployedEventHandler(string assetName);
 
     [Export]
     private NodePath buttonPath;
@@ -78,15 +80,6 @@ public partial class AssetTab : MarginContainer
 
         return true;
     }
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-
-        if (IsVisibleInTree() && isCreditGenerator)
-        {
-            deployProgBar.Value = deployProgBar.Value >= deployProgBar.MaxValue ? 0 : deployProgBar.Value += delta;
-        }
-    }
     public void SetupUI(AssetInfo info)
     {
         assetLabel.Text = info.Name;
@@ -97,20 +90,44 @@ public partial class AssetTab : MarginContainer
         rateLabel.Text = $"{CalculateRate(info.HarvestAmount, info.DeploymentSpeed).ToString("N2")} sec";
         costLabel.Text = ParseCost(info.ResourceCost);
         levelProgBar.MaxValue = 10;
+        deployProgBar.MaxValue = 60 / info.DeploymentSpeed;
         if (info.HarvestedResource == "Credits")
             isCreditGenerator = true;
+    }
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+        if (IsVisibleInTree() && isCreditGenerator)
+        {
+            AssetTimer(delta);
+        }
+    }
+    private void AssetTimer(double delta)
+    {
+        double time = deployProgBar.Value += delta;
+        if (time >= deployProgBar.MaxValue)
+        {
+            deployProgBar.Value = time - deployProgBar.MaxValue;
+            EmitSignal(SignalName.AssetTabDeployed, assetLabel.Text);
+        }
+        else
+        {
+            deployProgBar.Value = time;
+        }
     }
     public double CalculateRate(double amount, double speed)
     {
         return (amount * speed) / 60;
     }
 
-    public void UpdateAssetAmount(double level, double rate, Dictionary<string, double> cost)
+    public void UpdateAssetAmount(double level, double harvestAmount, double harvestSpeed, Dictionary<string, double> cost)
     {
         levelLabel.Text = level.ToString("N0");
-        rateLabel.Text = rate.ToString("N2");
+        rateLabel.Text = CalculateRate(harvestAmount, harvestSpeed).ToString("N2");
         costLabel.Text = ParseCost(cost);
         levelProgBar.Value = level % 10;
+        deployProgBar.MaxValue = 60 / harvestSpeed;
     }
     private string ParseCost(Dictionary<string, double> cost)
     {

@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System;
 
 public partial class AssetManager : Node
 {
@@ -63,12 +64,17 @@ public partial class AssetManager : Node
             assetTabs.Add(asset.Key, assetTab);
             assetTab.SetupUI(asset.Value);
             assetTab.AssetButtonClicked += HandleAssetTabClicked;
+            assetTab.AssetTabDeployed += HandleAssetDeployed;
 
             if (!gameMenu.HasAllPrerequisites(asset.Value.Prerequisites))
             {
                 assetTab.Hide();
             }
         }
+    }
+    private void HandleAssetDeployed(string assetName)
+    {
+        gameCore.AddResource(gameCore.gameData.Assets[assetName].HarvestedResource, gameCore.gameData.Assets[assetName].HarvestAmount);
     }
     public void HandleAssetTabClicked(Node sender)
     {
@@ -105,15 +111,9 @@ public partial class AssetManager : Node
         {
             if (tab.Key == asset)
             {
-                AssetTab assetTab = tab.Value;
-                double rate = assetTab.CalculateRate(gameCore.gameData.Assets[asset].HarvestAmount, gameCore.gameData.Assets[asset].DeploymentSpeed);
-                assetTab.UpdateAssetAmount(gameCore.gameData.Assets[asset].Level, rate, gameCore.gameData.Assets[asset].ResourceCost);
+                tab.Value.UpdateAssetAmount(gameCore.gameData.Assets[asset].Level, gameCore.gameData.Assets[asset].HarvestAmount, gameCore.gameData.Assets[asset].DeploymentSpeed, gameCore.gameData.Assets[asset].ResourceCost);
                 break;
             }
         }
-    }
-    public AssetTab GetMiningLaserTab()
-    {
-        return assetTabs["Mining Laser"];
     }
 }

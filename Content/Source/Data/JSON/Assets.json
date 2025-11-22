@@ -42,13 +42,13 @@
 		}
 	},
 	"Mining Ships": {
-		"Name": "Mining Ship",
+		"Name": "Mining Ships",
 		"Description": "A small mining ship equipped with basic mining lasers that decends to the surface to extract the nearest resources before returning to orbit.",
 		"IconPath": "",
 		"Level": 0,
-		"DeploymentSpeed": 6,
+		"DeploymentSpeed": 10,
 		"HarvestedResource": "Credits",
-		"HarvestAmount": 10,
+		"HarvestAmount": 20,
 		"Prerequisites": [ "Construct Hangar" ],
 		"ResourceCost": {
 			"Credits": 100

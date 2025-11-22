@@ -61,7 +61,7 @@ public partial class GameCore : Node
         foreach (var cost in gameData.Assets[asset].ResourceCost)
         {
             double value = baseAssetValues[asset].ResourceCost[cost.Key];
-            gameData.Assets[asset].ResourceCost[cost.Key] = Mathf.FloorToInt(value * Mathf.Pow(1.4, gameData.Assets[asset].Level));
+            gameData.Assets[asset].ResourceCost[cost.Key] = Mathf.FloorToInt(value * Mathf.Pow(1.2, gameData.Assets[asset].Level));
         }
     }
     public void AddResearch(string research)

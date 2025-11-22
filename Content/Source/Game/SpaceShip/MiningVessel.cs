@@ -47,12 +47,9 @@ public partial class MiningVessel : Node2D
     private void SetupBindings()
     {
         // Reactor
-        GameCore.Instance.AssetUpdated += reactor.UpdateAssetInfo;
         GameCore.Instance.AssetUpdated += reactor.assetSprite.Activate;
         // Mining Laser
-        GameCore.Instance.AssetUpdated += miningLaser.UpdateAssetInfo;
         GameCore.Instance.AssetUpdated += miningLaser.assetSprite.Activate;
-        miningLaser.MiningAction += AddCredits;
     }
 
     public void UpdateShipInfo(float speed, float distance)

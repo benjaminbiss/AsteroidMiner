@@ -32,13 +32,13 @@ buttonPath = NodePath("Button")
 assetLabelPath = NodePath("VBoxContainer/HBoxContainer/Name")
 assetTexturePath = NodePath("VBoxContainer/HBoxContainer/Icon")
 levelLabelPath = NodePath("VBoxContainer/HBoxContainer/Level")
-resourceLabelPath = NodePath("VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Resource")
-rateLabelPath = NodePath("VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2/Rate")
+resourceLabelPath = NodePath("VBoxContainer/LevelProgressBar/MarginContainer/HBoxContainer2/Resource")
+rateLabelPath = NodePath("VBoxContainer/LevelProgressBar/MarginContainer/HBoxContainer2/Rate")
 costLabelPath = NodePath("VBoxContainer/Cost")
-levelProgBarPath = NodePath("VBoxContainer/ProgressBar")
-deployProgBarPath = NodePath("ProgressBar")
+levelProgBarPath = NodePath("VBoxContainer/LevelProgressBar")
+deployProgBarPath = NodePath("DeployProgressBar")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="DeployProgressBar" type="ProgressBar" parent="."]
 layout_mode = 2
 size_flags_vertical = 1
 show_percentage = false
@@ -81,7 +81,7 @@ theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Level"
 
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+[node name="LevelProgressBar" type="ProgressBar" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
@@ -90,7 +90,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_5rosy")
 theme_override_styles/fill = SubResource("StyleBoxFlat_cnuv8")
 max_value = 10.0
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ProgressBar"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/LevelProgressBar"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -105,33 +105,33 @@ theme_override_constants/margin_left = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ProgressBar/MarginContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/LevelProgressBar/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Resource" type="Label" parent="VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
+[node name="Resource" type="Label" parent="VBoxContainer/LevelProgressBar/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Resource"
 
-[node name="_" type="Label" parent="VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
+[node name="_" type="Label" parent="VBoxContainer/LevelProgressBar/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = " - "
 
-[node name="Rate" type="Label" parent="VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
+[node name="Rate" type="Label" parent="VBoxContainer/LevelProgressBar/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 20
 text = "Rate"
 
-[node name="perSec" type="Label" parent="VBoxContainer/ProgressBar/MarginContainer/HBoxContainer2"]
+[node name="perSec" type="Label" parent="VBoxContainer/LevelProgressBar/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)

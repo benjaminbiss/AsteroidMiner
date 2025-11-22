@@ -22,7 +22,7 @@
 		"Name": "Turn On Reactor",
 		"Description": "Generates power so we can research and deploy new mining assets.",
 		"IconPath": "",
-		"Prerequisites": [ "Read Vessel Manual" ],
+		"Prerequisites": [ "Purchase Mining Vessel" ],
 		"ResourceCost": null,
 		"AssetModifiers": {
 			"Mining Ships": {
@@ -39,7 +39,7 @@
 		"Name": "Deploy Mining Laser",
 		"Description": "Collects credits by firing a burst of energy from orbit.",
 		"IconPath": "",
-		"Prerequisites": [ "Read Vessel Manual" ],
+		"Prerequisites": [ "Turn On Reactor" ],
 		"ResourceCost": {
 			"Power": 5
 		},
