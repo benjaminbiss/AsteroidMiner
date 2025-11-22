@@ -7,16 +7,7 @@
 		"ResourceCost": {
 			"Credits": 100000000000000
 		},
-		"AssetModifiers": {
-			"Mining Laser": {
-				"DeploymentSpeed": {
-					"true": 1
-				},
-				"HarvestAmount": {
-					"true": 1
-				}
-			}
-		}
+		"AssetModifiers": null
 	},
 	"Turn On Reactor": {
 		"Name": "Turn On Reactor",
@@ -25,7 +16,7 @@
 		"Prerequisites": [ "Purchase Mining Vessel" ],
 		"ResourceCost": null,
 		"AssetModifiers": {
-			"Mining Ships": {
+			"Reactor": {
 				"DeploymentSpeed": {
 					"true": 1
 				},
@@ -44,7 +35,7 @@
 			"Power": 5
 		},
 		"AssetModifiers": {
-			"Mining Ships": {
+			"Mining Laser": {
 				"DeploymentSpeed": {
 					"true": 1
 				},
@@ -56,14 +47,71 @@
 	},
 	"Construct Hangar": {
 		"Name": "Construct Hangar",
-		"Description": "Build a hangar to store and dispath mining ships down to the surface below the mining vessel.",
+		"Description": "Build the mining drone hanger to send down unmanned craft to gather credits from the surface.",
 		"IconPath": "",
 		"Prerequisites": [ "Develop Hangar Schematics" ],
 		"ResourceCost": {
 			"Credits": 500
 		},
 		"AssetModifiers": {
-			"Mining Ships": {
+			"Mining Drones": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
+	},
+	"Construct Surface Mining Barge": {
+		"Name": "Construct Surface Mining Barge",
+		"Description": "A mobile mining barge that mines credits while it moves.",
+		"IconPath": "",
+		"Prerequisites": [ "Develop Surface Mining Barge Schematics" ],
+		"ResourceCost": {
+			"Credits": 100000
+		},
+		"AssetModifiers": {
+			"Surface Mining Barge": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
+	},
+	"Construct Quake Mines Factory": {
+		"Name": "Construct Quake Mines Factory",
+		"Description": "A factory that builds and drops earthquake causing mines fracturing large areas releasing credits.",
+		"IconPath": "",
+		"Prerequisites": [ "Develop Quake Mines Schematics" ],
+		"ResourceCost": {
+			"Credits": 1000000
+		},
+		"AssetModifiers": {
+			"Quake Mines": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
+	},
+	"Construct Gravity Cannon": {
+		"Name": "Construct Gravity Cannon",
+		"Description": "A cannon that harnesses the raw power of gravity and focusing it into a condensed credit generating beam.",
+		"IconPath": "",
+		"Prerequisites": [ "Develop Gravity Cannon Schematics" ],
+		"ResourceCost": {
+			"Credits": 100000000
+		},
+		"AssetModifiers": {
+			"Gravity Cannon": {
 				"DeploymentSpeed": {
 					"true": 1
 				},

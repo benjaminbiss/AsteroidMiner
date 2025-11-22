@@ -1,7 +1,7 @@
 {
 	"Develop Hangar Schematics": {
 		"Name": "Develop Hangar Schematics",
-		"Description": "A basic hangar to house, unload, and deploy your mining ships.",
+		"Description": "",
 		"IconPath": "",
 		"Prerequisites": [ "Deploy Mining Laser" ],
 		"ResourceCost": {
@@ -17,5 +17,63 @@
 				}
 			}
 		}
+	},
+	"Develop Surface Mining Barge Schematics": {
+		"Name": "Develop Surface Mining Barge Schematics",
+		"Description": "",
+		"IconPath": "",
+		"Prerequisites": [ "Develop Hangar Schematics" ],
+		"ResourceCost": {
+			"Power": 100000
+		},
+		"AssetModifiers": {
+			"Mining Ships": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
+	},
+	"Develop Quake Mines Schematics": {
+		"Name": "Develop Quake Mines Schematics",
+		"Description": "",
+		"IconPath": "",
+		"Prerequisites": [ "Develop Surface Mining Barge Schematics" ],
+		"ResourceCost": {
+			"Power": 1000000
+		},
+		"AssetModifiers": {
+			"Mining Ships": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
+	},
+	"Develop Gravity Cannon Schematics": {
+		"Name": "Develop Gravity Cannon Schematics",
+		"Description": "",
+		"IconPath": "",
+		"Prerequisites": [ "Develop Quake Mines Schematics" ],
+		"ResourceCost": {
+			"Power": 100000000
+		},
+		"AssetModifiers": {
+			"Mining Ships": {
+				"DeploymentSpeed": {
+					"true": 1
+				},
+				"HarvestAmount": {
+					"true": 1
+				}
+			}
+		}
 	}
 }
+

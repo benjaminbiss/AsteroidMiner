@@ -5,7 +5,7 @@
 		"IconPath": "",
 		"Level": 0,
 		"DeploymentSpeed": 60,
-		"HarvestedResource":  "Power",
+		"HarvestedResource": "Power",
 		"HarvestAmount": 1,
 		"Prerequisites": [ "Turn On Reactor" ],
 		"ResourceCost": {
@@ -30,7 +30,7 @@
 		"HarvestAmount": 1,
 		"Prerequisites": [ "Deploy Mining Laser" ],
 		"ResourceCost": {
-			"Credits": 3
+			"Credits": 1
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
@@ -41,17 +41,80 @@
 			}
 		}
 	},
-	"Mining Ships": {
-		"Name": "Mining Ships",
+	"Mining Drones": {
+		"Name": "Mining Drones",
 		"Description": "A small mining ship equipped with basic mining lasers that decends to the surface to extract the nearest resources before returning to orbit.",
 		"IconPath": "",
 		"Level": 0,
 		"DeploymentSpeed": 10,
 		"HarvestedResource": "Credits",
-		"HarvestAmount": 20,
+		"HarvestAmount": 10,
 		"Prerequisites": [ "Construct Hangar" ],
 		"ResourceCost": {
+			"Credits": 10
+		},
+		"Modifiers": {
+			"DeploymentSpeed": {
+				"true": 1
+			},
+			"HarvestAmount": {
+				"true": 1
+			}
+		}
+	},
+	"Surface Mining Barge": {
+		"Name": "Surface Mining Barge",
+		"Description": "A massive mining barge that moves across the surface extracting credits.",
+		"IconPath": "",
+		"Level": 0,
+		"DeploymentSpeed": 5,
+		"HarvestedResource": "Credits",
+		"HarvestAmount": 100,
+		"Prerequisites": [ "Construct Surface Mining Barge" ],
+		"ResourceCost": {
 			"Credits": 100
+		},
+		"Modifiers": {
+			"DeploymentSpeed": {
+				"true": 1
+			},
+			"HarvestAmount": {
+				"true": 1
+			}
+		}
+	},
+	"Quake Mines": {
+		"Name": "Quake Mines",
+		"Description": "Mines that detonate on the surface causing massive surface damage.",
+		"IconPath": "",
+		"Level": 0,
+		"DeploymentSpeed": 2.5,
+		"HarvestedResource": "Credits",
+		"HarvestAmount": 1000,
+		"Prerequisites": [ "Construct Quake Mines Factory" ],
+		"ResourceCost": {
+			"Credits": 1000
+		},
+		"Modifiers": {
+			"DeploymentSpeed": {
+				"true": 1
+			},
+			"HarvestAmount": {
+				"true": 1
+			}
+		}
+	},
+	"Gravity Cannon": {
+		"Name": "Gravity Cannon",
+		"Description": "A cannon that concetrates a beam of gravitational force causing devastating surface damage.",
+		"IconPath": "",
+		"Level": 0,
+		"DeploymentSpeed": 1.25,
+		"HarvestedResource": "Credits",
+		"HarvestAmount": 10000,
+		"Prerequisites": [ "Construct Gravity Cannon" ],
+		"ResourceCost": {
+			"Credits": 10000
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
