@@ -36,13 +36,18 @@ public partial class GameCore : Node
     public void UpgradeAsset(string asset)
     {        
         int level = gameData.Assets[asset].Level += 1;
-        if (level % 10 == 0)
-            UpgradeAssetSpeed(asset);
-        else if (level > 1)
+        if (level > 1)
         {
             ChargeResourceCosts(gameData.Assets[asset].ResourceCost);
-            UpgradeAssetHarvest(asset);
-            UpgradeAssetCost(asset);
+            if (level % 10 == 0)
+            {
+                UpgradeAssetSpeed(asset);
+            }
+            else
+            {
+                UpgradeAssetHarvest(asset);
+                UpgradeAssetCost(asset);
+            }
         }
         EmitSignal(SignalName.AssetUpdated, asset);
     }
@@ -61,22 +66,72 @@ public partial class GameCore : Node
         foreach (var cost in gameData.Assets[asset].ResourceCost)
         {
             double value = baseAssetValues[asset].ResourceCost[cost.Key];
-            gameData.Assets[asset].ResourceCost[cost.Key] = Mathf.FloorToInt(value * Mathf.Pow(1.2, gameData.Assets[asset].Level));
+            gameData.Assets[asset].ResourceCost[cost.Key] = Mathf.FloorToInt(value * Mathf.Pow(1.4, gameData.Assets[asset].Level));
+        }
+    }
+    private void UpdateAssetModifiers(Dictionary<string, Dictionary<string, Dictionary<bool, double>>> modifiers)
+    {
+        if (modifiers == null)
+            return;
+
+        foreach (var asset in modifiers)
+        {
+            foreach (var modType in asset.Value)
+            {
+                foreach (var mod in modType.Value)
+                {
+                    if (mod.Key) // true = additive
+                    {
+                        gameData.Assets[asset.Key].Modifiers[modType.Key][mod.Key] += mod.Value;
+                    }
+                    else // false = multiplicative
+                    {
+                        gameData.Assets[asset.Key].Modifiers[modType.Key][mod.Key] *= mod.Value;
+                    }
+                }
+            }
+            EmitSignal(SignalName.AssetUpdated, asset.Key);
         }
     }
     public void AddResearch(string research)
     {
         gameData.Prerequisites.Add(research);
+        UpdateAssetModifiers(gameData.Researches[research].AssetModifiers);
         EmitSignal(SignalName.PrerequisitesUpdated);
     }
-    public void AddResource(string resourceName, double amount)
+    private void AddResource(string resourceName, double amount)
     {
         gameData.Resources[resourceName].Current += amount;
         EmitSignal(SignalName.ResourcesUpdated, resourceName);
     }
+    public void AddAssetCredits(string assetName)
+    {
+        string resourceName = gameData.Assets[assetName].HarvestedResource;
+        double amount = gameData.Assets[assetName].HarvestAmount;
+        amount += gameData.Assets[assetName].Modifiers["HarvestAmount"][true]; // additive
+        amount *= gameData.Assets[assetName].Modifiers["HarvestAmount"][false]; // multiplicative
+        AddResource(resourceName, amount);
+    }
+    public void AddAssetPower(string assetName, double delta)
+    {
+        string resourceName = gameData.Assets[assetName].HarvestedResource;
+        double amount = gameData.Assets[assetName].HarvestAmount;
+        amount += gameData.Assets[assetName].Modifiers["HarvestAmount"][true]; // additive
+        amount *= gameData.Assets[assetName].Modifiers["HarvestAmount"][false]; // multiplicative
+        double speed = gameData.Assets[assetName].DeploymentSpeed;
+        speed += gameData.Assets[assetName].Modifiers["DeploymentSpeed"][true]; // additive
+        speed *= gameData.Assets[assetName].Modifiers["DeploymentSpeed"][false]; // multiplicative
+        amount = delta * (amount * speed) / 60d;
+        AddResource(resourceName, amount);
+    }
+    public void ChargeCost(string resourceName, double cost)
+    {
+        AddResource(resourceName, -cost);
+    }
     public void AddUpgrade(string upgrade)
     {
         gameData.Prerequisites.Add(upgrade);
+        UpdateAssetModifiers(gameData.Upgrades[upgrade].AssetModifiers);
         EmitSignal(SignalName.PrerequisitesUpdated);
     }
     public double GetResourceAmount(string key)
@@ -97,10 +152,6 @@ public partial class GameCore : Node
                 continue;
             ChargeCost(resource.Key, resource.Value);
         }
-    }
-    public void ChargeCost(string resourceName, double cost)
-    {
-        AddResource(resourceName, -cost);
     }
     public void UpdateAsteroid(Array<int> points)
     {

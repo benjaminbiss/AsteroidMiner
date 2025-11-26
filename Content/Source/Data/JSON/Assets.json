@@ -13,10 +13,12 @@
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			},
 			"HarvestAmount": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			}
 		}
 	},
@@ -34,10 +36,12 @@
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			},
 			"HarvestAmount": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			}
 		}
 	},
@@ -55,10 +59,12 @@
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			},
 			"HarvestAmount": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			}
 		}
 	},
@@ -76,10 +82,12 @@
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			},
 			"HarvestAmount": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			}
 		}
 	},
@@ -97,10 +105,12 @@
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			},
 			"HarvestAmount": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			}
 		}
 	},
@@ -118,10 +128,12 @@
 		},
 		"Modifiers": {
 			"DeploymentSpeed": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			},
 			"HarvestAmount": {
-				"true": 1
+				"true": 0,
+				"false": 1
 			}
 		}
 	}

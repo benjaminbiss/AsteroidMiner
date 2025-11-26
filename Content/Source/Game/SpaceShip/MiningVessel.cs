@@ -2,9 +2,6 @@ using Godot;
 
 public partial class MiningVessel : Node2D
 {
-    [Signal]
-    public delegate void CollectedCreditsEventHandler(string resource, double amount);
-
     [Export]
     private NodePath shipSpritePath;
     private Sprite2D shipSprite;
@@ -59,10 +56,5 @@ public partial class MiningVessel : Node2D
 
         shipRoot.rotationSpeed = shipSpeed;
         shipRoot.rotationRadius = shipDistanceFromCenter;
-    }
-
-    private void AddCredits(double credits)
-    {
-        EmitSignal(nameof(CollectedCredits), "Credits", credits);
     }
 }

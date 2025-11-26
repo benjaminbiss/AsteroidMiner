@@ -1,79 +1,103 @@
 {
-	"Develop Hangar Schematics": {
-		"Name": "Develop Hangar Schematics",
+	"Develop Hangar Schematic": {
+		"Name": "Develop Hangar Schematic",
 		"Description": "",
 		"IconPath": "",
 		"Prerequisites": [ "Deploy Mining Laser" ],
 		"ResourceCost": {
 			"Power": 1000
 		},
-		"AssetModifiers": {
-			"Mining Ships": {
-				"DeploymentSpeed": {
-					"true": 1
-				},
-				"HarvestAmount": {
-					"true": 1
-				}
-			}
-		}
+		"AssetModifiers": null
 	},
-	"Develop Surface Mining Barge Schematics": {
-		"Name": "Develop Surface Mining Barge Schematics",
+	"Develop Surface Mining Barge Schematic": {
+		"Name": "Develop Surface Mining Barge Schematic",
 		"Description": "",
 		"IconPath": "",
-		"Prerequisites": [ "Develop Hangar Schematics" ],
+		"Prerequisites": [ "Develop Hangar Schematic" ],
 		"ResourceCost": {
 			"Power": 100000
 		},
-		"AssetModifiers": {
-			"Mining Ships": {
-				"DeploymentSpeed": {
-					"true": 1
-				},
-				"HarvestAmount": {
-					"true": 1
-				}
-			}
-		}
+		"AssetModifiers": null
 	},
-	"Develop Quake Mines Schematics": {
-		"Name": "Develop Quake Mines Schematics",
+	"Develop Quake Mines Schematic": {
+		"Name": "Develop Quake Mines Schematic",
 		"Description": "",
 		"IconPath": "",
-		"Prerequisites": [ "Develop Surface Mining Barge Schematics" ],
+		"Prerequisites": [ "Develop Surface Mining Barge Schematic" ],
 		"ResourceCost": {
 			"Power": 1000000
 		},
-		"AssetModifiers": {
-			"Mining Ships": {
-				"DeploymentSpeed": {
-					"true": 1
-				},
-				"HarvestAmount": {
-					"true": 1
-				}
-			}
-		}
+		"AssetModifiers": null
 	},
-	"Develop Gravity Cannon Schematics": {
-		"Name": "Develop Gravity Cannon Schematics",
+	"Develop Gravity Cannon Schematic": {
+		"Name": "Develop Gravity Cannon Schematic",
 		"Description": "",
 		"IconPath": "",
-		"Prerequisites": [ "Develop Quake Mines Schematics" ],
+		"Prerequisites": [ "Develop Quake Mines Schematic" ],
 		"ResourceCost": {
 			"Power": 100000000
 		},
-		"AssetModifiers": {
-			"Mining Ships": {
-				"DeploymentSpeed": {
-					"true": 1
-				},
-				"HarvestAmount": {
-					"true": 1
-				}
-			}
-		}
+		"AssetModifiers": null
+	},
+	"Develop Reactor Mk2 Schematic": {
+		"Name": "Develop Reactor Mk2 Schematic",
+		"Description": "An upgraded reactor that has more flux capacitors, increasing power yield.",
+		"IconPath": "",
+		"Prerequisites": [ "Deploy Mining Laser" ],
+		"ResourceCost": {
+			"Power": 10000
+		},
+		"AssetModifiers": null
+	},
+	"Develop Mining Laser Mk2 Schematic": {
+		"Name": "Develop Mining Laser Mk2 Schematic",
+		"Description": "An upgraded mining laser that fires a more concentrated beam, increasing credit yield.",
+		"IconPath": "",
+		"Prerequisites": [ "Deploy Mining Laser" ],
+		"ResourceCost": {
+			"Power": 25000
+		},
+		"AssetModifiers": null
+	},
+	"Develop Mining Drone Mk2 Schematic": {
+		"Name": "Develop Mining Drone Mk2 Schematic",
+		"Description": "An upgraded mining drone that has larger cargo holds, increasing credit yield.",
+		"IconPath": "",
+		"Prerequisites": [ "Construct Hangar" ],
+		"ResourceCost": {
+			"Power": 50000
+		},
+		"AssetModifiers": null
+	},
+	"Develop Surface Mining Barge Mk2 Schematic": {
+		"Name": "Develop Surface Mining Barge Mk2 Schematic",
+		"Description": "An upgraded surface mining barge that has enhanced drills, increasing credit yield.",
+		"IconPath": "",
+		"Prerequisites": [ "Construct Surface Mining Barge" ],
+		"ResourceCost": {
+			"Power": 100000
+		},
+		"AssetModifiers": null
+	},
+	"Develop Quake Mines Mk2 Schematic": {
+		"Name": "Develop Quake Mines Mk2 Schematic",
+		"Description": "An upgraded quake mine that has a larger explosive yield, increasing credit yield.",
+		"IconPath": "",
+		"Prerequisites": [ "Construct Quake Mines Factory" ],
+		"ResourceCost": {
+			"Power": 500000
+		},
+		"AssetModifiers": null
+	},
+	"Develop Gravity Cannon Mk2 Schematic": {
+		"Name": "Develop Gravity Cannon Mk2 Schematic",
+		"Description": "An upgraded gravity cannon that focuses gravity more efficiently, increasing credit yield.",
+		"IconPath": "",
+		"Prerequisites": [ "Construct Gravity Cannon" ],
+		"ResourceCost": {
+			"Power": 2000000
+		},
+		"AssetModifiers": null
 	}
 }
 

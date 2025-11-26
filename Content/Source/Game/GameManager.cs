@@ -26,7 +26,7 @@ public partial class GameManager : Node2D
     [Export]
     private NodePath shipRootPath;
     private AutoRotate shipRoot;
-    public MiningVessel miningShip { get; private set; }
+    public MiningVessel miningVessel { get; private set; }
 
 
     // Initialization
@@ -57,8 +57,8 @@ public partial class GameManager : Node2D
         shipRoot = GetNodeOrNull<AutoRotate>(shipRootPath);
         if (shipRoot == null)
             return false;
-        miningShip = shipRoot.GetNodeOrNull<MiningVessel>("MiningVessel");
-        if (miningShip == null)
+        miningVessel = shipRoot.GetNodeOrNull<MiningVessel>("MiningVessel");
+        if (miningVessel == null)
             return false;
 
         return true;
@@ -67,8 +67,6 @@ public partial class GameManager : Node2D
     {
         Main main = GetParent<Main>();
         asteroid.NewAstroidCreated += UpdateAsteroidPoints;
-
-        miningShip.CollectedCredits += AddResources;
     }
 
     // Runtime
@@ -79,17 +77,14 @@ public partial class GameManager : Node2D
     }
     private void CalculateAllPowerGenerators(double delta)
     {
-        double amount = 0;
         foreach (var asset in gameCore.gameData.Assets)
         {
             AssetInfo assetInfo = asset.Value;
             if (assetInfo.Level <= 0 || assetInfo.HarvestedResource == "Credits")
                 continue;
 
-            amount += delta * ((assetInfo.DeploymentSpeed * assetInfo.HarvestAmount) / 60d);
+            gameCore.AddAssetPower(asset.Key, delta);
         }
-        if (amount > 0)
-            AddResources("Power", amount);
     }
     public void StartGame(AssetManager assetManager)
     {        
@@ -101,16 +96,12 @@ public partial class GameManager : Node2D
         asteroid.SetPosition(Vector2.Zero);
         shipRoot.SetPosition(Vector2.Zero);
 
-        miningShip.UpdateShipInfo(100f, asteroid.radius + gameCore.gameData.Defaults["planetSize"] + gameCore.gameData.Defaults["shipDistanceFromSurface"]);
-        miningShip.SetPosition(new Vector2(0f, -miningShip.shipDistanceFromCenter));
+        miningVessel.UpdateShipInfo(100f, asteroid.radius + gameCore.gameData.Defaults["planetSize"] + gameCore.gameData.Defaults["shipDistanceFromSurface"]);
+        miningVessel.SetPosition(new Vector2(0f, -miningVessel.shipDistanceFromCenter));
     }
-    private void AddResources(string resource, double amount)
+    private void RemovePower(double amount)
     {
-        gameCore.AddResource(resource, amount);
-    }
-    private void RemoveResources(string resource, double amount)
-    {
-        gameCore.AddResource(resource, -amount);
+        gameCore.ChargeCost("Power", amount);
     }
     private void SetupAsteroid()
     {
@@ -165,11 +156,11 @@ public partial class GameManager : Node2D
         {
             foreach (var cost in gameCore.gameData.Researches[activeResearch].ResourceCost)
             {
-                if (cost.Value > gameCore.GetResourceAmount(cost.Key))
+                if (cost.Value > gameCore.GetResourceAmount(cost.Key) && cost.Key == "Power")
                 {
                     double amount = gameCore.GetResourceAmount(cost.Key);
                     gameCore.gameData.Researches[activeResearch].ResourceCost[cost.Key] -= amount;
-                    RemoveResources(cost.Key, gameCore.GetResourceAmount(cost.Key));
+                    RemovePower(gameCore.GetResourceAmount(cost.Key));
                     EmitSignal(SignalName.UpdateResearch, activeResearch, cost.Key, amount);
                     unlocked = false;
                 }

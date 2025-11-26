@@ -74,7 +74,7 @@ public partial class AssetManager : Node
     }
     private void HandleAssetDeployed(string assetName)
     {
-        gameCore.AddResource(gameCore.gameData.Assets[assetName].HarvestedResource, gameCore.gameData.Assets[assetName].HarvestAmount);
+        gameCore.AddAssetCredits(assetName);
     }
     public void HandleAssetTabClicked(Node sender)
     {
@@ -111,7 +111,13 @@ public partial class AssetManager : Node
         {
             if (tab.Key == asset)
             {
-                tab.Value.UpdateAssetAmount(gameCore.gameData.Assets[asset].Level, gameCore.gameData.Assets[asset].HarvestAmount, gameCore.gameData.Assets[asset].DeploymentSpeed, gameCore.gameData.Assets[asset].ResourceCost);
+                double harvestAmount = gameCore.gameData.Assets[asset].HarvestAmount;
+                harvestAmount += gameCore.gameData.Assets[asset].Modifiers["HarvestAmount"][true];
+                harvestAmount *= gameCore.gameData.Assets[asset].Modifiers["HarvestAmount"][false];
+                double deploymentSpeed = gameCore.gameData.Assets[asset].DeploymentSpeed;
+                deploymentSpeed += gameCore.gameData.Assets[asset].Modifiers["DeploymentSpeed"][true];
+                deploymentSpeed *= gameCore.gameData.Assets[asset].Modifiers["DeploymentSpeed"][false];
+                tab.Value.UpdateAssetAmount(gameCore.gameData.Assets[asset].Level, harvestAmount, deploymentSpeed, gameCore.gameData.Assets[asset].ResourceCost);
                 break;
             }
         }
