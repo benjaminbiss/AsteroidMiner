@@ -39,8 +39,8 @@
 		},
 		"AssetModifiers": null
 	},
-	"Develop Reactor Mk2 Schematic": {
-		"Name": "Develop Reactor Mk2 Schematic",
+	"Develop Reactor Upgrade Schematic": {
+		"Name": "Develop Reactor Upgrade Schematic",
 		"Description": "An upgraded reactor that has more flux capacitors, increasing power yield.",
 		"IconPath": "",
 		"Prerequisites": [ "Deploy Mining Laser" ],
@@ -49,8 +49,8 @@
 		},
 		"AssetModifiers": null
 	},
-	"Develop Mining Laser Mk2 Schematic": {
-		"Name": "Develop Mining Laser Mk2 Schematic",
+	"Develop Mining Laser Upgrade Schematic": {
+		"Name": "Develop Mining Laser Upgrade Schematic",
 		"Description": "An upgraded mining laser that fires a more concentrated beam, increasing credit yield.",
 		"IconPath": "",
 		"Prerequisites": [ "Deploy Mining Laser" ],
@@ -59,8 +59,8 @@
 		},
 		"AssetModifiers": null
 	},
-	"Develop Mining Drone Mk2 Schematic": {
-		"Name": "Develop Mining Drone Mk2 Schematic",
+	"Develop Mining Drone Upgrade Schematic": {
+		"Name": "Develop Mining Drone Upgrade Schematic",
 		"Description": "An upgraded mining drone that has larger cargo holds, increasing credit yield.",
 		"IconPath": "",
 		"Prerequisites": [ "Construct Hangar" ],
@@ -69,8 +69,8 @@
 		},
 		"AssetModifiers": null
 	},
-	"Develop Surface Mining Barge Mk2 Schematic": {
-		"Name": "Develop Surface Mining Barge Mk2 Schematic",
+	"Develop Surface Mining Barge Upgrade Schematic": {
+		"Name": "Develop Surface Mining Barge Upgrade Schematic",
 		"Description": "An upgraded surface mining barge that has enhanced drills, increasing credit yield.",
 		"IconPath": "",
 		"Prerequisites": [ "Construct Surface Mining Barge" ],
@@ -79,8 +79,8 @@
 		},
 		"AssetModifiers": null
 	},
-	"Develop Quake Mines Mk2 Schematic": {
-		"Name": "Develop Quake Mines Mk2 Schematic",
+	"Develop Quake Mines Upgrade Schematic": {
+		"Name": "Develop Quake Mines Upgrade Schematic",
 		"Description": "An upgraded quake mine that has a larger explosive yield, increasing credit yield.",
 		"IconPath": "",
 		"Prerequisites": [ "Construct Quake Mines Factory" ],
@@ -89,8 +89,8 @@
 		},
 		"AssetModifiers": null
 	},
-	"Develop Gravity Cannon Mk2 Schematic": {
-		"Name": "Develop Gravity Cannon Mk2 Schematic",
+	"Develop Gravity Cannon Upgrade Schematic": {
+		"Name": "Develop Gravity Cannon Upgrade Schematic",
 		"Description": "An upgraded gravity cannon that focuses gravity more efficiently, increasing credit yield.",
 		"IconPath": "",
 		"Prerequisites": [ "Construct Gravity Cannon" ],

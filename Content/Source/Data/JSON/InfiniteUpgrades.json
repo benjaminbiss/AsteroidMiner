@@ -1,0 +1,218 @@
+{
+  "Reactor Mk": {
+    "Name": "Reactor Mk",
+    "Description": "An upgraded reactor that has more flux capacitors added, increasing power yield.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Reactor Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 2500
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Reactor": {
+        "HarvestAmount": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Extra Reactor :": {
+    "Name": "Extra Reactor :",
+    "Description": "Install an extra reactor, increasing power yield speed.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Reactor Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 5000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Reactor": {
+        "DeploymentSpeed": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Mining Laser Mk": {
+    "Name": "Mining Laser Mk",
+    "Description": "An upgraded mining laser that fires a more concentrated beam, increasing credit yield.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Mining Laser Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 7500
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Mining Laser": {
+        "HarvestAmount": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Extra Mining Laser :": {
+    "Name": "Extra Mining Laser :",
+    "Description": "Install an extra mining laser, increasing credit yield speed.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Mining Laser Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 15000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Mining Laser": {
+        "DeploymentSpeed": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Mining Drone Mk": {
+    "Name": "Mining Drone Mk",
+    "Description": "An upgraded mining drone that has larger cargo holds, increasing credit yield.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Mining Drone Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 20000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Mining Drones": {
+        "HarvestAmount": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Extra Mining Drone :": {
+    "Name": "Extra Mining Drone :",
+    "Description": "Add an extra mining drone to the hanger, increasing credit yield speed.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Mining Drone Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 30000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Mining Drones": {
+        "DeploymentSpeed": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Surface Mining Barge Mk": {
+    "Name": "Surface Mining Barge Mk",
+    "Description": "An upgraded surface mining barge that has enhanced drills, increasing credit yield.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Surface Mining Barge Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 50000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Surface Mining Barge": {
+        "HarvestAmount": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Extra Surface Mining Barge :": {
+    "Name": "Extra Surface Mining Barge :",
+    "Description": "Add an extra surface mining barge, increasing credit yield speed.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Surface Mining Barge Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 75000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Surface Mining Barge": {
+        "DeploymentSpeed": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Quake Mines Mk": {
+    "Name": "Quake Mines Mk",
+    "Description": "An upgraded quake mine that has a larger explosive yield, increasing credit yield.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Quake Mines Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 150000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Quake Mines": {
+        "HarvestAmount": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Extra Quake Mines Factory :": {
+    "Name": "Extra Quake Mines Factory :",
+    "Description": "Add an extra quake mines factory, increasing credit yield speed.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Quake Mines Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 300000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Quake Mines": {
+        "DeploymentSpeed": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Gravity Cannon Mk": {
+    "Name": "Gravity Cannon Mk",
+    "Description": "An upgraded gravity cannon that focuses gravity more efficiently, increasing credit yield.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Gravity Cannon Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 1000000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Gravity Cannon": {
+        "HarvestAmount": {
+          "false": 2
+        }
+      }
+    }
+  },
+  "Extra Gravity Cannon :": {
+    "Name": "Extra Gravity Cannon :",
+    "Description": "Install an extra gravity cannon, increasing credit yield speed.",
+    "IconPath": "",
+    "Prerequisites": [ "Develop Gravity Cannon Upgrade Schematic :" ],
+    "BaseResourceCost": {
+      "Credits": 1750000
+    },
+    "CostMultiplier": 1.5,
+    "CurrentLevel": 0,
+    "AssetModifiers": {
+      "Gravity Cannon": {
+        "DeploymentSpeed": {
+          "false": 2
+        }
+      }
+    }
+  }
+}

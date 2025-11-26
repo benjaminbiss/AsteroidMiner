@@ -15,6 +15,7 @@ public class GameData
     public Dictionary<string, ResearchInfo>  Researches { get; set; }
     public Dictionary<string, ResourceInfo> Resources { get; set; }
     public Dictionary<string, UpgradeInfo> Upgrades { get; set; }
+    public Dictionary<string, InfiniteUpgradeInfo> InfiniteUpgrades { get; set; }
     public Dictionary<string, int> Defaults { get; set; }
     public Array<string> Prerequisites { get; set; }
 }

@@ -6,6 +6,7 @@
   <ItemGroup>
     <Content Include="Content\Source\Data\JSON\Assets.json" />
     <Content Include="Content\Source\Data\JSON\Defaults.json" />
+    <Content Include="Content\Source\Data\JSON\InfiniteUpgrades.json" />
     <Content Include="Content\Source\Data\JSON\Research.json" />
     <Content Include="Content\Source\Data\JSON\Resources.json" />
     <Content Include="Content\Source\Data\JSON\Upgrades.json" />
