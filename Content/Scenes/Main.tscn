@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjci1hmjacngf"]
+[gd_scene load_steps=10 format=3 uid="uid://cjci1hmjacngf"]
 
 [ext_resource type="Script" uid="uid://btbn48oc57x60" path="res://Content/Source/UI/Menu/MenuManager.cs" id="1_8mb0b"]
 [ext_resource type="Script" uid="uid://dlb8s2xdrxrv" path="res://Content/Source/Game/Main.cs" id="1_cwqkc"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dtxi5ai7x42kr" path="res://Content/Source/Game/GameManager.cs" id="5_5ytmd"]
 [ext_resource type="Script" uid="uid://cntj0ifj1avmo" path="res://Content/Source/Game/SpaceShip/AutoRotate.cs" id="5_rbs0y"]
 [ext_resource type="PackedScene" uid="uid://cbeqjr24340ff" path="res://Content/Scenes/Game/MiningShip.tscn" id="6_vt00l"]
+[ext_resource type="Script" uid="uid://dehhabifec56m" path="res://Content/Source/Game/Tools/DevTools.cs" id="9_5knay"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_cwqkc")
@@ -49,3 +50,6 @@ shipRootPath = NodePath("ShipRoot")
 script = ExtResource("5_rbs0y")
 
 [node name="MiningVessel" parent="GameManager/ShipRoot" instance=ExtResource("6_vt00l")]
+
+[node name="DevTools" type="Node2D" parent="."]
+script = ExtResource("9_5knay")

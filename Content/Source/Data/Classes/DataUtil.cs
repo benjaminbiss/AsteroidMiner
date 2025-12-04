@@ -108,7 +108,7 @@ public partial class DataUtil : Node
         }
         return returnData;
     }
-    private Godot.Collections.Dictionary<string, ResearchInfo> GetResearchJSON()
+    public Godot.Collections.Dictionary<string, ResearchInfo> GetResearchJSON()
     {
         if (!FileAccess.FileExists(RESEARCH_DATA_FILE))
             return null;

@@ -7,12 +7,12 @@
     "BaseResourceCost": {
       "Credits": 2500
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Reactor": {
         "HarvestAmount": {
-          "false": 2
+          "false": 1.5
         }
       }
     }
@@ -25,7 +25,7 @@
     "BaseResourceCost": {
       "Credits": 5000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2.5,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Reactor": {
@@ -43,12 +43,12 @@
     "BaseResourceCost": {
       "Credits": 7500
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Mining Laser": {
         "HarvestAmount": {
-          "false": 2
+          "false": 1.5
         }
       }
     }
@@ -61,7 +61,7 @@
     "BaseResourceCost": {
       "Credits": 15000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2.5,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Mining Laser": {
@@ -79,12 +79,12 @@
     "BaseResourceCost": {
       "Credits": 20000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Mining Drones": {
         "HarvestAmount": {
-          "false": 2
+          "false": 1.5
         }
       }
     }
@@ -97,7 +97,7 @@
     "BaseResourceCost": {
       "Credits": 30000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2.5,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Mining Drones": {
@@ -115,12 +115,12 @@
     "BaseResourceCost": {
       "Credits": 50000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Surface Mining Barge": {
         "HarvestAmount": {
-          "false": 2
+          "false": 1.5
         }
       }
     }
@@ -133,7 +133,7 @@
     "BaseResourceCost": {
       "Credits": 75000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2.5,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Surface Mining Barge": {
@@ -151,12 +151,12 @@
     "BaseResourceCost": {
       "Credits": 150000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Quake Mines": {
         "HarvestAmount": {
-          "false": 2
+          "false": 1.5
         }
       }
     }
@@ -169,7 +169,7 @@
     "BaseResourceCost": {
       "Credits": 300000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2.5,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Quake Mines": {
@@ -187,12 +187,12 @@
     "BaseResourceCost": {
       "Credits": 1000000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Gravity Cannon": {
         "HarvestAmount": {
-          "false": 2
+          "false": 1.5
         }
       }
     }
@@ -205,7 +205,7 @@
     "BaseResourceCost": {
       "Credits": 1750000
     },
-    "CostMultiplier": 1.5,
+    "CostMultiplier": 2.5,
     "CurrentLevel": 0,
     "AssetModifiers": {
       "Gravity Cannon": {

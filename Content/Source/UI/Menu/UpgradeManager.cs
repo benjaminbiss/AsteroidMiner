@@ -12,8 +12,11 @@ public partial class UpgradeManager : Node
     [Export]
     private PackedScene upgradeTabScene;
     [Export]
-    private NodePath availableUpgradePath;
-    private VBoxContainer availableUpgradeBar;
+    private NodePath ConstructionPath;
+    private VBoxContainer constructionBar;
+    [Export]
+    private NodePath UpgradesPath;
+    private VBoxContainer upgradesBar;
     [Export]
     private NodePath ownedUpgradePath;
     private VBoxContainer ownedUpgradeBar;
@@ -36,9 +39,12 @@ public partial class UpgradeManager : Node
         gameCore = GameCore.Instance;
         if (gameCore == null)
             return false;
-        availableUpgradeBar = GetNodeOrNull<VBoxContainer>(availableUpgradePath);
+        constructionBar = GetNodeOrNull<VBoxContainer>(ConstructionPath);
         if (upgradeTabScene == null)
             return false;
+        upgradesBar = GetNodeOrNull<VBoxContainer>(UpgradesPath);
+        if (upgradesBar == null)
+            return false;    
         ownedUpgradeBar = GetNodeOrNull<VBoxContainer>(ownedUpgradePath);
         if (ownedUpgradeBar == null)
             return false;
@@ -75,7 +81,7 @@ public partial class UpgradeManager : Node
         }
         else
         {
-            availableUpgradeBar.AddChild(upgradeTab);
+            constructionBar.AddChild(upgradeTab);
             if (!gameMenu.HasAnyPrerequisites(upgrade.Value.Prerequisites))
             {
                 upgradeTab.Hide();
@@ -94,7 +100,7 @@ public partial class UpgradeManager : Node
         }
         else
         {
-            availableUpgradeBar.AddChild(upgradeTab);
+            upgradesBar.AddChild(upgradeTab);
             if (!gameMenu.HasAnyPrerequisites(upgrade.Value.Prerequisites))
             {
                 upgradeTab.Hide();
@@ -118,7 +124,7 @@ public partial class UpgradeManager : Node
                         return;
                 }
             }
-            availableUpgradeBar.RemoveChild(sender);
+            constructionBar.RemoveChild(sender);
             ownedUpgradeBar.AddChild(sender);
             gameCore.AddUpgrade(name);
         }

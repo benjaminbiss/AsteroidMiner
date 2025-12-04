@@ -123,7 +123,7 @@ public partial class UpgradeTab : MarginContainer
         {
             double finalCost = cost.Value;
             if (CurrentLevel >= 1)
-                finalCost *= CostMultiplier * CurrentLevel;
+                finalCost = Mathf.FloorToInt(finalCost * Mathf.Pow(CostMultiplier, CurrentLevel));            
             currentCost[cost.Key] = finalCost;
         }
         return currentCost;
@@ -134,7 +134,7 @@ public partial class UpgradeTab : MarginContainer
         foreach (var cost in BaseResourceCost)
         {
             double finalCost = cost.Value;
-            if (CurrentLevel >= 1)
+            if (CurrentLevel > 1)
                 finalCost *= CostMultiplier * (CurrentLevel - 1);
             nextCost[cost.Key] = finalCost;
         }

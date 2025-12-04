@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cl7kwx4ii5o2l"]
+[gd_scene load_steps=13 format=3 uid="uid://cl7kwx4ii5o2l"]
 
 [ext_resource type="Script" uid="uid://1tlx5o5d33" path="res://Content/Source/UI/Menu/GameMenu.cs" id="1_loj0w"]
 [ext_resource type="PackedScene" uid="uid://btqm80trtn8xr" path="res://Content/Scenes/UI/Components/ResourceTab.tscn" id="2_cjmr8"]
@@ -14,6 +14,9 @@
 bg_color = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rw0of"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_nxov7"]
+color = Color(1, 1, 1, 1)
 
 [node name="GameMenu" type="Control"]
 layout_mode = 3
@@ -132,8 +135,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_r023k")
 upgradeTabScene = ExtResource("4_u53r4")
-availableUpgradePath = NodePath("../TabContainer/Available/VBoxContainer/MarginContainer/Available Upgrades")
-ownedUpgradePath = NodePath("../TabContainer/Owned/VBoxContainer/MarginContainer/Owned Upgrades")
+ConstructionPath = NodePath("../TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer/Construction")
+UpgradesPath = NodePath("../TabContainer/Uprades/ScrollContainer/VBoxContainer/MarginContainer/Available Upgrades")
+ownedUpgradePath = NodePath("../TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer/Owned Upgrades")
 
 [node name="ResearchManager" type="Control" parent="HBoxContainer/Panel2"]
 layout_mode = 2
@@ -142,8 +146,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("7_in4nq")
 researchTabScene = ExtResource("5_rlo82")
-availableResearchPath = NodePath("../TabContainer/Available/VBoxContainer/MarginContainer2/Available Research")
-ownedResearchPath = NodePath("../TabContainer/Owned/VBoxContainer/MarginContainer2/Owned Research")
+availableResearchPath = NodePath("../TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer2/Available Research")
+ownedResearchPath = NodePath("../TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer2/Owned Research")
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Panel2"]
 layout_mode = 1
@@ -154,11 +158,11 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 
-[node name="Available" type="TabBar" parent="HBoxContainer/Panel2/TabContainer"]
+[node name="New Tech" type="TabBar" parent="HBoxContainer/Panel2/TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Available"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Panel2/TabContainer/New Tech"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -166,51 +170,64 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/Available/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Available Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Available/VBoxContainer/MarginContainer"]
+[node name="Construction" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/Available/VBoxContainer/MarginContainer/Available Upgrades"]
+[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer/Construction"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
-text = "Available Upgrades"
+text = "Construction"
 
-[node name="Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Available/VBoxContainer/MarginContainer/Available Upgrades"]
+[node name="Panel" type="Panel" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer/Construction"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_nxov7")
+
+[node name="Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer/Construction"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/Available/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Available Research" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Available/VBoxContainer/MarginContainer2"]
+[node name="Available Research" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/Available/VBoxContainer/MarginContainer2/Available Research"]
+[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer2/Available Research"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
-text = "Available Research"
+text = "Research"
 
-[node name="Research" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Available/VBoxContainer/MarginContainer2/Available Research"]
+[node name="Panel" type="Panel" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer2/Available Research"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_nxov7")
+
+[node name="Research" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/New Tech/ScrollContainer/VBoxContainer/MarginContainer2/Available Research"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Owned" type="TabBar" parent="HBoxContainer/Panel2/TabContainer"]
+[node name="Uprades" type="TabBar" parent="HBoxContainer/Panel2/TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Panel2/TabContainer/Uprades"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -218,41 +235,95 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Uprades/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/Uprades/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Owned Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/VBoxContainer/MarginContainer"]
+[node name="Available Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Uprades/ScrollContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/Owned/VBoxContainer/MarginContainer/Owned Upgrades"]
+[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/Uprades/ScrollContainer/VBoxContainer/MarginContainer/Available Upgrades"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
-text = "Owned Upgrades"
+text = "Upgrades"
 
-[node name="Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/VBoxContainer/MarginContainer/Owned Upgrades"]
+[node name="Panel" type="Panel" parent="HBoxContainer/Panel2/TabContainer/Uprades/ScrollContainer/VBoxContainer/MarginContainer/Available Upgrades"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_nxov7")
+
+[node name="Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Uprades/ScrollContainer/VBoxContainer/MarginContainer/Available Upgrades"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/VBoxContainer"]
+[node name="Owned" type="TabBar" parent="HBoxContainer/Panel2/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Panel2/TabContainer/Owned"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Owned Research" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/VBoxContainer/MarginContainer2"]
+[node name="Owned Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/Owned/VBoxContainer/MarginContainer2/Owned Research"]
+[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer/Owned Upgrades"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
-text = "Owned Research"
+text = "Upgrades"
 
-[node name="Research" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/VBoxContainer/MarginContainer2/Owned Research"]
+[node name="Panel" type="Panel" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer/Owned Upgrades"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_nxov7")
+
+[node name="Upgrades" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer/Owned Upgrades"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Owned Research" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer2/Owned Research"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Research"
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer2/Owned Research"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_nxov7")
+
+[node name="Research" type="VBoxContainer" parent="HBoxContainer/Panel2/TabContainer/Owned/ScrollContainer/VBoxContainer/MarginContainer2/Owned Research"]
 layout_mode = 2
 size_flags_vertical = 3
