@@ -1,7 +1,5 @@
 using Godot;
 using Godot.Collections;
-using System;
-using System.Xml.Linq;
 
 public partial class UpgradeManager : Node
 {
@@ -61,40 +59,79 @@ public partial class UpgradeManager : Node
 
         foreach (var upgrade in gameCore.gameData.Upgrades)
         {
-            UpgradeTab upgradeTab = upgradeTabScene.Instantiate<UpgradeTab>();
-            if (gameMenu.HasAllPrerequisites(upgrade.Value.Prerequisites))
-            {
-                ownedUpgradeBar.AddChild(upgradeTab);
-            }
-            else
-            {
-                availableUpgradeBar.AddChild(upgradeTab);
-                if (!gameMenu.HasAnyPrerequisites(upgrade.Value.Prerequisites))
-                {
-                    upgradeTab.Hide();
-                }
-            }
-            upgradeTabs.Add(upgrade.Key, upgradeTab);
-            upgradeTab.SetupUI(upgrade.Value);
-            upgradeTab.OnUpgradeButtonClicked += HandleUpgradeTabClicked;
+            AddUpgradeTab(upgrade);
         }
+        foreach (var upgrade in gameCore.gameData.InfiniteUpgrades)
+        {
+            AddInfiniteUpgradeTab(upgrade);
+        }
+    }
+    private void AddUpgradeTab(System.Collections.Generic.KeyValuePair<string, UpgradeInfo> upgrade)
+    {
+        UpgradeTab upgradeTab = upgradeTabScene.Instantiate<UpgradeTab>();
+        if (gameMenu.HasAllPrerequisites(upgrade.Value.Prerequisites))
+        {
+            ownedUpgradeBar.AddChild(upgradeTab);
+        }
+        else
+        {
+            availableUpgradeBar.AddChild(upgradeTab);
+            if (!gameMenu.HasAnyPrerequisites(upgrade.Value.Prerequisites))
+            {
+                upgradeTab.Hide();
+            }
+        }
+        upgradeTabs.Add(upgrade.Key, upgradeTab);
+        upgradeTab.SetupUI(upgrade.Value);
+        upgradeTab.OnUpgradeButtonClicked += HandleUpgradeTabClicked;
+    }
+    private void AddInfiniteUpgradeTab(System.Collections.Generic.KeyValuePair<string, InfiniteUpgradeInfo> upgrade)
+    {
+        UpgradeTab upgradeTab = upgradeTabScene.Instantiate<UpgradeTab>();
+        if (gameMenu.HasAllPrerequisites(upgrade.Value.Prerequisites))
+        {
+            ownedUpgradeBar.AddChild(upgradeTab);
+        }
+        else
+        {
+            availableUpgradeBar.AddChild(upgradeTab);
+            if (!gameMenu.HasAnyPrerequisites(upgrade.Value.Prerequisites))
+            {
+                upgradeTab.Hide();
+            }
+        }
+        upgradeTabs.Add(upgrade.Key, upgradeTab);
+        upgradeTab.SetupUI(upgrade.Value);
+        upgradeTab.OnUpgradeButtonClicked += HandleUpgradeTabClicked;
     }
     private void HandleUpgradeTabClicked(Node sender)
     {
         UpgradeTab upgradeTab = sender as UpgradeTab;
-        string name = upgradeTab.GetUpgradeName();
-        if (gameCore.gameData.Upgrades[name].ResourceCost != null)
+        string name = upgradeTab.UpgradeName;
+        if (!upgradeTab.IsInfiniteUpgrade)
         {
-            foreach (var cost in gameCore.gameData.Upgrades[name].ResourceCost)
+            if (gameCore.gameData.Upgrades[name].ResourceCost != null)
+            {
+                foreach (var cost in gameCore.gameData.Upgrades[name].ResourceCost)
+                {
+                    if (cost.Value > gameCore.GetResourceAmount(cost.Key))
+                        return;
+                }
+            }
+            availableUpgradeBar.RemoveChild(sender);
+            ownedUpgradeBar.AddChild(sender);
+            gameCore.AddUpgrade(name);
+        }
+        else
+        {
+            foreach (var cost in upgradeTab.GetCurrentCost())
             {
                 if (cost.Value > gameCore.GetResourceAmount(cost.Key))
                     return;
             }
+            gameCore.AddInfiniteUpgrade(name);
         }
         upgradeTab.RequestAccepted();
-        availableUpgradeBar.RemoveChild(sender);
-        ownedUpgradeBar.AddChild(sender);
-        gameCore.AddUpgrade(name);
         EmitSignal(SignalName.UnlockedNewUpgrade, sender);
         CheckPrerequisites();
     }
@@ -105,8 +142,16 @@ public partial class UpgradeManager : Node
             UpgradeTab upgradeTab = tab.Value;
             if (upgradeTab.Visible == false)
             {
-                if (gameMenu.HasAllPrerequisites(gameCore.gameData.Upgrades[tab.Key].Prerequisites))
-                    upgradeTab.Show();
+                if (tab.Value.IsInfiniteUpgrade)
+                {
+                    if (gameMenu.HasAllPrerequisites(gameCore.gameData.InfiniteUpgrades[tab.Key].Prerequisites))
+                        upgradeTab.Show();
+                }
+                else
+                {
+                    if (gameMenu.HasAllPrerequisites(gameCore.gameData.Upgrades[tab.Key].Prerequisites))
+                        upgradeTab.Show();
+                }
             }
         }
     }

@@ -179,8 +179,11 @@ public partial class GameManager : Node2D
     }
     private void HandleUpgradeUnlocks(UpgradeTab upgradeTab)
     {
-        string upgradeName = upgradeTab.GetUpgradeName();
-        gameCore.ChargeResourceCosts(gameCore.gameData.Upgrades[upgradeName].ResourceCost);
+        string upgradeName = upgradeTab.UpgradeName;
+        if (upgradeTab.IsInfiniteUpgrade)
+            gameCore.ChargeResourceCosts(upgradeTab.GetPreviousCost());
+        else
+            gameCore.ChargeResourceCosts(gameCore.gameData.Upgrades[upgradeName].ResourceCost);
 
         switch (upgradeName)
         {

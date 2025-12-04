@@ -9,6 +9,7 @@ public partial class DataUtil : Node
     const string RESEARCH_DATA_FILE = "res://Content/Source/Data/JSON/Research.json";
     const string RESOURCE_DATA_FILE = "res://Content/Source/Data/JSON/Resources.json";
     const string UPGRADE_DATA_FILE = "res://Content/Source/Data/JSON/Upgrades.json";
+    const string INFINITE_UPGRADE_DATA_FILE = "res://Content/Source/Data/JSON/InfiniteUpgrades.json";
 
     public static DataUtil Instance { get; private set; }
 
@@ -54,6 +55,7 @@ public partial class DataUtil : Node
             Researches = GetResearchJSON(),
             Resources = GetResourcesJSON(),
             Upgrades = GetUpgradesJSON(),
+            InfiniteUpgrades = GetInfiniteUpgradesJSON(),
             Defaults = GetGameDefaultsJSON(),
             Prerequisites = []
         };
@@ -130,6 +132,21 @@ public partial class DataUtil : Node
         file.Close();
         System.Collections.Generic.Dictionary<string, UpgradeInfo> data = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, UpgradeInfo>>(json);
         Godot.Collections.Dictionary<string, UpgradeInfo> returnData = new Godot.Collections.Dictionary<string, UpgradeInfo>();
+        foreach (var pair in data)
+        {
+            returnData[pair.Key] = pair.Value;
+        }
+        return returnData;
+    }
+    private Godot.Collections.Dictionary<string, InfiniteUpgradeInfo> GetInfiniteUpgradesJSON()
+    {
+        if (!FileAccess.FileExists(INFINITE_UPGRADE_DATA_FILE))
+            return null;
+        FileAccess file = FileAccess.Open(INFINITE_UPGRADE_DATA_FILE, FileAccess.ModeFlags.Read);
+        string json = file.GetAsText();
+        file.Close();
+        System.Collections.Generic.Dictionary<string, InfiniteUpgradeInfo> data = JsonSerializer.Deserialize<System.Collections.Generic.Dictionary<string, InfiniteUpgradeInfo>>(json);
+        Godot.Collections.Dictionary<string, InfiniteUpgradeInfo> returnData = new Godot.Collections.Dictionary<string, InfiniteUpgradeInfo>();
         foreach (var pair in data)
         {
             returnData[pair.Key] = pair.Value;

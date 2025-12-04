@@ -19,6 +19,6 @@ public partial class InfiniteUpgradeInfo : GodotObject
     // current level of the upgrade
     public int CurrentLevel { get; set; }
 
-    // name : paramater : isMultiplicative : effectValue
+    // name : parameter : isMultiplicative : effectValue
     public Dictionary<string, Dictionary<string, Dictionary<bool, double>>> AssetModifiers { get; set; }
 }

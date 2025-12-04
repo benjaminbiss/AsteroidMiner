@@ -40,14 +40,11 @@ public partial class GameCore : Node
         {
             ChargeResourceCosts(gameData.Assets[asset].ResourceCost);
             if (level % 10 == 0)
-            {
                 UpgradeAssetSpeed(asset);
-            }
             else
-            {
                 UpgradeAssetHarvest(asset);
-                UpgradeAssetCost(asset);
-            }
+
+            UpgradeAssetCost(asset);
         }
         EmitSignal(SignalName.AssetUpdated, asset);
     }
@@ -63,10 +60,14 @@ public partial class GameCore : Node
     }
     private void UpgradeAssetCost(string asset)
     {
+        double modifier = 1.4;
+        if (asset == "Reactor")
+            modifier = 1.3;
+
         foreach (var cost in gameData.Assets[asset].ResourceCost)
         {
             double value = baseAssetValues[asset].ResourceCost[cost.Key];
-            gameData.Assets[asset].ResourceCost[cost.Key] = Mathf.FloorToInt(value * Mathf.Pow(1.4, gameData.Assets[asset].Level));
+            gameData.Assets[asset].ResourceCost[cost.Key] = Mathf.FloorToInt(value * Mathf.Pow(modifier, gameData.Assets[asset].Level));
         }
     }
     private void UpdateAssetModifiers(Dictionary<string, Dictionary<string, Dictionary<bool, double>>> modifiers)
@@ -132,6 +133,11 @@ public partial class GameCore : Node
     {
         gameData.Prerequisites.Add(upgrade);
         UpdateAssetModifiers(gameData.Upgrades[upgrade].AssetModifiers);
+        EmitSignal(SignalName.PrerequisitesUpdated);
+    }
+    public void AddInfiniteUpgrade(string upgrade)
+    {
+        UpdateAssetModifiers(gameData.InfiniteUpgrades[upgrade].AssetModifiers);
         EmitSignal(SignalName.PrerequisitesUpdated);
     }
     public double GetResourceAmount(string key)

@@ -27,6 +27,16 @@
 		},
 		"AssetModifiers": null
 	},
+	"Power Research Module": {
+		"Name": "Power Research Module",
+		"Description": "Generates power so we can research and deploy new mining assets.",
+		"IconPath": "",
+		"Prerequisites": [ "Purchase Mining Vessel" ],
+		"ResourceCost": {
+			"Power": 500
+		},
+		"AssetModifiers": null
+	},
 	"Construct Hangar": {
 		"Name": "Construct Hangar",
 		"Description": "Build the mining drone hanger to send down unmanned craft to gather credits from the surface.",

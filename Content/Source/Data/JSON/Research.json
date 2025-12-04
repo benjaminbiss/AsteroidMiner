@@ -3,7 +3,7 @@
 		"Name": "Develop Hangar Schematic",
 		"Description": "",
 		"IconPath": "",
-		"Prerequisites": [ "Deploy Mining Laser" ],
+		"Prerequisites": [ "Power Research Module", "Deploy Mining Laser" ],
 		"ResourceCost": {
 			"Power": 1000
 		},
@@ -13,7 +13,7 @@
 		"Name": "Develop Surface Mining Barge Schematic",
 		"Description": "",
 		"IconPath": "",
-		"Prerequisites": [ "Develop Hangar Schematic" ],
+		"Prerequisites": [ "Power Research Module", "Develop Hangar Schematic" ],
 		"ResourceCost": {
 			"Power": 100000
 		},
@@ -23,7 +23,7 @@
 		"Name": "Develop Quake Mines Schematic",
 		"Description": "",
 		"IconPath": "",
-		"Prerequisites": [ "Develop Surface Mining Barge Schematic" ],
+		"Prerequisites": [ "Power Research Module", "Develop Surface Mining Barge Schematic" ],
 		"ResourceCost": {
 			"Power": 1000000
 		},
@@ -33,7 +33,7 @@
 		"Name": "Develop Gravity Cannon Schematic",
 		"Description": "",
 		"IconPath": "",
-		"Prerequisites": [ "Develop Quake Mines Schematic" ],
+		"Prerequisites": [ "Power Research Module", "Develop Quake Mines Schematic" ],
 		"ResourceCost": {
 			"Power": 100000000
 		},
@@ -43,7 +43,7 @@
 		"Name": "Develop Reactor Upgrade Schematic",
 		"Description": "An upgraded reactor that has more flux capacitors, increasing power yield.",
 		"IconPath": "",
-		"Prerequisites": [ "Deploy Mining Laser" ],
+		"Prerequisites": [ "Power Research Module", "Deploy Mining Laser" ],
 		"ResourceCost": {
 			"Power": 10000
 		},
@@ -53,7 +53,7 @@
 		"Name": "Develop Mining Laser Upgrade Schematic",
 		"Description": "An upgraded mining laser that fires a more concentrated beam, increasing credit yield.",
 		"IconPath": "",
-		"Prerequisites": [ "Deploy Mining Laser" ],
+		"Prerequisites": [ "Power Research Module", "Deploy Mining Laser" ],
 		"ResourceCost": {
 			"Power": 25000
 		},
@@ -63,7 +63,7 @@
 		"Name": "Develop Mining Drone Upgrade Schematic",
 		"Description": "An upgraded mining drone that has larger cargo holds, increasing credit yield.",
 		"IconPath": "",
-		"Prerequisites": [ "Construct Hangar" ],
+		"Prerequisites": [ "Power Research Module", "Construct Hangar" ],
 		"ResourceCost": {
 			"Power": 50000
 		},
@@ -73,7 +73,7 @@
 		"Name": "Develop Surface Mining Barge Upgrade Schematic",
 		"Description": "An upgraded surface mining barge that has enhanced drills, increasing credit yield.",
 		"IconPath": "",
-		"Prerequisites": [ "Construct Surface Mining Barge" ],
+		"Prerequisites": [ "Power Research Module", "Construct Surface Mining Barge" ],
 		"ResourceCost": {
 			"Power": 100000
 		},
@@ -83,7 +83,7 @@
 		"Name": "Develop Quake Mines Upgrade Schematic",
 		"Description": "An upgraded quake mine that has a larger explosive yield, increasing credit yield.",
 		"IconPath": "",
-		"Prerequisites": [ "Construct Quake Mines Factory" ],
+		"Prerequisites": [ "Power Research Module", "Construct Quake Mines Factory" ],
 		"ResourceCost": {
 			"Power": 500000
 		},
@@ -93,7 +93,7 @@
 		"Name": "Develop Gravity Cannon Upgrade Schematic",
 		"Description": "An upgraded gravity cannon that focuses gravity more efficiently, increasing credit yield.",
 		"IconPath": "",
-		"Prerequisites": [ "Construct Gravity Cannon" ],
+		"Prerequisites": [ "Power Research Module", "Construct Gravity Cannon" ],
 		"ResourceCost": {
 			"Power": 2000000
 		},
