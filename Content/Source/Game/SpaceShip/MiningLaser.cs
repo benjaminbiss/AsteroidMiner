@@ -3,6 +3,9 @@ using System;
 
 public partial class MiningLaser : Node2D
 {
+    [Signal]
+    public delegate void LaserFiredEventHandler(int index, int radius, double amount);
+
     private const string ASSET_NAME = "Mining Laser";
     public AssetSprite assetSprite { get; private set; }
 
@@ -27,5 +30,10 @@ public partial class MiningLaser : Node2D
     private void SetupSprite()
     {
         assetSprite.Setup(ASSET_NAME);
+    }
+    
+    public void Deploy(int index, Vector2 target, double amount)
+    {        
+        EmitSignal(SignalName.LaserFired, index, 1, amount);
     }
 }

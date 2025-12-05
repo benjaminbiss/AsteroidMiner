@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System;
 using System.Xml.Linq;
 
 public partial class GameManager : Node2D
@@ -67,6 +68,7 @@ public partial class GameManager : Node2D
     {
         Main main = GetParent<Main>();
         asteroid.NewAstroidCreated += UpdateAsteroidPoints;
+        miningVessel.DealDamageToAsteroid += HandleDamageAsteroidEvent;
     }
 
     // Runtime
@@ -193,5 +195,22 @@ public partial class GameManager : Node2D
             default:
                 break;
         }
+    }
+    public void GetTargetForAssetDeployment(string assetName, double amount)
+    {        
+        switch (assetName)
+        {
+            case "Mining Laser":
+                Vector2 position = miningVessel.GlobalPosition;
+                int index = asteroid.GetIndexBelowPosition(position);
+                miningVessel.miningLaser.Deploy(index, asteroid.GetPointAtIndex(index), amount);
+                break;
+            default:
+                break;
+        }
+    }
+    private void HandleDamageAsteroidEvent(int index, int radius, double amount)
+    {
+        asteroid.DealDamage(index, radius, amount);
     }
 }

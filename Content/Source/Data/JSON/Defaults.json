@@ -1,5 +1,5 @@
 {
-  "planetSize": 100,
+  "planetSize": 25,
   "shipDistanceFromSurface": 75,
   "autoSaveInterval": 300
 }

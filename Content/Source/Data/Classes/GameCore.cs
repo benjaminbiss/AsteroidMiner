@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System;
 
 public partial class GameCore : Node
 {
@@ -56,7 +57,6 @@ public partial class GameCore : Node
     {
         double value = baseAssetValues[asset].HarvestAmount;
         gameData.Assets[asset].HarvestAmount = value * gameData.Assets[asset].Level;
-        // gameData.Assets[asset].HarvestAmount *= 1.2;
     }
     private void UpgradeAssetCost(string asset)
     {
@@ -162,5 +162,9 @@ public partial class GameCore : Node
     public void UpdateAsteroid(Array<int> points)
     {
         gameData.AsteroidPoints = points;
+    }
+    public double GetAssetHarvestAmount(string assetName)
+    {
+        return gameData.Assets[assetName].HarvestAmount;
     }
 }

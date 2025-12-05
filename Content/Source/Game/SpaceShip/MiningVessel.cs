@@ -2,6 +2,9 @@ using Godot;
 
 public partial class MiningVessel : Node2D
 {
+    [Signal]
+    public delegate void DealDamageToAsteroidEventHandler(int index, int radius, double amount);
+
     [Export]
     private NodePath shipSpritePath;
     private Sprite2D shipSprite;
@@ -47,6 +50,7 @@ public partial class MiningVessel : Node2D
         GameCore.Instance.AssetUpdated += reactor.assetSprite.Activate;
         // Mining Laser
         GameCore.Instance.AssetUpdated += miningLaser.assetSprite.Activate;
+        miningLaser.LaserFired += DamageAsteroid;
     }
 
     public void UpdateShipInfo(float speed, float distance)
@@ -56,5 +60,9 @@ public partial class MiningVessel : Node2D
 
         shipRoot.rotationSpeed = shipSpeed;
         shipRoot.rotationRadius = shipDistanceFromCenter;
+    }
+    public void DamageAsteroid(int index, int radius, double amount)
+    {
+        EmitSignal(SignalName.DealDamageToAsteroid, index, radius, amount);
     }
 }

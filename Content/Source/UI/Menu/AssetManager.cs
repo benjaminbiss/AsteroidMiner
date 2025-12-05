@@ -6,8 +6,8 @@ public partial class AssetManager : Node
 {
     [Signal]
     public delegate void AssetUpgradedEventHandler(Node sender);
-    //[Signal]
-    //public delegate void AssetAddedEventHandler(Node sender);
+    [Signal]
+    public delegate void DeployAssetEventHandler(string assetName, double amount);
 
     private GameCore gameCore;
     private GameMenu gameMenu;
@@ -75,6 +75,7 @@ public partial class AssetManager : Node
     private void HandleAssetDeployed(string assetName)
     {
         gameCore.AddAssetCredits(assetName);
+        EmitSignal(SignalName.DeployAsset, assetName, gameCore.GetAssetHarvestAmount(assetName));
     }
     public void HandleAssetTabClicked(Node sender)
     {

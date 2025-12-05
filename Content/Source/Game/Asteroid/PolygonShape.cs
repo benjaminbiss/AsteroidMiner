@@ -36,4 +36,21 @@ public partial class PolygonShape : Polygon2D
         }
         return points;
     }
+    public int FindNearestAnglePoint(Vector2 position)
+    {
+        float shipAngle = Mathf.Atan2(position.Y, position.X);
+        if (shipAngle < 0)
+            shipAngle += Mathf.Tau;
+
+        int nearestIndex = Mathf.RoundToInt(shipAngle / Mathf.Tau * PointCount) % PointCount;
+        return nearestIndex;
+    }
+    public Vector2[] MovePointTowardsCenter(int index, float distance)
+    {
+        var newPolygon = (Vector2[])Polygon.Clone();
+        float angle = (float)index / PointCount * Mathf.Tau; // Tau = 2π
+        Vector2 point = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (Radius - distance);
+        newPolygon[index] = point;
+        return newPolygon;
+    }
 }

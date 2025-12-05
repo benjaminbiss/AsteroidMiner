@@ -43,6 +43,7 @@ public partial class Main : Node2D
         menuManager.OnStartGame += LaunchGame;
         menuManager.gameMenu.OnTabClicked += gameManager.HandleTabClickedEvent;
         menuManager.gameMenu.ResearchDeselect += gameManager.HandleResearchDeselection;
+        menuManager.gameMenu.assetManager.DeployAsset += gameManager.GetTargetForAssetDeployment;
 
         gameManager.UpdateResearch += menuManager.gameMenu.HandleUpdateResearchEvent;
         gameManager.ResearchUnlocked += menuManager.gameMenu.HandleUnlockResearchEvent;
